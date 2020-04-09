@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
-import Navbar from './Navbar'
+
 import ItemGrid from './ItemGrid'
 
 const HomePage = () => {
     return (
         <StyledContainer>
-            <Navbar />
             <ItemGrid />
         </StyledContainer>
     )

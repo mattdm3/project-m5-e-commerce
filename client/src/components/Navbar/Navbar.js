@@ -36,9 +36,13 @@ const Link = styled.a`
 const Logo = styled.div`
 display: flex; 
 align-items: center;
+padding-bottom: 10px; 
 
 h3 {
     font-weight: 700; 
+    
+    
+    
 }
 
 `
@@ -51,7 +55,6 @@ const StyledNav = styled.div`
     padding: 50px 50px;
     /* position: fixed;  */
     background: #FFFFFF;
-    
     transition-duration: .4s;
 
     
@@ -96,6 +99,7 @@ const Hamburger = styled.h2`
     top: 0;
     padding-right: 50px; 
     padding-top: 50px; 
+    
     margin: 0;
     cursor: pointer;
     
@@ -107,7 +111,8 @@ const Hamburger = styled.h2`
 
 const NavList = styled.li`
     list-style: none;
-    padding: 10px 10px; 
+    padding: 0 10px; 
+    padding-bottom:10px; 
     /* margin: 0 10px;  */
     cursor: pointer;
     border-bottom: 3px solid transparent;

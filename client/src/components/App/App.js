@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from '../HomePage';
-import GlobalStyles from '../GlobalStyles'
+import GlobalStyles from '../GlobalStyles';
+import Navbar from '../Navbar';
 
 function App() {
   const [bacon, setBacon] = useState(null);
@@ -14,6 +15,7 @@ function App() {
   return (
     <div>
       <GlobalStyles />
+      <Navbar />
       <HomePage />
       {bacon ? bacon : `...where's my stuff?...`}
 
