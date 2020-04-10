@@ -18,6 +18,7 @@ function App() {
         <GlobalStyles />
         <Navbar />
         <Sidebar></Sidebar>
+
         <Switch>
           <Route exact path="/">
             <ItemGrid />

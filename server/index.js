@@ -5,8 +5,9 @@ const morgan = require('morgan');
 //data file for items
 const items = require('./data/items.json');
 const PORT = 4000;
+
 const handleItemsData = (req, res) => {
-  
+
   //caterogy, name, price, image, companyID
   let page = req.query.page; //1
   let limit = req.query.limit; //9
@@ -21,18 +22,19 @@ const handleItemsData = (req, res) => {
 const handleItemId = (req, res) => {
   let itemId = req.params.id;
   //if we received an itemId
-  
-    console.log(itemId)
-    //filter through data
-    let filteredItem = items.find(item => {
-      if (itemId == item.id) {
-        return item
-      
-    }})
 
-    res.send(filteredItem)
+  console.log(itemId)
+  //filter through data
+  let filteredItem = items.find(item => {
+    if (itemId == item.id) {
+      return item
 
-  
+    }
+  })
+
+  res.send(filteredItem)
+
+
 }
 
 
