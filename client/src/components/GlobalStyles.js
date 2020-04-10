@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     border: 0;
     vertical-align: baseline;
-    background: #fafafa
+    
   }
   table {
     border-collapse: collapse;
@@ -23,6 +23,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0; 
   }
 
+  
+
   /* GLOBAL STYLES */
   *,
   *:before,
@@ -33,6 +35,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
       sans-serif;
+      
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -47,7 +50,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     color: var(--color-dark);
-    background: var(--color-white);
+    background: var(--color-grey);
     /* overflow-x: hidden; */
   }
 
@@ -92,13 +95,13 @@ const GlobalStyles = createGlobalStyle`
 
   /* Scrollbar and selection styles */
   ::selection {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-accent);
+
   }
 
   :root {
     --color-dark: #333333;
-    --color-grey: #EEEEEE;
+    --color-grey: #FAFAFA;
     --color-white: #FFFFFF;
     --color-accent: #FF4F40;
   }
