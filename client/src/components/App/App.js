@@ -7,13 +7,7 @@ import ItemGrid from '../HomePage/ItemGrid'
 //---------------------------------------
 
 function App() {
-  const [bacon, setBacon] = useState(null);
-
-  useEffect(() => {
-    fetch('/bacon')
-      .then(res => res.json())
-      .then(data => setBacon(data));
-  }, []);
+  
 
   return (
     <StyledContainer>
@@ -33,3 +27,9 @@ const StyledContainer = styled.div`
 `
 
 export default App;
+
+
+// /item/companies/:companyId
+// item/companies
+// item/:id
+

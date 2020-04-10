@@ -68,9 +68,13 @@ const NavigationLink = styled(NavLink)`
 const Logo = styled.div`
 display: flex; 
 align-items: center;
+padding-bottom: 10px; 
 
 h3 {
     font-weight: 700; 
+    
+    
+    
 }
 
 `
@@ -82,13 +86,8 @@ const StyledNav = styled.div`
     align-items: center;
     padding: 50px 50px;
     /* position: fixed;  */
-    background: #FFFFFF;
-    
+    background: #FAFAFA;
     transition-duration: .4s;
-
-    
-    
-   
 
     /* h4, h3 {
         padding: 0 40px; 
@@ -128,6 +127,7 @@ const Hamburger = styled.h2`
     top: 0;
     padding-right: 50px; 
     padding-top: 50px; 
+    
     margin: 0;
     cursor: pointer;
     
@@ -139,7 +139,8 @@ const Hamburger = styled.h2`
 
 const NavList = styled.li`
     list-style: none;
-    padding: 10px 10px; 
+    padding: 0 10px; 
+    padding-bottom:10px; 
     /* margin: 0 10px;  */
     cursor: pointer;
     border-bottom: 3px solid transparent;
