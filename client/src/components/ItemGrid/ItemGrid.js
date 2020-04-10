@@ -22,18 +22,15 @@ const ItemGrid = () => {
     );
 
 
+    console.log(pageCount)
     //Once app renders 
     //Fetch the item data.
     useEffect(() => {
-
-
         //add logic to check to when page is 0 or max pages.
         fetch(`/items?page=${pageCount}&limit=9`)
             .then(res => res.json())
             .then(data =>
                 setState(data));
-
-
     }, [pageCount]);
 
 
@@ -43,7 +40,7 @@ const ItemGrid = () => {
                 <GridContainer>
                     <GridWrapper>
                         {state.map((item, arrayNum) => {
-                            console.log(arrayNum);
+                            // console.log(arrayNum);
                             return (
                                 <ImageContainer key={item.id} >
                                     {/* <div> {item.name.split(" ")[0]} </div> */}
