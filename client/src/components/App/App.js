@@ -4,30 +4,32 @@ import Navbar from '../Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ItemGrid from '../ItemGrid';
 import Item from "../Item"
+import Sidebar from '../Sidebar/Sidebar';
+import Category from '../Category/Category';
 
 function App() {
-  
+
 
   return (
 
     <>
-      
+
       <Router>
-      <GlobalStyles />
+        <GlobalStyles />
         <Navbar />
-     
-  
-      
+        <Sidebar></Sidebar>
         <Switch>
           <Route exact path="/">
             <ItemGrid />
           </Route>
-      
           <Route exact path="/item/:id">
-        <Item  />
+            <Item />
+          </Route>
+          <Route exact path="/category/:category">
+            <Category></Category>
           </Route>
         </Switch>
-        
+
       </Router>
 
     </>
