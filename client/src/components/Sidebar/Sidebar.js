@@ -1,10 +1,12 @@
 import React from "react";
 import styled from 'styled-components';
 
-const Sidebar  = () => {
+const Sidebar = () => {
     return (
         <div>
             Sidebar
         </div>
     )
 }
+
+export default Sidebar; 
