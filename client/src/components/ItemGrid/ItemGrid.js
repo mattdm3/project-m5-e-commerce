@@ -10,6 +10,7 @@ const ItemGrid = () => {
     //Fetch the item data.
     useEffect(() => {
 
+
         //add logic to check to when page is 0 or max pages.
         fetch(`/items?page=${pageCount}&limit=9`)
             .then(res => res.json())
