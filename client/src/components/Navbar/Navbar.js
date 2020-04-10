@@ -28,7 +28,7 @@ const Navbar = () => {
                     </Logo>
                 </Link>
                 <StyledUl>
-                    <Link to="/"><NavList>Shop</NavList></Link>
+                    {/* <Link to="/"><NavList>Shop</NavList></Link> */}
                     <Link to="/Seller"><NavList>Sellers</NavList></Link>
                     <Link to="/Cart"><NavList>Cart</NavList></Link>
                     <Link to="/Contact"><NavList>Contact</NavList></Link>
@@ -38,20 +38,20 @@ const Navbar = () => {
 
             <ContentContainer>
                 <Switch>
-                    <Route path="/">
+                    {/* <Route path="/"> */}
                     {/* <Shop />  not made yet*/}
-                    </Route>
+                    {/* </Route> */}
 
                     <Route path="/Seller">
-                    {/* <Seller />  not made yet*/}
+                        {/* <Seller />  not made yet*/}
                     </Route>
 
                     <Route path="/Cart">
-                    <Cart />
+                        <Cart />
                     </Route>
 
                     <Route path="/Contact">
-                    {/* <Contact />  not made yet*/}
+                        {/* <Contact />  not made yet*/}
                     </Route>
                 </Switch>
             </ContentContainer>

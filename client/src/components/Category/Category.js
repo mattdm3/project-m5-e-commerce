@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom"
+import RenderItem from '../ItemGrid/RenderItem';
+import styled from 'styled-components';
+import { Link } from "react-router-dom";
+
 
 
 
@@ -23,18 +27,26 @@ const Category = () => {
         //try to reuse ItemGrid component?
     }, [category, pageCount])
     return (<React.Fragment>
-        {state !== null && <div>
-            {state.map(item => {
-                return <img src={item.imageSrc}></img>
-            })}
-        </div>
+        {state !== null && <GridContainer>
+            <GridWrapper>
+                {state.map(item => {
+                    return <Link to={`/item/${item.id}`}>
+                        <RenderItem item={item}></RenderItem>
+                    </Link>
+
+                })}
+            </GridWrapper>
+
+
+            <button onClick={() => setPageCounter(pageCount += 1)}>
+                Next page
+                      </button>
+            <button onClick={() => setPageCounter(pageCount -= 1)}>
+                Previous
+                      </button>
+        </GridContainer>
         }
-        <button onClick={() => setPageCounter(pageCount += 1)}>
-            Next page
-                      </button>
-        <button onClick={() => setPageCounter(pageCount -= 1)}>
-            Previous
-                      </button>
+
     </React.Fragment>
 
     )
@@ -42,3 +54,21 @@ const Category = () => {
 }
 
 export default Category;
+
+const GridContainer = styled.div`
+    /* display: flex; */
+    /* justify-content: flex-end; */
+    /* flex-direction: column;  */
+    padding: 0 75px;
+    margin-top: 120px;
+    background: #FAFAFA;
+    width: 100%;
+`
+const GridWrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
+    /* grid-template-rows: repeat(3, 1fr); */
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+`
