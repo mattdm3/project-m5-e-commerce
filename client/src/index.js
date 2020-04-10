@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
+import reducer from './components/reducers/index';
 
 // ------------ COMPONENTS ------------
 import App from './components/App';
-import GlobalStyles from '../GlobalStyles'
+// import GlobalStyles from '../GlobalStyles'
 //-------------------------------------
 
 const store = createStore(
@@ -16,8 +16,8 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-      <App />
-      <GlobalStyles />
+    <App />
+    {/* <GlobalStyles /> */}
   </Provider>,
   document.getElementById('root')
 );
