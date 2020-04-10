@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     border: 0;
     vertical-align: baseline;
+    background: #fafafa
   }
   table {
     border-collapse: collapse;

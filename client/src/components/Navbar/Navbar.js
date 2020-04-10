@@ -54,7 +54,7 @@ const StyledNav = styled.div`
     align-items: center;
     padding: 50px 50px;
     /* position: fixed;  */
-    background: #FFFFFF;
+    background: #FAFAFA;
     transition-duration: .4s;
 
     

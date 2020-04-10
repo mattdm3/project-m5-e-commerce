@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import HomePage from '../HomePage';
 import GlobalStyles from '../GlobalStyles';
 import Navbar from '../Navbar';
+import { Router } from 'react-router-dom';
+import ItemGrid from '../ItemGrid';
 
 function App() {
   const [bacon, setBacon] = useState(null);
@@ -13,13 +14,22 @@ function App() {
   }, []);
 
   return (
-    <div>
+
+    <>
       <GlobalStyles />
       <Navbar />
-      <HomePage />
+      <ItemGrid />
+
+
       {bacon ? bacon : `...where's my stuff?...`}
 
-    </div>
+    </>
   )
 }
 export default App;
+
+
+// /item/companies/:companyId
+// item/companies
+// item/:id
+
