@@ -1,14 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-// import { Link } from "react-router-dom"
 // import { ShareIcons } from "./ShareIcons"
 import { FaDiceSix } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom';
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
+// ------------- COMPONENTS -------------
+import Cart from "../Cart";
+//---------------------------------------
 
 
 const Navbar = () => {
 
     return (
-        <>
+        <Router>
             <StyledNav>
                 <Link to="/">
                     <Logo>
@@ -18,18 +29,39 @@ const Navbar = () => {
                 </Link>
                 <StyledUl>
                     <Link to="/"><NavList>Shop</NavList></Link>
-                    <Link to="/"><NavList>Sellers</NavList></Link>
-                    <Link to="/"><NavList>Cart</NavList></Link>
-                    <Link to="/"><NavList>Contact</NavList></Link>
+                    <Link to="/Seller"><NavList>Sellers</NavList></Link>
+                    <Link to="/Cart"><NavList>Cart</NavList></Link>
+                    <Link to="/Contact"><NavList>Contact</NavList></Link>
                 </StyledUl>
                 <Hamburger>&#9776;</Hamburger>
             </StyledNav>
 
-        </>
+            <ContentContainer>
+                <Switch>
+                    <Route path="/">
+                    {/* <Shop />  not made yet*/}
+                    </Route>
+
+                    <Route path="/Seller">
+                    {/* <Seller />  not made yet*/}
+                    </Route>
+
+                    <Route path="/Cart">
+                    <Cart />
+                    </Route>
+
+                    <Route path="/Contact">
+                    {/* <Contact />  not made yet*/}
+                    </Route>
+                </Switch>
+            </ContentContainer>
+        </Router>
     )
 }
 
-const Link = styled.a`
+//--------------------------------- STYLES ---------------------------------
+//----- NavLink instead of a is to style a Link -----
+const NavigationLink = styled(NavLink)` 
 
 `
 
@@ -42,7 +74,7 @@ h3 {
 }
 
 `
-
+//Maybe use  styled.nav  instead
 const StyledNav = styled.div`
     display: flex; 
     justify-content: space-between;
@@ -116,4 +148,9 @@ const NavList = styled.li`
         border-bottom: 3px solid #FF4F40;
     }
 `
+
+const ContentContainer = styled.div`
+
+`
+
 export default Navbar;

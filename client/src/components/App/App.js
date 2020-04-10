@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import HomePage from '../HomePage';
-import GlobalStyles from '../GlobalStyles'
+import styled from 'styled-components';
+
+// ------------- COMPONENTS -------------
+import Navbar from '../HomePage/Navbar'
+import ItemGrid from '../HomePage/ItemGrid'
+//---------------------------------------
 
 function App() {
   const [bacon, setBacon] = useState(null);
@@ -12,12 +16,20 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <GlobalStyles />
-      <HomePage />
-      {bacon ? bacon : `...where's my stuff?...`}
-
-    </div>
+    <StyledContainer>
+      <Navbar />
+      <ItemGrid />
+    </StyledContainer>
+    
   )
 }
+
+//--------------------------------- STYLES ---------------------------------
+
+const StyledContainer = styled.div`
+    margin: 0 ;
+    padding: 0; 
+    
+`
+
 export default App;
