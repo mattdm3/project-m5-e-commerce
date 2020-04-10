@@ -9,8 +9,6 @@ const Item = () => {
 
     //state to hold item information. 
     const [itemInfo, setItemInfo] = useState(null);
-
-
     useEffect(() => {
         fetch(`/items/${id}`, {
             method: 'GET',
@@ -22,9 +20,6 @@ const Item = () => {
             .then(res => (res.json()))
             .then(data => setItemInfo(data))
     }, []);
-
-
-
     return (<React.Fragment>
         {itemInfo !== null ?
             <div>

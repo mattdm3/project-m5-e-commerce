@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const ItemGrid = () => {
 
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
-    //Once app renders 
+
     //Fetch the item data.
-    //dispatcher -> action that will store data inside state which can be reused through all components. 
     useEffect(() => {
+
+        //add logic to check to when page is 0 or max pages.
         fetch(`/items?page=${pageCount}&limit=9`)
             .then(res => res.json())
-            .then(data => setState(data));
+            .then(data =>
+                setState(data));
+
+
     }, [pageCount]);
+
 
     return (
         <>
@@ -22,7 +27,7 @@ const ItemGrid = () => {
                     <GridWrapper>
                         {state.map(item => {
                             return (
-                                <ImageContainer>
+                                <ImageContainer key={item.id}>
                                     {/* <div> {item.name.split(" ")[0]} </div> */}
                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
                                 </ImageContainer>
@@ -32,6 +37,9 @@ const ItemGrid = () => {
 
                     <button onClick={() => setPageCounter(pageCount += 1)}>
                         Next page
+                      </button>
+                    <button onClick={() => setPageCounter(pageCount -= 1)}>
+                        Previous
                       </button>
                 </GridContainer>
             }
