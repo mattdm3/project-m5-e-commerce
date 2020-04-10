@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { Link } from "react-router-dom"; 
 
 const ItemGrid = () => {
 
@@ -23,11 +24,12 @@ const ItemGrid = () => {
                             return (
                                 <ImageContainer>
                                     {/* <div> {item.name.split(" ")[0]} </div> */}
-                                    <img src={item.imageSrc} />
+                                    <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
                                 </ImageContainer>
                             )
                         })}
                     </GridWrapper>
+
                     <button onClick={() => setPageCounter(pageCount += 1)}>
                         Next page
                       </button>

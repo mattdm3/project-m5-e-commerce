@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const items = require('./data/items.json');
 const PORT = 4000;
 const handleItemsData = (req, res) => {
+  
   //caterogy, name, price, image, companyID
   let page = req.query.page; //1
   let limit = req.query.limit; //9
@@ -16,6 +17,25 @@ const handleItemsData = (req, res) => {
   res.send(slicedItems)
   // res.send(items)
 }
+
+const handleItemId = (req, res) => {
+  let itemId = req.params.id;
+  //if we received an itemId
+  
+    console.log(itemId)
+    //filter through data
+    let filteredItem = items.find(item => {
+      if (itemId == item.id) {
+        return item
+      
+    }})
+
+    res.send(filteredItem)
+
+  
+}
+
+
 express()
   .use(function (req, res, next) {
     res.header(
@@ -37,4 +57,7 @@ express()
   // .get('/bacon', (req, res) => res.status(200).json('🥓'))
   //Item Data endpoint
   .get('/items', handleItemsData)
+  // Item Id (for item description page)
+  .get('/items/:id', handleItemId) 
+
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

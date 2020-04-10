@@ -57,10 +57,6 @@ const StyledNav = styled.div`
     background: #FAFAFA;
     transition-duration: .4s;
 
-    
-    
-   
-
     /* h4, h3 {
         padding: 0 40px; 
     } */
