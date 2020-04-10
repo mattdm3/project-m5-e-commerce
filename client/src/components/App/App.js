@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // // ------------- COMPONENTS -------------
-import Navbar from '../HomePage/Navbar'
-import ItemGrid from '../HomePage/ItemGrid'
+//import Navbar from '../HomePage/Navbar'
+//import ItemGrid from '../HomePage/ItemGrid'
 // //---------------------------------------
 // =======
 import GlobalStyles from '../GlobalStyles';
@@ -44,7 +44,7 @@ function App() {
       </Router>
 
     </>
-// >>>>>>> master
+    // >>>>>>> master
   )
 }
 
