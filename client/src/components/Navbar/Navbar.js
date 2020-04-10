@@ -13,6 +13,7 @@ import {
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
+import Contact from "./Contact";
 //---------------------------------------
 
 
@@ -21,24 +22,32 @@ const Navbar = () => {
     return (
         <Router>
             <StyledNav>
-                <Link to="/">
+                <NavigationLink to="/">
                     <Logo>
                         <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
                         <h3> Six Tech Gear</h3>
                     </Logo>
-                </Link>
+                </NavigationLink>
                 <StyledUl>
-                    <Link to="/"><NavList>Shop</NavList></Link>
-                    <Link to="/Seller"><NavList>Sellers</NavList></Link>
-                    <Link to="/Cart"><NavList>Cart</NavList></Link>
-                    <Link to="/Contact"><NavList>Contact</NavList></Link>
+                    <NavList>
+                        <NavigationLink to="/">Shop</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink to="/Seller">Seller</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink to="/Cart">Cart</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink to="/Contact">Contact</NavigationLink>
+                    </NavList>
                 </StyledUl>
                 <Hamburger>&#9776;</Hamburger>
             </StyledNav>
 
             <ContentContainer>
                 <Switch>
-                    <Route path="/">
+                    <Route exact path="/">
                     {/* <Shop />  not made yet*/}
                     </Route>
 
@@ -51,7 +60,7 @@ const Navbar = () => {
                     </Route>
 
                     <Route path="/Contact">
-                    {/* <Contact />  not made yet*/}
+                    <Contact />
                     </Route>
                 </Switch>
             </ContentContainer>
@@ -60,9 +69,10 @@ const Navbar = () => {
 }
 
 //--------------------------------- STYLES ---------------------------------
-//----- NavLink instead of a is to style a Link -----
-const NavigationLink = styled(NavLink)` 
 
+const NavigationLink = styled(NavLink)` 
+    text-decoration: none;
+    color: black;
 `
 
 const Logo = styled.div`
