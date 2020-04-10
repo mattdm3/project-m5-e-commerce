@@ -14,6 +14,7 @@ import {
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
 import Contact from "./Contact";
+import Seller from "./Seller";
 //---------------------------------------
 
 
@@ -52,7 +53,7 @@ const Navbar = () => {
                     </Route>
 
                     <Route path="/Seller">
-                    {/* <Seller />  not made yet*/}
+                    <Seller />
                     </Route>
 
                     <Route path="/Cart">

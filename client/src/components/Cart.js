@@ -5,7 +5,7 @@ import { getStoreItemArray } from './reducers/index';
 
 
 // ------------ COMPONENTS ------------
-import StoreItems from './StoreItem';
+import Items from './Item/Item';
 import CartItem from './CartItem';
 //-------------------------------------
 
@@ -27,8 +27,7 @@ const Cart = () => {
             </Details>
         </Container>
         <Bordered>
-            {/* {state.map((item) => <CartItem key={item} {...item}/>)} */}
-            <CartItem />
+            {state.map((item) => <CartItem key={item} {...item}/>)}
         </Bordered>
         <Total>
             <GreyP>Shipping:</GreyP>

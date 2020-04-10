@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../actions';
+
 const ItemGrid = () => {
+    const dispatch = useDispatch();
 
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
@@ -58,6 +62,10 @@ const ItemGrid = () => {
                                         }}> */ >
                                         <p> {item.category}</p>
                                         <p>{item.price}</p>
+                                        <button
+                                            onClick={() =>
+                                                dispatch(addItem({item}))}>
+                                            Add to cart</button>
                                     </DescriptionContainer>
                                 </ImageContainer>
                             )
