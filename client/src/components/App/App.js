@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import HomePage from '../HomePage';
-import GlobalStyles from '../GlobalStyles'
+import GlobalStyles from '../GlobalStyles';
+import Navbar from '../Navbar';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ItemGrid from '../ItemGrid';
+import Item from "../Item"
 
 function App() {
-  const [bacon, setBacon] = useState(null);
-
-  useEffect(() => {
-    fetch('/bacon')
-      .then(res => res.json())
-      .then(data => setBacon(data));
-  }, []);
+  
 
   return (
-    <div>
-      <GlobalStyles />
-      <HomePage />
-      {bacon ? bacon : `...where's my stuff?...`}
 
-    </div>
+    <>
+      
+      <Router>
+      <GlobalStyles />
+        <Navbar />
+     
+  
+      
+        <Switch>
+          <Route exact path="/">
+            <ItemGrid />
+          </Route>
+      
+          <Route exact path="/item/:id">
+        <Item  />
+          </Route>
+        </Switch>
+        
+      </Router>
+
+    </>
   )
 }
 export default App;
+
+
+// /item/companies/:companyId
+// item/companies
+// item/:id
+
