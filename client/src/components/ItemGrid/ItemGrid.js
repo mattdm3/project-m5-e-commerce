@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
-
-import { useDispatch } from 'react-redux';
-import { addItem } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
 
 const ItemGrid = () => {
-// <<<<<<< cart
     const dispatch = useDispatch();
 
-=======
-// >>>>>>> master
-    let [pageCount, setPageCounter] = useState(1);
-    let [state, setState] = useState(null);
+    //for state of item reducer.
+    //also has the status - can be used for loading states. 
+    const currentItems = useSelector(itemState => itemState.items);
 
-    let [pageFinder, setPageFinder] = useState(null)
+    let [pageCount, setPageCounter] = useState(1);
+
 
 
     //Once app renders 
@@ -23,18 +21,22 @@ const ItemGrid = () => {
     useEffect(() => {
         //add logic to check to when page is 0 AND max pages.
         if (pageCount > 0 && pageCount <= 39) {
+            //set the state to loading.
+            dispatch(requestItemData())
 
             fetch(`/items?page=${pageCount}&limit=9`)
                 .then(res => res.json())
-                .then(data =>
-                    setState(data));
+                .then(data => dispatch(receivedItemData(data)))
+                .catch(() => dispatch(receivedItemDataError()))
         }
         else {
+            //mostly for when your typing
             setPageCounter(1)
             //change for modal
             window.alert(pageCount + 'This page does not exist.')
-
         }
+
+
     }, [pageCount]);
 
     //function that will handle page directing. 
@@ -47,50 +49,47 @@ const ItemGrid = () => {
             //change for a modal.
             window.alert(pageCount + 'This page does not exist.')
         }
-
     }
-
-
-    console.log(pageCount)
-
-
 
 
     return (
         <>
-            {state !== null &&
+            {currentItems.items !== null && currentItems.status == 'success' ?
                 <GridContainer>
                     <GridWrapper>
-                        {state.map((item, arrayNum) => {
+                        {currentItems.items.map((item, arrayNum) => {
                             return (
-// <<<<<<< cart
-//                                 <ImageContainer key={item.id} >
-//                                     {/* <div> {item.name.split(" ")[0]} </div> */}
-//                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
-//                                     <TitleContainer>
-//                                         <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
-//                                     </TitleContainer>
-//                                     <DescriptionContainer
-//                                         /* style={{
-//                                             transform: `translateY( ${itemDescription[arrayNum].value ? "0" : "20px"})`,
-//                                             opacity: itemDescription[arrayNum].value ? "1" : "0"
-//                                         }}> */ >
-//                                         <p> {item.category}</p>
-//                                         <p>{item.price}</p>
-//                                         <button
-//                                             onClick={() =>
-//                                                 dispatch(addItem({item}))}>
-//                                             Add to cart</button>
-//                                     </DescriptionContainer>
-//                                 </ImageContainer>
-// =======
+                                // <<<<<<< cart
+                                //                                 <ImageContainer key={item.id} >
+                                //                                     {/* <div> {item.name.split(" ")[0]} </div> */}
+                                //                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
+                                //                                     <TitleContainer>
+                                //                                         <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
+                                //                                     </TitleContainer>
+                                //                                     <DescriptionContainer
+                                //                                         /* style={{
+                                //                                             transform: `translateY( ${itemDescription[arrayNum].value ? "0" : "20px"})`,
+                                //                                             opacity: itemDescription[arrayNum].value ? "1" : "0"
+                                //                                         }}> */ >
+                                //                                         <p> {item.category}</p>
+                                //                                         <p>{item.price}</p>
+                                //                                         <button
+                                //                                             onClick={() =>
+                                //                                                 dispatch(addItem({item}))}>
+                                //                                             Add to cart</button>
+                                //                                     </DescriptionContainer>
+                                //                                 </ImageContainer>
+                                // =======
                                 <Link to={`/item/${item.id}`}>
+                                    {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
                                     <RenderItem item={item}></RenderItem>
                                 </Link>
-// >>>>>>> master
+                                // >>>>>>> master
                             )
                         })}
                     </GridWrapper>
+
+                    {/* make this button wrapper reusableinsde category as well.  */}
                     <ButtonWrapper>
                         {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
                             Previous
@@ -98,12 +97,13 @@ const ItemGrid = () => {
                         <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
                         <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
                         <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
+
                         <button onClick={() => setPageCounter(pageCount += 1)}>
                             Next page
                       </button>
                     </ButtonWrapper>
 
-                    {/* Search for for particular page? */}
+                    {/* Search for for particular page? - is it necessary?*/}
                     {/* Missing Styling */}
                     <form>
                         <div>...current page: {pageCount}</div>
@@ -111,7 +111,7 @@ const ItemGrid = () => {
                     </form>
 
 
-                </GridContainer>
+                </GridContainer> : <div>LOADING</div>
             }
         </>
     )

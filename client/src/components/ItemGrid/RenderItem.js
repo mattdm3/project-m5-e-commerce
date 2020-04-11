@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+
 
 const RenderItem = ({ item }) => {
+
+    const dispatch = useDispatch();
+
+
+
+
 
 
     return (<ImageContainer key={item.id}>
@@ -15,7 +23,10 @@ const RenderItem = ({ item }) => {
             <p> {item.category}</p>
             <p>{item.price}</p>
         </DescriptionContainer>
-    </ImageContainer>
+        {/* add to cart */}
+        {/* <button>onClick={() => dispatch(addItem({ item }))}>Add to cart</button> */}
+
+    </ImageContainer >
 
     )
 }

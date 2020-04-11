@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // ------------- COMPONENTS -------------
 import GlobalStyles from '../GlobalStyles';
