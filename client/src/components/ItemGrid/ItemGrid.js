@@ -3,7 +3,15 @@ import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../actions';
+
 const ItemGrid = () => {
+// <<<<<<< cart
+    const dispatch = useDispatch();
+
+=======
+// >>>>>>> master
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
 
@@ -55,9 +63,31 @@ const ItemGrid = () => {
                     <GridWrapper>
                         {state.map((item, arrayNum) => {
                             return (
+// <<<<<<< cart
+//                                 <ImageContainer key={item.id} >
+//                                     {/* <div> {item.name.split(" ")[0]} </div> */}
+//                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
+//                                     <TitleContainer>
+//                                         <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
+//                                     </TitleContainer>
+//                                     <DescriptionContainer
+//                                         /* style={{
+//                                             transform: `translateY( ${itemDescription[arrayNum].value ? "0" : "20px"})`,
+//                                             opacity: itemDescription[arrayNum].value ? "1" : "0"
+//                                         }}> */ >
+//                                         <p> {item.category}</p>
+//                                         <p>{item.price}</p>
+//                                         <button
+//                                             onClick={() =>
+//                                                 dispatch(addItem({item}))}>
+//                                             Add to cart</button>
+//                                     </DescriptionContainer>
+//                                 </ImageContainer>
+// =======
                                 <Link to={`/item/${item.id}`}>
                                     <RenderItem item={item}></RenderItem>
                                 </Link>
+// >>>>>>> master
                             )
                         })}
                     </GridWrapper>

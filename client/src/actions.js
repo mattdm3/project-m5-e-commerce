@@ -1,4 +1,4 @@
-export const addItem = item => ({
+export const addItem = (item) => ({
     type: 'ADD_ITEM',
     item,
 });

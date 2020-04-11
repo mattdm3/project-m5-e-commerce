@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 
 const categories = [
@@ -22,12 +23,19 @@ const Sidebar = () => {
         <div>
             {categories.map(category => {
                 return (
-                    <Link to={`/category/${category}`}><div>{category}</div></Link>
+                    <NavigationLink to={`/category/${category}`}><div>{category}</div></NavigationLink>
                 )
             })}
 
         </div>
     )
 }
+
+//--------------------------------- STYLES ---------------------------------
+
+const NavigationLink = styled(NavLink)` 
+    text-decoration: none;
+    color: black;
+`
 
 export default Sidebar;

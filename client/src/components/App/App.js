@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-// <<<<<<< Routes-Redux
 import styled from 'styled-components';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// // ------------- COMPONENTS -------------
-// import ItemGrid from '../HomePage/ItemGrid'
-// //---------------------------------------
-// =======
+// ------------- COMPONENTS -------------
 import GlobalStyles from '../GlobalStyles';
 import Navbar from '../Navbar';
+// <<<<<<< cart
+// import ItemGrid from '../ItemGrid';
+// =======
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import ItemGrid from '../ItemGrid/ItemGrid';
+// >>>>>>> master
 import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
-// >>>>>>> master
+//---------------------------------------
 
 function App() {
 
@@ -42,7 +43,7 @@ function App() {
       </Router>
 
     </>
-    // >>>>>>> master
+
   )
 }
 
