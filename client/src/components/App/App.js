@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import GlobalStyles from '../GlobalStyles';
 import Navbar from '../Navbar';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import ItemGrid from '../ItemGrid';
+import ItemGrid from '../ItemGrid/ItemGrid';
 import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';

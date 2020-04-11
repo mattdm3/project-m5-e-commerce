@@ -7,17 +7,14 @@ const ItemGrid = () => {
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
 
-
-
+    let [pageFinder, setPageFinder] = useState(null)
 
 
     //Once app renders 
     //Fetch the item data.
     useEffect(() => {
-
         //add logic to check to when page is 0 AND max pages.
-
-        if (pageCount > 0) {
+        if (pageCount > 0 && pageCount <= 39) {
 
             fetch(`/items?page=${pageCount}&limit=9`)
                 .then(res => res.json())
@@ -26,15 +23,31 @@ const ItemGrid = () => {
         }
         else {
             setPageCounter(1)
-            console.log('PAGE DOESNT EXIST')
+            //change for modal
+            window.alert(pageCount + 'This page does not exist.')
+
         }
-
-
     }, [pageCount]);
 
+    //function that will handle page directing. 
+    const handlePageFinder = (e) => {
+        //change hard coded page value*******
+        if (e.target.value >= 1 && e.target.value <= 39) {
+            setPageCounter(e.target.value)
+        }
+        else {
+            //change for a modal.
+            window.alert(pageCount + 'This page does not exist.')
+        }
+
+    }
 
 
     console.log(pageCount)
+
+
+
+
     return (
         <>
             {state !== null &&
@@ -45,16 +58,29 @@ const ItemGrid = () => {
                                 <Link to={`/item/${item.id}`}>
                                     <RenderItem item={item}></RenderItem>
                                 </Link>
-
                             )
                         })}
                     </GridWrapper>
-                    <button onClick={() => setPageCounter(pageCount += 1)}>
-                        Next page
+                    <ButtonWrapper>
+                        {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
+                            Previous
+                      </button>}
+                        <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
+                        <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
+                        <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
+                        <button onClick={() => setPageCounter(pageCount += 1)}>
+                            Next page
                       </button>
-                    <button onClick={() => setPageCounter(pageCount -= 1)}>
-                        Previous
-                      </button>
+                    </ButtonWrapper>
+
+                    {/* Search for for particular page? */}
+                    {/* Missing Styling */}
+                    <form>
+                        <div>...current page: {pageCount}</div>
+                        <input type='text' onChange={handlePageFinder}></input>
+                    </form>
+
+
                 </GridContainer>
             }
         </>
@@ -80,6 +106,20 @@ const GridWrapper = styled.div`
     a {
         color: black;
     }
+`
+
+const ButtonWrapper = styled.div`
+display: flex;
+justify-content: center;
+padding: 20px;
+
+button {
+    padding: 0 15px 0 15px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
 `
 
 export default ItemGrid;
