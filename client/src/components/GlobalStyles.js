@@ -50,7 +50,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     color: var(--color-dark);
-    background: var(--color-grey);
+    background: var(--color-white);
     /* overflow-x: hidden; */
   }
 
