@@ -3,7 +3,11 @@ import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
+import {
+    addItem,
+    requestItemData, receivedItemData, receivedItemDataError,
+    receiveAllDataFromDataBase, requestAllDataFromDataBase, receiveAllDataFromDataBaseError,
+} from '../../actions';
 import Sidebar from '../Sidebar'
 
 const ItemGrid = () => {
@@ -14,6 +18,17 @@ const ItemGrid = () => {
     const currentItems = useSelector(itemState => itemState.items);
 
     let [pageCount, setPageCounter] = useState(1);
+
+    //Fetch ALL data. 
+    useEffect(() => {
+
+        dispatch(requestAllDataFromDataBase())
+        fetch('/allItemData')
+            .then(res => res.json())
+            .then(data => dispatch(receiveAllDataFromDataBase(data)))
+            .catch(() => dispatch(receiveAllDataFromDataBaseError()))
+
+    }, [])
 
 
 
@@ -36,8 +51,6 @@ const ItemGrid = () => {
             //change for modal
             window.alert(pageCount + 'This page does not exist.')
         }
-
-
     }, [pageCount]);
 
     //function that will handle page directing. 
