@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import styled from 'styled-components';
+import RenderItem from '../ItemGrid/RenderItem';
 
 const Sellers = () => {
 
@@ -22,11 +23,27 @@ const Sellers = () => {
     return (<Wrapper> {companyState !== null ?
 
         <div>
-            <div>{companyState.name}</div>
-            <a href={companyState.url}>Visit their website! - {companyState.url}</a>
-            <div>{companyState.country}</div>
-        </div>
+            <Header>
+                <div>
+                    <StyledCompanyName>{companyState.info.name}</StyledCompanyName>
+                    <a href={companyState.info.url}>{companyState.info.url}</a>
+                    <div>{companyState.info.country}</div>
+                    <Products>Our Products</Products>
+                </div>
+            </Header>
+            {/* all items */}
+            <GridSellerWrapper>
 
+                {companyState.items.map(item => {
+                    return (
+                        <Link to={`/item/${item.id}`}>
+                            <RenderItem item={item}></RenderItem>
+                        </Link>
+                    )
+                })}
+            </GridSellerWrapper>
+
+        </div>
         : <div>Loading...</div>}
     </Wrapper>
     )
@@ -38,7 +55,42 @@ export default Sellers;
 
 
 const Wrapper = styled.div`
+
+
+`
+
+const GridSellerWrapper = styled.div`
+    display: grid;
+
+    /* each take up their own fractional unit */
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    /* grid-template-rows: repeat(3, 1fr); */
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+
+    a {
+        color: black;
+    }
+`
+
+const Header = styled.div`
 display: flex;
 justify-content: center;
+text-align: center;
 
+a {
+    color: black;
+    cursor: pointer;
+}
+
+`
+
+const StyledCompanyName = styled.h1`
+font-size: 6em;
+
+`
+
+const Products = styled.h2`
+font-size: 3em;
 `
