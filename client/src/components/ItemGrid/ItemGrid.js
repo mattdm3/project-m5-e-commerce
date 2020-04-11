@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
+import Sidebar from '../Sidebar'
 
 const ItemGrid = () => {
     const dispatch = useDispatch();
@@ -54,54 +55,65 @@ const ItemGrid = () => {
 
     return (
         <>
-            {currentItems.items !== null && currentItems.status == 'success' ?
-                <GridContainer>
-                    <GridWrapper>
-                        {currentItems.items.map((item, arrayNum) => {
-                            return (
-                                <Link to={`/item/${item.id}`}>
-                                    {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
-                                    <RenderItem item={item}></RenderItem>
-                                </Link>
-                                // >>>>>>> master
-                                // >>>>>>> master
-                            )
-                        })}
-                    </GridWrapper>
+            <SideAndGrid>
+                <Sidebar />
+                {currentItems.items !== null && currentItems.status == 'success' ?
+                    <GridContainer>
+                        <GridWrapper>
+                            {currentItems.items.map((item, arrayNum) => {
+                                return (
+                                    <Link to={`/item/${item.id}`}>
+                                        {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
+                                        <RenderItem item={item}></RenderItem>
+                                    </Link>
+                                    // >>>>>>> master
+                                    // >>>>>>> master
+                                )
+                            })}
+                        </GridWrapper>
 
-                    {/* make this button wrapper reusableinsde category as well.  */}
-                    <ButtonWrapper>
-                        {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
-                            Previous
+                        {/* make this button wrapper reusableinsde category as well.  */}
+                        <ButtonWrapper>
+                            {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
+                                Previous
                       </button>}
-                        <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
-                        <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
-                        <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
+                            <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
+                            <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
+                            <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
 
-                        <button onClick={() => setPageCounter(pageCount += 1)}>
-                            Next page
+                            <button onClick={() => setPageCounter(pageCount += 1)}>
+                                Next page
                       </button>
-                    </ButtonWrapper>
+                        </ButtonWrapper>
 
-                    {/* Search for for particular page? - is it necessary?*/}
-                    {/* Missing Styling */}
-                    <form>
-                        <div>...current page: {pageCount}</div>
-                        <input type='text' onChange={handlePageFinder}></input>
-                    </form>
+                        {/* Search for for particular page? - is it necessary?*/}
+                        {/* Missing Styling */}
+                        <form>
+                            <div>...current page: {pageCount}</div>
+                            <input type='text' onChange={handlePageFinder}></input>
+                        </form>
 
 
-                </GridContainer> : <div>LOADING</div>
-            }
+                    </GridContainer> : <div>LOADING</div>
+                }
+            </SideAndGrid>
         </>
     )
 };
+
+const SideAndGrid = styled.div`
+    display: flex; 
+    margin-top: 120px; 
+    padding: 0 100px; 
+    justify-content: flex-start; 
+
+`
 const GridContainer = styled.div`
     /* display: flex; */
     /* justify-content: flex-end; */
     /* flex-direction: column;  */
-    padding: 0 75px;
-    margin-top: 120px;
+    padding-left: 85px;
+    /* margin-top: 120px; */
     background: #FAFAFA;
     width: 100%;
 `
@@ -134,5 +146,7 @@ button {
     }
 }
 `
+
+
 
 export default ItemGrid;
