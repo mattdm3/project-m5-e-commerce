@@ -13,6 +13,7 @@ import ItemGrid from '../ItemGrid/ItemGrid';
 import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
+import Sellers from '../Sellers/Sellers';
 //---------------------------------------
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/category/:category">
             <Category></Category>
+          </Route>
+          <Route exact path="/sellers/:companyId">
+            <Sellers></Sellers>
           </Route>
         </Switch>
 
