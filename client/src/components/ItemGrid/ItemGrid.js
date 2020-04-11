@@ -6,19 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
 
 const ItemGrid = () => {
-    // <<<<<<< cart
     const dispatch = useDispatch();
 
     //for state of item reducer.
     //also has the status - can be used for loading states. 
     const currentItems = useSelector(itemState => itemState.items);
 
-
-    // =======
-    // >>>>>>> master
     let [pageCount, setPageCounter] = useState(1);
 
-    let [pageFinder, setPageFinder] = useState(null)
 
 
     //Once app renders 
@@ -35,6 +30,7 @@ const ItemGrid = () => {
                 .catch(() => dispatch(receivedItemDataError()))
         }
         else {
+            //mostly for when your typing
             setPageCounter(1)
             //change for modal
             window.alert(pageCount + 'This page does not exist.')
@@ -92,6 +88,8 @@ const ItemGrid = () => {
                             )
                         })}
                     </GridWrapper>
+
+                    {/* make this button wrapper reusableinsde category as well.  */}
                     <ButtonWrapper>
                         {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
                             Previous
@@ -100,13 +98,12 @@ const ItemGrid = () => {
                         <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
                         <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
 
-
                         <button onClick={() => setPageCounter(pageCount += 1)}>
                             Next page
                       </button>
                     </ButtonWrapper>
 
-                    {/* Search for for particular page? */}
+                    {/* Search for for particular page? - is it necessary?*/}
                     {/* Missing Styling */}
                     <form>
                         <div>...current page: {pageCount}</div>

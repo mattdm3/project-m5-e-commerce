@@ -3,41 +3,46 @@ import { useParams } from "react-router-dom"
 import RenderItem from '../ItemGrid/RenderItem';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
+
 
 
 
 
 const Category = () => {
 
+    const dispatch = useDispatch();
+    //renamed same as itemGrid. 
+    const currentItems = useSelector(itemState => itemState.items);
     //state will hold list of the current categories items.
     let [pageCount, setPageCounter] = useState(1);
-    let [state, setState] = useState(null);
     // grab category from the url
     const { category } = useParams();
 
 
     useEffect(() => {
+
+        dispatch(requestItemData())
         //hit endpoint and will return all Objects within that category.
         fetch(`/category/${category}?page=${pageCount}&limit=9`)
-            .then(res => res.json()
-            )
-            .then(data => setState(data))
+            .then(res => res.json())
+            .then(data => dispatch(receivedItemData(data)))
+            .catch(() => dispatch(receivedItemDataError()))
+
         //on change of the category params, this will re-fetch. 
-        //once fetch is done --> Dispatch ?
         //try to reuse ItemGrid component?
     }, [category, pageCount])
     return (<React.Fragment>
-        {state !== null && <GridContainer>
+        {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
             <GridWrapper>
-                {state.map(item => {
+                {currentItems.items.map(item => {
                     return <Link to={`/item/${item.id}`}>
                         <RenderItem item={item}></RenderItem>
                     </Link>
 
                 })}
             </GridWrapper>
-
-
             <button onClick={() => setPageCounter(pageCount += 1)}>
                 Next page
                       </button>
