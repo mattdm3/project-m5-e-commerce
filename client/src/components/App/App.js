@@ -8,8 +8,8 @@ import styled from 'styled-components';
 // =======
 import GlobalStyles from '../GlobalStyles';
 import Navbar from '../Navbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ItemGrid from '../ItemGrid';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import ItemGrid from '../ItemGrid/ItemGrid';
 import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
@@ -27,13 +27,12 @@ function App() {
         <GlobalStyles />
         <Navbar />
         <Sidebar></Sidebar>
-
         <Switch>
           <Route exact path="/">
-            <ItemGrid />
+            <ItemGrid></ItemGrid>
           </Route>
           <Route exact path="/item/:id">
-            <Item />
+            <Item></Item>
           </Route>
           <Route exact path="/category/:category">
             <Category></Category>

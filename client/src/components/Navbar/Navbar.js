@@ -8,7 +8,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useHistory
 } from "react-router-dom";
 
 // ------------- COMPONENTS -------------
@@ -17,18 +18,22 @@ import Cart from "../Cart";
 
 
 const Navbar = () => {
+    let history = useHistory();
+
 
     return (
         <Router>
             <StyledNav>
-                <Link to="/">
+                {/* <Link to="/"> */}
+                <button onClick={() => history.push(`/`)}>
                     <Logo>
                         <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
                         <h3> Six Tech Gear</h3>
                     </Logo>
-                </Link>
+                </button>
+                {/* </Link> */}
                 <StyledUl>
-                    <Link to="/"><NavList>Shop</NavList></Link>
+                    {/* <Link to="/"><NavList>Shop</NavList></Link> */}
                     <Link to="/Seller"><NavList>Sellers</NavList></Link>
                     <Link to="/Cart"><NavList>Cart</NavList></Link>
                     <Link to="/Contact"><NavList>Contact</NavList></Link>
@@ -38,20 +43,20 @@ const Navbar = () => {
 
             <ContentContainer>
                 <Switch>
-                    <Route path="/">
+                    {/* <Route path="/"> */}
                     {/* <Shop />  not made yet*/}
-                    </Route>
+                    {/* </Route> */}
 
                     <Route path="/Seller">
-                    {/* <Seller />  not made yet*/}
+                        {/* <Seller />  not made yet*/}
                     </Route>
 
                     <Route path="/Cart">
-                    <Cart />
+                        <Cart />
                     </Route>
 
                     <Route path="/Contact">
-                    {/* <Contact />  not made yet*/}
+                        {/* <Contact />  not made yet*/}
                     </Route>
                 </Switch>
             </ContentContainer>
