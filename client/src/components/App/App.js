@@ -14,6 +14,7 @@ import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
+import AllSellers from "../AllSellers"
 //---------------------------------------
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/sellers/:companyId">
             <Sellers></Sellers>
+          </Route>
+          <Route exact path='/sellers'>
+            <AllSellers />
           </Route>
         </Switch>
 

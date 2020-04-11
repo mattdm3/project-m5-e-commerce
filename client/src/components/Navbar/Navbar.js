@@ -55,7 +55,7 @@ const Navbar = () => {
                     {/* </Link> */}
 
                     {/* <Link to="/"><NavList>Shop</NavList></Link> */}
-                    <Link to="/Seller"><NavList>Sellers</NavList></Link>
+                    <Link to="/sellers"><NavList>Sellers</NavList></Link>
                     <Link to="/Cart"><NavList>Cart</NavList></Link>
                     <Link to="/Contact"><NavList>Contact</NavList></Link>
 
