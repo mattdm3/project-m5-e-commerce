@@ -13,6 +13,10 @@ const ItemGrid = () => {
     const currentItems = useSelector(itemState => itemState.items);
 
     let [pageCount, setPageCounter] = useState(1);
+// <<<<<<< grid-page
+//     let [state, setState] = useState(null);
+// =======
+// >>>>>>> master
 
 
 
@@ -59,6 +63,22 @@ const ItemGrid = () => {
                     <GridWrapper>
                         {currentItems.items.map((item, arrayNum) => {
                             return (
+// <<<<<<< grid-page
+//                                 <ImageContainer key={item.id}>
+//                                     {/* <div> {item.name.split(" ")[0]} </div> */}
+//                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
+//                                     <TitleContainer>
+//                                         <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
+//                                     </TitleContainer>
+
+//                                     <DescriptionContainer>
+//                                         <p> {item.category}</p>
+//                                         <p>{item.price}</p>
+//                                     </DescriptionContainer>
+
+
+//                                 </ImageContainer>
+// =======
                                 // <<<<<<< cart
                                 //                                 <ImageContainer key={item.id} >
                                 //                                     {/* <div> {item.name.split(" ")[0]} </div> */}
@@ -85,6 +105,7 @@ const ItemGrid = () => {
                                     <RenderItem item={item}></RenderItem>
                                 </Link>
                                 // >>>>>>> master
+// >>>>>>> master
                             )
                         })}
                     </GridWrapper>
@@ -138,6 +159,70 @@ const GridWrapper = styled.div`
     }
 `
 
+//<<<<<<< grid-page
+const ImageContainer = styled.div`
+    background: white;
+    min-width: 200px;
+    min-height: 405px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+`
+
+const TitleContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex; 
+    justify-content: center; 
+    width: 100%; 
+`
+const slideUp = keyframes`
+    from {
+        transform: translateY(20px);
+        /* opacity: 0;  */
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1; 
+    }
+`
+
+// const HoverContainer = styled.div`
+//     position: absolute;
+//     background: red; 
+//     width: 100%; 
+//     height: 100%; 
+//     opacity: 0; 
+//     z-index: 4; 
+//     &:hover {
+//         animation: ${slideUp} 500ms; 
+//     }
+// `
+
+const DescriptionContainer = styled.div`
+    position: absolute; 
+    align-items: flex-end;
+    bottom: 0;
+    left: 0px; 
+    display: flex; 
+    justify-content: space-between;
+    width: 100%; 
+    height: 100%; 
+    cursor: pointer;
+  
+    padding: 0 15px; 
+    transition-duration: 600ms; 
+    opacity: 0; 
+
+    &:hover {
+        animation: ${slideUp} 600ms forwards; 
+    }
+
+    
+// =======
 const ButtonWrapper = styled.div`
 display: flex;
 justify-content: center;
@@ -145,6 +230,7 @@ padding: 20px;
 
 button {
     padding: 0 15px 0 15px;
+// >>>>>>> master
 
     &:hover {
         cursor: pointer;
