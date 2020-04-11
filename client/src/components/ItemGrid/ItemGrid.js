@@ -7,19 +7,6 @@ const ItemGrid = () => {
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
 
-    const [itemDescription, setItemDescription] = useState([
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false }
-    ]
-    );
 
 
     //Once app renders 
@@ -45,20 +32,19 @@ const ItemGrid = () => {
                         {state.map((item, arrayNum) => {
                             console.log(arrayNum);
                             return (
-                                <ImageContainer key={item.id} >
+                                <ImageContainer key={item.id}>
                                     {/* <div> {item.name.split(" ")[0]} </div> */}
                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
                                     <TitleContainer>
                                         <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
                                     </TitleContainer>
-                                    <DescriptionContainer
-                                        /* style={{
-                                            transform: `translateY( ${itemDescription[arrayNum].value ? "0" : "20px"})`,
-                                            opacity: itemDescription[arrayNum].value ? "1" : "0"
-                                        }}> */ >
+
+                                    <DescriptionContainer>
                                         <p> {item.category}</p>
                                         <p>{item.price}</p>
                                     </DescriptionContainer>
+
+
                                 </ImageContainer>
                             )
                         })}
@@ -105,7 +91,7 @@ const GridWrapper = styled.div`
 const ImageContainer = styled.div`
     background: white;
     min-width: 200px;
-    min-height: 285px;
+    min-height: 405px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,26 +107,49 @@ const TitleContainer = styled.div`
     justify-content: center; 
     width: 100%; 
 `
-// const slideUp = keyframes`
-//     from {
-//         transform: translateY(20px);
-//         opacity: 0; 
-//     }
-//     to {
-//         transform: translateX(0);
-//         opacity: 1; 
+const slideUp = keyframes`
+    from {
+        transform: translateY(20px);
+        /* opacity: 0;  */
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1; 
+    }
+`
+
+// const HoverContainer = styled.div`
+//     position: absolute;
+//     background: red; 
+//     width: 100%; 
+//     height: 100%; 
+//     opacity: 0; 
+//     z-index: 4; 
+//     &:hover {
+//         animation: ${slideUp} 500ms; 
 //     }
 // `
 
 const DescriptionContainer = styled.div`
     position: absolute; 
+    align-items: flex-end;
     bottom: 0;
     left: 0px; 
     display: flex; 
     justify-content: space-between;
     width: 100%; 
+    height: 100%; 
+    cursor: pointer;
+  
     padding: 0 15px; 
     transition-duration: 600ms; 
+    opacity: 0; 
+
+    &:hover {
+        animation: ${slideUp} 600ms forwards; 
+    }
+
+    
 
 `
 
