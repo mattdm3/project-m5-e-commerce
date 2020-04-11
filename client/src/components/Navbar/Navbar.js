@@ -8,50 +8,84 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useHistory
 } from "react-router-dom";
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
+import Contact from "./Contact";
+import Seller from "./Seller";
 //---------------------------------------
 
 
 const Navbar = () => {
+    let history = useHistory();
+
 
     return (
         <Router>
             <StyledNav>
-                <Link to="/">
-                    <Logo>
-                        <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
-                        <h3> Six Tech Gear</h3>
-                    </Logo>
-                </Link>
+                <NavigationLink to="/">
+
+                    {/* <Link to="/"> */}
+                    <button onClick={() => history.push(`/`)}>
+                        <Logo>
+                            <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
+                            <h3> Six Tech Gear</h3>
+                        </Logo>
+                    </button>
+
+                </NavigationLink>
                 <StyledUl>
-                    <Link to="/"><NavList>Shop</NavList></Link>
+                    <NavList>
+                        <NavigationLink to="/">Shop</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink to="/Seller">Seller</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink to="/Cart">Cart</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink to="/Contact">Contact</NavigationLink>
+                    </NavList>
+
+
+                    {/* </Link> */}
+
+                    {/* <Link to="/"><NavList>Shop</NavList></Link> */}
                     <Link to="/Seller"><NavList>Sellers</NavList></Link>
                     <Link to="/Cart"><NavList>Cart</NavList></Link>
                     <Link to="/Contact"><NavList>Contact</NavList></Link>
+
                 </StyledUl>
                 <Hamburger>&#9776;</Hamburger>
             </StyledNav>
 
             <ContentContainer>
                 <Switch>
-                    <Route path="/">
+
+                    {/* <Route exact path="/"> */}
+
+                    {/* <Route path="/"> */}
+
                     {/* <Shop />  not made yet*/}
-                    </Route>
+                    {/* </Route> */}
 
                     <Route path="/Seller">
-                    {/* <Seller />  not made yet*/}
+                        <Seller />
+                        {/* <Seller />  not made yet*/}
                     </Route>
 
                     <Route path="/Cart">
-                    <Cart />
+                        <Cart />
                     </Route>
 
                     <Route path="/Contact">
-                    {/* <Contact />  not made yet*/}
+
+                        <Contact />
+
                     </Route>
                 </Switch>
             </ContentContainer>
@@ -60,27 +94,26 @@ const Navbar = () => {
 }
 
 //--------------------------------- STYLES ---------------------------------
-//----- NavLink instead of a is to style a Link -----
-const NavigationLink = styled(NavLink)` 
 
+const NavigationLink = styled(NavLink)`
+    text-decoration: none;
+    color: black;
 `
 
 const Logo = styled.div`
-display: flex; 
+display: flex;
 align-items: center;
-padding-bottom: 10px; 
+padding-bottom: 10px;
 
 h3 {
-    font-weight: 700; 
-    
-    
-    
+font-weight 700;
+
 }
 
 `
 //Maybe use  styled.nav  instead
 const StyledNav = styled.div`
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
@@ -90,14 +123,14 @@ const StyledNav = styled.div`
     transition-duration: .4s;
 
     /* h4, h3 {
-        padding: 0 40px; 
+                    padding: 0 40px;
     } */
 
     /* @media screen and (min-width: 768px) {
-        padding: 15px 0; 
+                    padding: 15px 0;
     }
     @media screen and (min-width: 992px) {
-        padding: 15px 0; 
+                    padding: 15px 0;
     } */
 
 
@@ -106,47 +139,47 @@ const StyledNav = styled.div`
 
 const StyledUl = styled.ul`
     /* padding: 0 40px; */
-    display: flex; 
+    display: flex;
     justify-content: space-evenly;
     display: none;
-    padding-inline-start: 0; 
+    padding-inline-start: 0;
 
 
     @media screen and (min-width: 768px) {
-        display: flex;
+                    display: flex;
     }
     @media screen and (min-width: 992px) {
-        display: flex;
+                    display: flex;
     }
 
 `
 
 const Hamburger = styled.h2`
     position: fixed;
-    right: 0; 
+    right: 0;
     top: 0;
-    padding-right: 50px; 
-    padding-top: 50px; 
-    
+    padding-right: 50px;
+    padding-top: 50px;
+
     margin: 0;
     cursor: pointer;
-    
+
 
     @media screen and (min-width: 768px) {
-        display: none;
+                    display: none;
     }
 `
 
 const NavList = styled.li`
     list-style: none;
-    padding: 0 10px; 
-    padding-bottom:10px; 
+    padding: 0 10px;
+    padding-bottom:10px;
     /* margin: 0 10px;  */
     cursor: pointer;
     border-bottom: 3px solid transparent;
 
     &:hover {
-        border-bottom: 3px solid #FF4F40;
+                    border - bottom: 3px solid #FF4F40;
     }
 `
 

@@ -1,4 +1,4 @@
-export const addItem = item => ({
+export const addItem = (item) => ({
     type: 'ADD_ITEM',
     item,
 });
@@ -19,3 +19,18 @@ export const updateQuantity = (itemId, newQuantity) => ({
 export const clearCart = () => ({
     type: 'CLEAR_CART',
 });
+
+//ITEM DATA ACTIONS
+
+export const requestItemData = () => ({
+    type: 'REQUEST_ITEMS',
+})
+
+export const receivedItemData = (data) => ({
+    type: 'RECEIVED_ITEMS',
+    data
+})
+
+export const receivedItemDataError = () => ({
+    type: 'RECEIVED_ITEMS_ERROR',
+})
