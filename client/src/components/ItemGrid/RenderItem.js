@@ -23,15 +23,13 @@ const RenderItem = ({ item }) => {
             <p> {item.category}</p>
             <p>{item.price}</p>
         </DescriptionContainer>
-        {/* add to cart */}
-        {/* <button>onClick={() => dispatch(addItem({ item }))}>Add to cart</button> */}
 
-    </ImageContainer >
+    </ImageContainer>
 
     )
 }
 
-export default RenderItem;
+
 
 const slideUp = keyframes`
     from {
@@ -80,3 +78,4 @@ const DescriptionContainer = styled.div`
     }
 `
 
+export default RenderItem;
