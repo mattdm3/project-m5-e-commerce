@@ -1,44 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
+import RenderItem from './RenderItem';
 
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../actions';
 
 const ItemGrid = () => {
+// <<<<<<< cart
     const dispatch = useDispatch();
 
+=======
+// >>>>>>> master
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
 
-    const [itemDescription, setItemDescription] = useState([
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false },
-        { "value": false }
-    ]
-    );
+    let [pageFinder, setPageFinder] = useState(null)
 
 
     //Once app renders 
     //Fetch the item data.
     useEffect(() => {
+        //add logic to check to when page is 0 AND max pages.
+        if (pageCount > 0 && pageCount <= 39) {
 
+            fetch(`/items?page=${pageCount}&limit=9`)
+                .then(res => res.json())
+                .then(data =>
+                    setState(data));
+        }
+        else {
+            setPageCounter(1)
+            //change for modal
+            window.alert(pageCount + 'This page does not exist.')
 
-        //add logic to check to when page is 0 or max pages.
-        fetch(`/items?page=${pageCount}&limit=9`)
-            .then(res => res.json())
-            .then(data =>
-                setState(data));
-
-
+        }
     }, [pageCount]);
+
+    //function that will handle page directing. 
+    const handlePageFinder = (e) => {
+        //change hard coded page value*******
+        if (e.target.value >= 1 && e.target.value <= 39) {
+            setPageCounter(e.target.value)
+        }
+        else {
+            //change for a modal.
+            window.alert(pageCount + 'This page does not exist.')
+        }
+
+    }
+
+
+    console.log(pageCount)
+
+
 
 
     return (
@@ -47,48 +62,60 @@ const ItemGrid = () => {
                 <GridContainer>
                     <GridWrapper>
                         {state.map((item, arrayNum) => {
-                            console.log(arrayNum);
                             return (
-                                <ImageContainer key={item.id} >
-                                    {/* <div> {item.name.split(" ")[0]} </div> */}
-                                    <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
-                                    <TitleContainer>
-                                        <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
-                                    </TitleContainer>
-                                    <DescriptionContainer
-                                        /* style={{
-                                            transform: `translateY( ${itemDescription[arrayNum].value ? "0" : "20px"})`,
-                                            opacity: itemDescription[arrayNum].value ? "1" : "0"
-                                        }}> */ >
-                                        <p> {item.category}</p>
-                                        <p>{item.price}</p>
-                                        <button
-                                            onClick={() =>
-                                                dispatch(addItem({item}))}>
-                                            Add to cart</button>
-                                    </DescriptionContainer>
-                                </ImageContainer>
+// <<<<<<< cart
+//                                 <ImageContainer key={item.id} >
+//                                     {/* <div> {item.name.split(" ")[0]} </div> */}
+//                                     <Link to={`item/${item.id}`}> <img src={item.imageSrc} /></Link>
+//                                     <TitleContainer>
+//                                         <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]} ${item.name.split(" ")[4]}`}</p>
+//                                     </TitleContainer>
+//                                     <DescriptionContainer
+//                                         /* style={{
+//                                             transform: `translateY( ${itemDescription[arrayNum].value ? "0" : "20px"})`,
+//                                             opacity: itemDescription[arrayNum].value ? "1" : "0"
+//                                         }}> */ >
+//                                         <p> {item.category}</p>
+//                                         <p>{item.price}</p>
+//                                         <button
+//                                             onClick={() =>
+//                                                 dispatch(addItem({item}))}>
+//                                             Add to cart</button>
+//                                     </DescriptionContainer>
+//                                 </ImageContainer>
+// =======
+                                <Link to={`/item/${item.id}`}>
+                                    <RenderItem item={item}></RenderItem>
+                                </Link>
+// >>>>>>> master
                             )
                         })}
                     </GridWrapper>
+                    <ButtonWrapper>
+                        {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
+                            Previous
+                      </button>}
+                        <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
+                        <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
+                        <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
+                        <button onClick={() => setPageCounter(pageCount += 1)}>
+                            Next page
+                      </button>
+                    </ButtonWrapper>
 
-                    <button onClick={() => setPageCounter(pageCount += 1)}>
-                        Next page
-                      </button>
-                    <button onClick={() => setPageCounter(pageCount -= 1)}>
-                        Previous
-                      </button>
+                    {/* Search for for particular page? */}
+                    {/* Missing Styling */}
+                    <form>
+                        <div>...current page: {pageCount}</div>
+                        <input type='text' onChange={handlePageFinder}></input>
+                    </form>
+
+
                 </GridContainer>
             }
         </>
     )
 };
-
-
-
-
-
-
 const GridContainer = styled.div`
     /* display: flex; */
     /* justify-content: flex-end; */
@@ -98,9 +125,7 @@ const GridContainer = styled.div`
     background: #FAFAFA;
     width: 100%;
 `
-
 const GridWrapper = styled.div`
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
@@ -108,50 +133,23 @@ const GridWrapper = styled.div`
     grid-column-gap: 30px;
     grid-row-gap: 30px;
 
+    a {
+        color: black;
+    }
 `
 
-const ImageContainer = styled.div`
-    background: white;
-    min-width: 200px;
-    min-height: 285px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+const ButtonWrapper = styled.div`
+display: flex;
+justify-content: center;
+padding: 20px;
 
+button {
+    padding: 0 15px 0 15px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
 `
 
-const TitleContainer = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex; 
-    justify-content: center; 
-    width: 100%; 
-`
-// const slideUp = keyframes`
-//     from {
-//         transform: translateY(20px);
-//         opacity: 0; 
-//     }
-//     to {
-//         transform: translateX(0);
-//         opacity: 1; 
-//     }
-// `
-
-const DescriptionContainer = styled.div`
-    position: absolute; 
-    bottom: 0;
-    left: 0px; 
-    display: flex; 
-    justify-content: space-between;
-    width: 100%; 
-    padding: 0 15px; 
-    transition-duration: 600ms; 
-
-`
-
-
-
-export default ItemGrid; 
+export default ItemGrid;

@@ -8,7 +8,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useHistory
 } from "react-router-dom";
 
 // ------------- COMPONENTS -------------
@@ -19,15 +20,23 @@ import Seller from "./Seller";
 
 
 const Navbar = () => {
+    let history = useHistory();
+
 
     return (
         <Router>
             <StyledNav>
+// <<<<<<< cart
                 <NavigationLink to="/">
+=======
+                {/* <Link to="/"> */}
+                <button onClick={() => history.push(`/`)}>
+// >>>>>>> master
                     <Logo>
                         <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
                         <h3> Six Tech Gear</h3>
                     </Logo>
+// <<<<<<< cart
                 </NavigationLink>
                 <StyledUl>
                     <NavList>
@@ -42,26 +51,45 @@ const Navbar = () => {
                     <NavList>
                         <NavigationLink to="/Contact">Contact</NavigationLink>
                     </NavList>
+=======
+                </button>
+                {/* </Link> */}
+//                 <StyledUl>
+//                     {/* <Link to="/"><NavList>Shop</NavList></Link> */}
+//                     <Link to="/Seller"><NavList>Sellers</NavList></Link>
+//                     <Link to="/Cart"><NavList>Cart</NavList></Link>
+//                     <Link to="/Contact"><NavList>Contact</NavList></Link>
+// >>>>>>> master
                 </StyledUl>
                 <Hamburger>&#9776;</Hamburger>
             </StyledNav>
 
             <ContentContainer>
                 <Switch>
-                    <Route exact path="/">
+// <<<<<<< cart
+//                     <Route exact path="/">
+// =======
+//                     {/* <Route path="/"> */}
+// >>>>>>> master
                     {/* <Shop />  not made yet*/}
-                    </Route>
+                    {/* </Route> */}
 
                     <Route path="/Seller">
+// <<<<<<< cart
                     <Seller />
+// =======
+//                         {/* <Seller />  not made yet*/}
+// >>>>>>> master
                     </Route>
 
                     <Route path="/Cart">
-                    <Cart />
+                        <Cart />
                     </Route>
 
                     <Route path="/Contact">
+
                     <Contact />
+
                     </Route>
                 </Switch>
             </ContentContainer>

@@ -10,6 +10,8 @@ const Item = () => {
 
     const { id } = useParams();
 
+    console.log('INSIDE ITEM')
+
     //state to hold item information. 
     const [itemInfo, setItemInfo] = useState(null);
     useEffect(() => {
