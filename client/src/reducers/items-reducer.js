@@ -22,7 +22,7 @@ export default function itemsReducer(state = initialState, action) {
         case 'RECEIVED_ITEMS_ERROR': {
             return {
                 ...state,
-                stauts: 'error'
+                status: 'error'
 
             }
         }

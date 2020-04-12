@@ -82,7 +82,7 @@ const ItemGrid = () => {
                             <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
 
                             <button onClick={() => setPageCounter(pageCount += 1)}>
-                                Next page
+                                >
                       </button>
                         </ButtonWrapper>
 
@@ -114,7 +114,7 @@ const GridContainer = styled.div`
     /* flex-direction: column;  */
     padding-left: 85px;
     /* margin-top: 120px; */
-    background: #FAFAFA;
+    /* background: #FAFAFA; */
     width: 100%;
 `
 const GridWrapper = styled.div`
@@ -123,7 +123,7 @@ const GridWrapper = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
     /* grid-template-rows: repeat(3, 1fr); */
     grid-column-gap: 30px;
-    grid-row-gap: 30px;
+    grid-row-gap: 10px;
 
     a {
         color: black;
@@ -140,13 +140,19 @@ padding: 20px;
 
 button {
     padding: 0 15px 0 15px;
+    height: 40px; 
+    background: none; 
+    border: 2px solid #164C81;
+    color: #164C81;
+    font-size: 1rem; 
 
     &:hover {
         cursor: pointer;
+        background: #FAFAFA; 
     }
 }
 `
 
 
 
-export default ItemGrid;
+export default ItemGrid;    

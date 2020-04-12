@@ -106,7 +106,7 @@ align-items: center;
 padding-bottom: 10px;
 
 h3 {
-font-weight 700;
+font-weight: 700;
 
 }
 
@@ -119,7 +119,7 @@ const StyledNav = styled.div`
     align-items: center;
     padding: 50px 50px;
     /* position: fixed;  */
-    background: #FAFAFA;
+    /* background: #FAFAFA; */
     transition-duration: .4s;
 
     /* h4, h3 {
@@ -179,7 +179,7 @@ const NavList = styled.li`
     border-bottom: 3px solid transparent;
 
     &:hover {
-                    border - bottom: 3px solid #FF4F40;
+        border-bottom: 3px solid #FF4F40;
     }
 `
 
