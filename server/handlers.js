@@ -1,5 +1,8 @@
 
 const items = require('./data/items.json');
+const companies = require('./data/companies.json');
+
+
 
 //handle clicking on a category
 const handleCategory = (req, res) => {
@@ -50,6 +53,27 @@ const handleItemsData = (req, res) => {
 
 }
 
+const handleCompany = (req, res) => {
+    //grab company ID
+    let companyId = req.params.companyId;
+    //find associated company and return to the front end.
+    let filteredCompany = companies.find(company => {
+        if (company.id == companyId) {
+            return (company)
+        }
+    })
+    res.status(200).send(filteredCompany)
+}
+
+const handleSellers = (req, res) => {
+    // const arrayOfnames = [];
+    // companies.forEach(company => arrayOfnames.push(company.name))
+
+    // res.send(arrayOfnames);
+
+    res.send(companies);
+}
 
 
-module.exports = { handleItemId, handleCategory, handleItemsData };
+
+module.exports = { handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
