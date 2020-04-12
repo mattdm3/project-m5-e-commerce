@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi"
 import { addItem } from '../../actions';
+import { isInCartSelector } from '../../reducers/cart-reducer';
 
 
 const RenderItem = ({ item }) => {
+    const inCart = useSelector(state => isInCartSelector(state.cartState, item.id));
+    
+
 
     const dispatch = useDispatch();
 
@@ -19,8 +23,9 @@ const RenderItem = ({ item }) => {
 
         <DescriptionContainer>
             <Price>{item.price}</Price>
-            <StyledBuyBtn onClick={() =>
-                        dispatch(addItem( item ))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
+            {!inCart && <StyledBuyBtn onClick={() =>
+                        dispatch(addItem( item ))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>}
+                        {inCart && <p>Already in cart</p>}
         </DescriptionContainer>
 
     </ImageContainer>

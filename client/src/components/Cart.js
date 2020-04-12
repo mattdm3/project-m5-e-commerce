@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { itemsSelector } from '../reducers/cart-reducer';
+import { itemsSelector, cartTotalSelector } from '../reducers/cart-reducer';
 import { clearCart } from '../actions';
 
 
@@ -15,7 +15,8 @@ const Cart = (props) => {
     const dispatch = useDispatch();
 
     const state = useSelector(state => itemsSelector(state.cartState));
-    // console.log('~~ state Cart.js ~~ ', state);
+    const total = useSelector(state => cartTotalSelector(state.cartState));
+    
     return (
         <Wrapper>
             <Container>
@@ -35,7 +36,7 @@ const Cart = (props) => {
                 <GreyP>Shipping:</GreyP>
                 <p style={{ margin: "0 20px" }}>$9.43 CAD</p>
                 <GreyP>Total Calculated:</GreyP>
-                <p style={{ margin: "0 20px" }}>Total Calculated</p>
+                <p style={{ margin: "0 20px" }}>{total}</p>
             </Total>
             <button onClick={() => dispatch(clearCart(props.item))}>Clear Cart</button>
         </Wrapper>

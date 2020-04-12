@@ -8,7 +8,6 @@ export const removeItem = (item) => ({
     item,
 });
 
-//NOT YET WIRED
 export const updateQuantity = (item, newQuantity) => ({
     type: 'UPDATE_QUANTITY',
     item,

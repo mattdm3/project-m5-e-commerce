@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { updateQuantity, removeItem } from "../actions";
 import { useDispatch } from "react-redux";
 
 const CartItem = (props) => {
+  const [subtotal, setSubtotal] = useState(props.price);
   const dispatch = useDispatch();
 
   const handleQuantity = (event) => {
-      const value = event.target.value;
-      dispatch(updateQuantity(props, value));
-  }
+    const value = event.target.value;
+    dispatch(updateQuantity(props, value));
+  };
+
+  useEffect(() => {
+    setSubtotal(props.price.slice(1) * props.quantity);
+  }, [handleQuantity]);
 
   return (
     <form>
@@ -28,7 +33,7 @@ const CartItem = (props) => {
               onChange={handleQuantity}
             />
           </GreyP>
-          <GreyP>Subtotal Calculation</GreyP>
+          <GreyP>${subtotal}</GreyP>
         </Details>
       </Container>
     </form>
