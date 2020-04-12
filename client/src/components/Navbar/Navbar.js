@@ -45,8 +45,8 @@ const Navbar = () => {
                     </Logo>
                 </NavigationLink>
 
-                <HiddenNavigation style={(navbar) ? { transform: "translateX(-500px)" } : {
-                    transform: "translateX(-1000px)"
+                <HiddenNavigation style={(navbar) ? { transform: "translateX(-80vw)" } : {
+                    transform: "translateX(-200vw)"
                 }}>
                     <OverlayMenu>
                         <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
@@ -116,7 +116,7 @@ const StyledNav = styled.div`
     justify-content: space-between;
     width: 100%;
     align-items: center;
-    padding: 50px 50px;
+    padding: 50px 100px;
     transition-duration: .4s;
 
 `

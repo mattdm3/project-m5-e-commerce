@@ -107,6 +107,10 @@ const SideAndGrid = styled.div`
     padding: 0 100px; 
     justify-content: flex-start; 
 
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
+
 `
 const GridContainer = styled.div`
     /* display: flex; */

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Category from "../Category/Category";
 
 
 const categories = [
@@ -25,11 +26,14 @@ const Sidebar = () => {
                 <StyledInput placeholder="Search Products..." />
                 <button>Go</button>
             </StyledForm>
-            {categories.map(category => {
-                return (
-                    <NavigationLink to={`/category/${category}`}><div>{category}</div></NavigationLink>
-                )
-            })}
+            <CategoriesContainer>
+                {categories.map(category => {
+                    return (
+
+                        <div to={`/category/${category}`}><div>{category}</div></div>
+                    )
+                })}
+            </CategoriesContainer>
 
         </SidebarContainer>
     )
@@ -40,6 +44,16 @@ const Sidebar = () => {
 const NavigationLink = styled(NavLink)` 
     text-decoration: none;
     color: black;
+`
+
+const CategoriesContainer = styled.div`
+    display: flex; 
+    flex-direction: column;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: row;
+        flex-wrap: wrap; 
+    }
 `
 
 const StyledForm = styled.form`
@@ -68,7 +82,12 @@ const StyledInput = styled.input`
 
 const SidebarContainer = styled.div`
     width: 25%; 
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
 `
+
 
 
 export default Sidebar;
