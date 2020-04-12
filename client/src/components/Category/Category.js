@@ -67,7 +67,7 @@ const GridContainer = styled.div`
     /* flex-direction: column;  */
     padding: 0 75px;
     margin-top: 120px;
-    background: #FAFAFA;
+    background: #FFFFFF;
     width: 100%;
 `
 const GridWrapper = styled.div`
@@ -77,4 +77,7 @@ const GridWrapper = styled.div`
     /* grid-template-rows: repeat(3, 1fr); */
     grid-column-gap: 30px;
     grid-row-gap: 30px;
+    a{
+        color: #333333;
+    }
 `

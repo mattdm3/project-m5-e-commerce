@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 //data file for items
 const items = require('./data/items.json');
-const { handleItemId, handleItemsData, handleCategory } = require('./handlers');
+const { handleItemId, handleItemsData, handleCategory, handleCompany, handleSellers } = require('./handlers');
 
 const PORT = 4000;
 
@@ -39,6 +39,12 @@ app.get('/items', handleItemsData)
 app.get('/items/:id', handleItemId)
 //Category 
 app.get('/category/:category', handleCategory)
+//Selected Company
+app.get('/sellers/:companyId', handleCompany)
+//list of sellers
+app.get('/sellers', handleSellers)
+
+
 
 
 

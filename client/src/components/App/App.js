@@ -14,6 +14,7 @@ import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
+import AllSellers from "../AllSellers"
 //---------------------------------------
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -41,13 +42,16 @@ function App() {
 
 
   return (
-
-
     <>
       <Router>
         <GlobalStyles />
         <Navbar />
+<<<<<<< HEAD
         <Sidebar></Sidebar>
+=======
+
+        {/* <Sidebar></Sidebar> */}
+>>>>>>> master
         <Switch>
           <Route exact path="/">
             <ItemGrid></ItemGrid>
@@ -60,6 +64,9 @@ function App() {
           </Route>
           <Route exact path="/sellers/:companyId">
             <Sellers></Sellers>
+          </Route>
+          <Route exact path='/sellers'>
+            <AllSellers />
           </Route>
         </Switch>
       </Router>
