@@ -30,7 +30,7 @@ const Sidebar = () => {
                 {categories.map(category => {
                     return (
 
-                        <div to={`/category/${category}`}><div>{category}</div></div>
+                        <NavLink exact to={`/category/${category}`}><div>{category}</div></NavLink>
                     )
                 })}
             </CategoriesContainer>
