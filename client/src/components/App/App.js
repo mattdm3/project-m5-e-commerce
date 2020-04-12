@@ -21,13 +21,12 @@ function App() {
 
 
   return (
-
-
     <>
 
       <Router>
         <GlobalStyles />
         <Navbar />
+
         {/* <Sidebar></Sidebar> */}
         <Switch>
           <Route exact path="/">

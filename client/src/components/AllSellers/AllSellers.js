@@ -24,7 +24,7 @@ const AllSellers = () => {
                 return (
                     <ContentContainer>
                         <a key={company.name} href={company.url} target="_blank">{company.name}</a>
-                        <Link to='/'>
+                        <Link to={`/sellers/${company.companyId}`}>
                             <p>see products</p>
                         </Link>
                     </ContentContainer>
@@ -33,18 +33,26 @@ const AllSellers = () => {
                 )
 
             })}
-        </CompanyContainer >
+        </CompanyContainer>
     )
 }
 
 const CompanyContainer = styled.div`
     display: flex; 
+    justify-content: space-between; 
     flex-wrap: wrap; 
     padding: 0 100px; 
     margin: 50px 45px; 
     text-align: center; 
 
+`
 
+const ContentContainer = styled.div`
+    opacity: .7; 
+    transition-duration: 500ms;     
+    margin-bottom: 30px; 
+    display: flex; 
+    flex-direction: column; 
 
     a {
         margin: 5px 45px; 
@@ -54,30 +62,20 @@ const CompanyContainer = styled.div`
         font-size: 1.8rem; 
         opacity: .6; 
         font-weight: 700; 
-        
-        font-family: "Roboto";
-
-        
+   
     }
     p{ 
         margin: 0; 
-        padding: 0; 
+        padding: 0;
+        font-size: 1rem; 
+        text-align: center;  
     }
-
-
-
-`
-
-const ContentContainer = styled.div`
-    opacity: .7; 
-    transition-duration: 500ms;     
-    margin-bottom: 20px; 
-
     &:hover {
             opacity: 1; 
             transform: scale(1.1); 
-
         }
+
+    
 `
 
 export default AllSellers; 
