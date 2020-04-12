@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, Link } from "react-router-dom"
 
+import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../actions';
 import itemsReducer from '../../reducers/items-reducer';
@@ -52,4 +53,4 @@ const Item = () => {
 }
 
 
-export default Item; 
+export default connect(null, { addItem })(Item); 

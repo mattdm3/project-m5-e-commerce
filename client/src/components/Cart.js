@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getStoreItemArray } from '../reducers/cart-reducer';
+// import { getStoreItemArray } from '../reducers/cart-reducer';
 
 
 // ------------ COMPONENTS ------------
@@ -12,8 +12,8 @@ import CartItem from './CartItem';
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
 const Cart = () => {
-    const state = useSelector(getStoreItemArray);
-    console.log('~~ state Cart.js ~~ ', state);
+    // const state = useSelector(getStoreItemArray);
+    // console.log('~~ state Cart.js ~~ ', state);
     return (
         <Wrapper>
             <Container>

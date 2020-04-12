@@ -1,10 +1,13 @@
 
-const initialState = {};
+const initialState = {
+    cartCounter: 0
+}
 
 export default function cartReducer(state = initialState, action) {
     switch (action.type) {
         case 'ADD_ITEM': {
             return {
+                // cartCounter: this.cartCounter + 1,
                 ...state,
                 [action.item.id]: {
                     ...action.item,
@@ -22,5 +25,7 @@ export default function cartReducer(state = initialState, action) {
     }
 }
 
-// getStoreItemArray is the array of objects coming from the back-end
-export const getStoreItemArray = state => Object.values(state);
+
+// useSelector
+// if no stock no add to cart
+// POST to change quantity
