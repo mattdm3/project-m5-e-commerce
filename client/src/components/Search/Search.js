@@ -24,12 +24,15 @@ const Search = () => {
 
         //on any Category endpoint
         if (location[1] === "category") {
+            //grab the actual category for the ur - ex: Fitness.
             let categoryName = location[2];
+            //filter data and return only those items.
             let filteredCategoryItems = allData.filter(item => {
                 if (categoryName == item.category) {
                     return item;
                 }
             })
+            //now the search will only work for those items. 
             let matchedResults = filteredCategoryItems.filter(item => {
                 if (item.name.toLowerCase().includes(type.toLowerCase()) && type.length > 3) {
                     return item
@@ -37,7 +40,7 @@ const Search = () => {
             })
             setResults(matchedResults)
         }
-        //on the '/' endpoint - this endpoint will always have a length of 2.
+        //if if anything but the category - you are searching for all keywords. 
         else {
             let matchedResults = allData.filter(item => {
                 if (item.name.toLowerCase().includes(type.toLowerCase()) && type.length > 3) {
@@ -63,12 +66,27 @@ const Search = () => {
         <button>Go</button>
         {results !== null && <div>
             {results.map(result => {
+
+                let getIndex = result.name.toLowerCase().indexOf(type.toLowerCase())
+                let word = result.name.split('');
+                let typeLength = type.split('').length;
+                let firstHalf = word.slice(0, getIndex);
+                let bolded = word.slice(getIndex, typeLength + getIndex)
+                let secondHalf = word.slice(typeLength + getIndex, word.length)
+                console.log(firstHalf)
+                console.log(bolded)
+                console.log(secondHalf)
+
                 return (
-                    <ul>
-                        <EachList onClick={() => handlePushItem(result.id)}>
-                            {result.name}
-                        </EachList>
-                    </ul>
+                    <div>
+                        <ul>
+                            <EachList onClick={() => handlePushItem(result.id)}>
+                                {firstHalf}
+                                <Strong>{bolded}</Strong>
+                                {secondHalf}
+                            </EachList>
+                        </ul>
+                    </div>
                 )
             })}
         </div>}
@@ -108,3 +126,8 @@ cursor: pointer;
     background-color: pink;
 }
 `
+
+const Strong = styled.strong`
+font-weight: bolder;
+
+` 

@@ -46,12 +46,8 @@ function App() {
       <Router>
         <GlobalStyles />
         <Navbar />
-<<<<<<< HEAD
-        <Sidebar></Sidebar>
-=======
 
-        {/* <Sidebar></Sidebar> */}
->>>>>>> master
+        <Sidebar></Sidebar>
         <Switch>
           <Route exact path="/">
             <ItemGrid></ItemGrid>
