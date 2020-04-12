@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useSelector } from 'react-redux';
-// import { getStoreItemArray } from '../reducers/cart-reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { itemsSelector } from '../reducers/cart-reducer';
+import { clearCart } from '../actions';
 
 
 // ------------ COMPONENTS ------------
-import Items from './Item/Item';
 import CartItem from './CartItem';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
-const Cart = () => {
-    // const state = useSelector(getStoreItemArray);
+const Cart = (props) => {
+    const dispatch = useDispatch();
+
+    const state = useSelector(state => itemsSelector(state.cartState));
     // console.log('~~ state Cart.js ~~ ', state);
     return (
         <Wrapper>
@@ -27,7 +29,7 @@ const Cart = () => {
                 </Details>
             </Container>
             <Bordered>
-                {/* {state.map((item) => <CartItem key={item} {...item}/>)} */}
+                {state.map((item) => <CartItem key={item.id} {...item}/>)}
             </Bordered>
             <Total>
                 <GreyP>Shipping:</GreyP>
@@ -35,6 +37,7 @@ const Cart = () => {
                 <GreyP>Total Calculated:</GreyP>
                 <p style={{ margin: "0 20px" }}>Total Calculated</p>
             </Total>
+            <button onClick={() => dispatch(clearCart(props.item))}>Clear Cart</button>
         </Wrapper>
     )
 };

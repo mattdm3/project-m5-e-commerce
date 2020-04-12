@@ -4,6 +4,6 @@ import cartReducer from './cart-reducer';
 
 export default combineReducers({ 
     cartState: cartReducer,
-    items, cartReducer, 
+    items, 
 });
 

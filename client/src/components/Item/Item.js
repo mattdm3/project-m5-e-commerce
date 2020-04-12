@@ -43,7 +43,7 @@ const Item = () => {
                 <div><Link to={`/sellers/${itemInfo.companyId}`}>Click for Seller Details</Link></div>
                 <button
                     onClick={() =>
-                        dispatch(addItem({ itemInfo }))}>
+                        dispatch(addItem( itemInfo ))}>
                     Add to cart</button>
             </div> :
             // add spinner loading.

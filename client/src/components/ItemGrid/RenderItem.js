@@ -3,6 +3,7 @@ import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi"
+import { addItem } from '../../actions';
 
 
 const RenderItem = ({ item }) => {
@@ -18,7 +19,8 @@ const RenderItem = ({ item }) => {
 
         <DescriptionContainer>
             <Price>{item.price}</Price>
-            <StyledBuyBtn>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
+            <StyledBuyBtn onClick={() =>
+                        dispatch(addItem( item ))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
         </DescriptionContainer>
 
     </ImageContainer>
