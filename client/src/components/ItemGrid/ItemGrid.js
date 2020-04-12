@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
+import SortDropdown from "../SortDropdown/index"
 
 const ItemGrid = () => {
 
     let [pageCount, setPageCounter] = useState(1);
     let [state, setState] = useState(null);
+    let [sortState, setSortState] = useState(null)
 
     const [itemDescription, setItemDescription] = useState([
         { "value": false },
@@ -28,17 +30,21 @@ const ItemGrid = () => {
 
 
         //add logic to check to when page is 0 or max pages.
-        fetch(`/items?page=${pageCount}&limit=9`)
+        fetch(`/items?page=${pageCount}&limit=9&val=${sortState}`)
             .then(res => res.json())
             .then(data =>
                 setState(data));
 
 
-    }, [pageCount]);
-
+    }, [pageCount, sortState]);
+    const test = (val) => {
+        console.log("testing exportFilter", val)
+        setSortState(val.key)
+    }
 
     return (
         <>
+            <SortDropdown exportFilter={(val) => test(val)}></SortDropdown>
             {state !== null &&
                 <GridContainer>
                     <GridWrapper>
@@ -72,6 +78,7 @@ const ItemGrid = () => {
                       </button>
                 </GridContainer>
             }
+
         </>
     )
 };

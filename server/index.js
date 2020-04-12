@@ -20,6 +20,14 @@ const handleItemsData = (req, res) => {
   res.send(slicedItems)
 }
 
+const handleSorting = (req, res) => {
+
+  
+  let slicedItems = items.slice(firstIndex, endIndex)
+  //will send back 9 items.
+  res.send(slicedItems)
+}
+
 
 
 
