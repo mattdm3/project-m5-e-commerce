@@ -33,6 +33,7 @@ const Category = () => {
         //on change of the category params, this will re-fetch. 
         //try to reuse ItemGrid component?
     }, [category, pageCount])
+
     return (<React.Fragment>
         {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
             <GridWrapper>

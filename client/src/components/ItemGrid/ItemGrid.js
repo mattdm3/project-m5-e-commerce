@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     addItem,
     requestItemData, receivedItemData, receivedItemDataError,
-    receiveAllDataFromDataBase, requestAllDataFromDataBase, receiveAllDataFromDataBaseError,
 } from '../../actions';
 import Sidebar from '../Sidebar'
 
@@ -16,20 +15,9 @@ const ItemGrid = () => {
     //for state of item reducer.
     //also has the status - can be used for loading states. 
     const currentItems = useSelector(itemState => itemState.items);
+    console.log(currentItems)
 
     let [pageCount, setPageCounter] = useState(1);
-
-    //Fetch ALL data. 
-    useEffect(() => {
-
-        dispatch(requestAllDataFromDataBase())
-        fetch('/allItemData')
-            .then(res => res.json())
-            .then(data => dispatch(receiveAllDataFromDataBase(data)))
-            .catch(() => dispatch(receiveAllDataFromDataBaseError()))
-
-    }, [])
-
 
 
     //Once app renders 
@@ -69,7 +57,7 @@ const ItemGrid = () => {
     return (
         <>
             <SideAndGrid>
-                <Sidebar />
+                {/* <Sidebar /> */}
                 {currentItems.items !== null && currentItems.status == 'success' ?
                     <GridContainer>
                         <GridWrapper>
@@ -77,7 +65,7 @@ const ItemGrid = () => {
                                 return (
                                     <Link to={`/item/${item.id}`}>
                                         {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
-                                        <RenderItem item={item}></RenderItem>
+                                        <RenderItem key={item.id} item={item}></RenderItem>
                                     </Link>
                                     // >>>>>>> master
                                     // >>>>>>> master

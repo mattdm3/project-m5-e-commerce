@@ -17,6 +17,8 @@ const Item = () => {
 
     //state to hold item information. 
     const [itemInfo, setItemInfo] = useState(null);
+
+    console.log(itemInfo)
     useEffect(() => {
         //fetching from backend.
         fetch(`/items/${id}`, {
@@ -28,7 +30,8 @@ const Item = () => {
         })
             .then(res => (res.json()))
             .then(data => setItemInfo(data))
-    }, []);
+
+    }, [id]);
 
 
 

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Search from '../Search/Search';
+import { useSelector } from 'react-redux';
+
+
 
 
 const categories = [
@@ -16,15 +20,13 @@ const categories = [
 
 const Sidebar = () => {
 
-    let [categoryState, setCategoryState] = useState(null);
-
+    const allDataFetchSuccess = useSelector(items => items.dataItems.status)
 
     return (
         <SidebarContainer>
-            <StyledForm>
-                <StyledInput placeholder="Search Products..." />
-                <button>Go</button>
-            </StyledForm>
+            {/* Search Bar */}
+            {allDataFetchSuccess === 'success' && <Search></Search>}
+
             {categories.map(category => {
                 return (
                     <NavigationLink to={`/category/${category}`}><div>{category}</div></NavigationLink>
@@ -36,34 +38,9 @@ const Sidebar = () => {
 }
 
 //--------------------------------- STYLES ---------------------------------
-
 const NavigationLink = styled(NavLink)` 
     text-decoration: none;
     color: black;
-`
-
-const StyledForm = styled.form`
-    position: relative; 
-    margin-bottom: 80px; 
-    
-    button {
-        border: none; 
-        background: none; 
-        font-size: 1rem; 
-        position: absolute;
-        right: 5px;
-        top: 11px;   
-    }
-`
-
-const StyledInput = styled.input`
- width: 100%; 
- height: 45px; 
- font-size: .9rem;
- border: none; 
- background: #EEEEEE; 
- padding: 0 5px; 
-
 `
 
 const SidebarContainer = styled.div`

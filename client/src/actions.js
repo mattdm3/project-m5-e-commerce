@@ -20,7 +20,9 @@ export const clearCart = () => ({
     type: 'CLEAR_CART',
 });
 
-//ITEM DATA ACTIONS
+
+
+//ITEM DATA ACTIONS - PAGINATION (9 ITEMS AT A ITME)
 
 export const requestItemData = () => ({
     type: 'REQUEST_ITEMS',
@@ -33,4 +35,23 @@ export const receivedItemData = (data) => ({
 
 export const receivedItemDataError = () => ({
     type: 'RECEIVED_ITEMS_ERROR',
+})
+
+
+
+
+//GET ALL DATA FROM DATABASE
+
+export const requestAllDataFromDataBase = () => ({
+    type: 'REQUEST_ALL_DATA',
+
+})
+export const receiveAllDataFromDataBase = (allData) => ({
+    type: 'RECEIVE_ALL_DATA',
+    allData
+
+})
+export const receiveAllDataFromDataBaseError = (allData) => ({
+    type: 'RECEIVE_ALL_DATA_ERROR',
+
 })
