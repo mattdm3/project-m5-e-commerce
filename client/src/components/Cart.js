@@ -19,7 +19,7 @@ const Cart = (props) => {
     const total = useSelector(state => cartTotalSelector(state.cartState));
     const cartState = useSelector(state => state.cartState);
     const inventoryState = useSelector(state => state.inventoryReducer);
-    
+
     const handleInventory = (event) => {
         dispatch(updateStock(cartState));
         //POST
@@ -39,7 +39,7 @@ const Cart = (props) => {
                 </Details>
             </Container>
             <Bordered>
-                {state.map((item) => <CartItem key={item.id} {...item}/>)}
+                {state.map((item) => <CartItem key={item.id} {...item} />)}
             </Bordered>
             <Total>
                 <GreyP>Shipping:</GreyP>

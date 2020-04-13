@@ -8,6 +8,7 @@ import { addItem } from '../../actions';
 // import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
 import { PageContainer } from '../CONSTANTS';
+import RelatedItems from './RelatedItems';
 
 const Item = () => {
     const [itemInfo, setItemInfo] = useState(null);
@@ -24,20 +25,22 @@ const Item = () => {
     console.log(itemInfo)
 
     useEffect(() => {
-        //fetching from backend.
-        fetch(`/items/${id}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            },
-        })
-            .then(res => (res.json()))
-            // <<<<<<< searchBar-2-manny
-            .then(data => {
-                setItemInfo(data);
-                setLoaded(true);
+
+        const handleItemDetailInfo = async () => {
+
+            let responseId = await fetch(`/items/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
             })
+            let idInfo = await responseId.json();
+            setItemInfo(idInfo)
+            setLoaded(true)
+
+        }
+        handleItemDetailInfo();
     }, [id]);
 
     if (!loaded) {
@@ -87,6 +90,7 @@ const Item = () => {
                             </Column>
 
                         </Row>
+                        {itemInfo !== null && <RelatedItems itemInfo={itemInfo}></RelatedItems>}
                     </FlexContainer> :
 
 
@@ -131,8 +135,16 @@ const TitleContainer = styled.div`
 
 
 const Row = styled.div`
+
+@media only screen and (min-width: 1025px) {
     display: flex; 
     justify-content: center; 
+
+}
+@media only screen and (max-width: 1024px) {
+
+}
+   
     
 
 `
@@ -161,11 +173,23 @@ const Column = styled.div`
     p {
         font-size: 1.3rem; 
     }
+
     `
 
 const CartButtonContainer = styled.div`
+@media only screen and (min-width: 1025px) {
+
     display: flex; 
     margin: 50px 0; 
+}
+
+
+@media only screen and (max-width: 1024px) {
+    display: grid;
+    
+
+
+}
     
     
 `
