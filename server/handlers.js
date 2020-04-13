@@ -2,7 +2,9 @@
 const items = require('./data/items.json');
 const companies = require('./data/companies.json');
 
-
+const handleAllData = (req, res) => {
+    res.status(200).send(items)
+}
 
 //handle clicking on a category
 const handleCategory = (req, res) => {
@@ -76,4 +78,4 @@ const handleSellers = (req, res) => {
 
 
 
-module.exports = { handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
+module.exports = { handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };

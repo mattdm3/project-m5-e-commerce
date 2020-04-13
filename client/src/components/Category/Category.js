@@ -35,37 +35,23 @@ const Category = () => {
         //on change of the category params, this will re-fetch. 
         //try to reuse ItemGrid component?
     }, [category, pageCount])
-// <<<<<<< searchBar-2-manny
+    // <<<<<<< searchBar-2-manny
 
-    return (<React.Fragment>
-        {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
-            <GridWrapper>
-                {currentItems.items.map(item => {
-                    return <Link to={`/item/${item.id}`}>
-                        <RenderItem item={item}></RenderItem>
-                    </Link>
 
-                })}
-            </GridWrapper>
-            <button onClick={() => setPageCounter(pageCount += 1)}>
-                Next page
-=======
-//     return (
-//         <React.Fragment>
-//             <SideAndGrid>
-//                 <Sidebar />
-//                 {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
-//                     <GridWrapper>
-//                         {currentItems.items.map(item => {
-//                             return <Link to={`/item/${item.id}`}>
-//                                 <RenderItem item={item}></RenderItem>
-//                             </Link>
-
-//                         })}
-//                     </GridWrapper>
-//                     <button onClick={() => setPageCounter(pageCount += 1)}>
-//                         Next page
-// >>>>>>> master
+    return (
+        <React.Fragment>
+            <SideAndGrid>
+                <Sidebar />
+                {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
+                    <GridWrapper>
+                        {currentItems.items.map(item => {
+                            return <Link to={`/item/${item.id}`}>
+                                <RenderItem item={item}></RenderItem>
+                            </Link>
+                        })}
+                    </GridWrapper>
+                    <button onClick={() => setPageCounter(pageCount += 1)}>
+                        Next page
                       </button>
                     <button onClick={() => setPageCounter(pageCount -= 1)}>
                         Previous

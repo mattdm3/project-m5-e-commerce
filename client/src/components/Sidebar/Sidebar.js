@@ -20,24 +20,19 @@ const categories = [
 
 const Sidebar = () => {
 
-    const allDataFetchSuccess = useSelector(items => items.dataItems.status)
+    const allDataFetchSuccess = useSelector(items => items.dataItems.status);
+
+    console.log(allDataFetchSuccess)
 
     return (
         <SidebarContainer>
-// <<<<<<< searchBar-2-manny
-//             {/* Search Bar */}
-//             {allDataFetchSuccess === 'success' && <Search></Search>}
 
-//             {categories.map(category => {
-//                 return (
-//                     <NavigationLink to={`/category/${category}`}><div>{category}</div></NavigationLink>
-//                 )
-//             })}
-// =======
-            <StyledForm>
+
+            {allDataFetchSuccess === 'success' && <Search></Search>}
+            {/* <StyledForm>
                 <StyledInput placeholder="Search Products..." />
-                {/* <button>Go</button> */}
-            </StyledForm>
+            </StyledForm> */}
+
             <PriceSortContainer>
                 <SidebarHeading>Filter By Price</SidebarHeading>
                 <SidebarBody>$ 0-100</SidebarBody>
@@ -54,7 +49,7 @@ const Sidebar = () => {
                 })}
                 <NavigationLink exact to="/"><SidebarBody>All Items</SidebarBody></NavigationLink>
             </CategoriesContainer>
-// >>>>>>> master
+
 
         </SidebarContainer>
     )
@@ -62,79 +57,79 @@ const Sidebar = () => {
 
 //--------------------------------- STYLES ---------------------------------
 
-=======
+
 
 const PriceSortContainer = styled.div`
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
 
 `
 
 const SidebarBody = styled.p`
         /* padding: 0;  */
-        margin: 5px 0; 
-        font-size: .9rem;  
+        margin: 5px 0;
+        font-size: .9rem;
 
         &:hover {
-            opacity: .7; 
+            opacity: .7;
         }
-     
+
 `
 
 // >>>>>>> master
-const NavigationLink = styled(NavLink)` 
+const NavigationLink = styled(NavLink)`
     text-decoration: none;
     color: black;
 `
 
 
-=======
+
 
 const SidebarHeading = styled.h3`
     font-size: .9rem;
-    margin: 15px 0; 
+    margin: 15px 0;
     font-weight: 600;
     text-transform: uppercase;
 `
 
 const CategoriesContainer = styled.div`
-    display: flex; 
+    display: flex;
     flex-direction: column;
 
     @media screen and (max-width: 768px) {
         flex-direction: row;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
     }
 `
 
 const StyledForm = styled.form`
-    position: relative; 
-    margin-bottom: 80px; 
-    
+    position: relative;
+    margin-bottom: 80px;
+
     button {
-        border: none; 
-        background: none; 
-        font-size: 1rem; 
+        border: none;
+        background: none;
+        font-size: 1rem;
         position: absolute;
         right: 5px;
-        top: 11px;   
+        top: 11px;
     }
 `
 
 const StyledInput = styled.input`
-    width: 100%; 
-    height: 45px; 
+    width: 100%;
+    height: 45px;
     font-size: .9rem;
-    border: none; 
-    background: #EEEEEE; 
-    padding: 0 5px; 
+    border: none;
+    background: #EEEEEE;
+    padding: 0 5px;
 
 `
 
 
 const SidebarContainer = styled.div`
-    margin-top: 30px; 
-    width: 25%; 
+    margin-top: 30px;
+    width: 25%;
 
     @media screen and (max-width: 768px) {
         width: 100%;

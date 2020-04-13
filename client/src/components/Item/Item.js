@@ -5,24 +5,20 @@ import { useParams, Link } from "react-router-dom"
 import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
-import itemsReducer from '../../reducers/items-reducer';
+// import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
 
 const Item = () => {
     const [itemInfo, setItemInfo] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const inCart = useSelector(state => isInCartSelector(state.cartState, itemInfo ? itemInfo.id : undefined));
-    
+
     const dispatch = useDispatch();
 
     const { id } = useParams();
 
 
     console.log('INSIDE ITEM')
-
-// <<<<<<< searchBar-2-manny
-    //state to hold item information. 
-    const [itemInfo, setItemInfo] = useState(null);
 
     console.log(itemInfo)
 
@@ -36,17 +32,12 @@ const Item = () => {
             },
         })
             .then(res => (res.json()))
-// <<<<<<< searchBar-2-manny
-            .then(data => setItemInfo(data))
-
+            // <<<<<<< searchBar-2-manny
+            .then(data => {
+                setItemInfo(data);
+                setLoaded(true);
+            })
     }, [id]);
-// =======
-//             .then(data => {
-//                 setItemInfo(data);
-//                 setLoaded(true);
-//             })
-//     }, []);
-// >>>>>>> master
 
     if (!loaded) {
         return null
@@ -62,9 +53,9 @@ const Item = () => {
                 <div><Link to={`/sellers/${itemInfo.companyId}`}>Click for Seller Details</Link></div>
                 {!inCart && <button
                     onClick={() =>
-                        dispatch(addItem( itemInfo ))}>
+                        dispatch(addItem(itemInfo))}>
                     Add to cart</button>}
-                    {inCart && <p>Already in cart</p>}
+                {inCart && <p>Already in cart</p>}
             </div> :
             // add spinner loading.
             <div>LOADING</div>}

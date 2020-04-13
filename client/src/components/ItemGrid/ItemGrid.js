@@ -8,11 +8,11 @@ import {
     addItem,
     requestItemData, receivedItemData, receivedItemDataError,
 } from '../../actions';
-import Sidebar from '../Sidebar'
+
 // =======
 // import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
-// import Sidebar from '../Sidebar';
-// import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS';
+import Sidebar from '../Sidebar';
+import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS';
 
 // >>>>>>> master
 
@@ -64,7 +64,7 @@ const ItemGrid = () => {
     return (
         <>
             <SideAndGrid>
-                {/* <Sidebar /> */}
+                <Sidebar />
                 {currentItems.items !== null && currentItems.status == 'success' ?
                     <GridContainer>
                         <GridWrapper>
