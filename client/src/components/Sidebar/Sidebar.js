@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-import Category from "../Category/Category";
+import Search from '../Search/Search';
+import { useSelector } from 'react-redux';
+
+
 
 
 const categories = [
@@ -17,11 +20,20 @@ const categories = [
 
 const Sidebar = () => {
 
-    let [categoryState, setCategoryState] = useState(null);
-
+    const allDataFetchSuccess = useSelector(items => items.dataItems.status)
 
     return (
         <SidebarContainer>
+// <<<<<<< searchBar-2-manny
+//             {/* Search Bar */}
+//             {allDataFetchSuccess === 'success' && <Search></Search>}
+
+//             {categories.map(category => {
+//                 return (
+//                     <NavigationLink to={`/category/${category}`}><div>{category}</div></NavigationLink>
+//                 )
+//             })}
+// =======
             <StyledForm>
                 <StyledInput placeholder="Search Products..." />
                 {/* <button>Go</button> */}
@@ -42,12 +54,15 @@ const Sidebar = () => {
                 })}
                 <NavigationLink exact to="/"><SidebarBody>All Items</SidebarBody></NavigationLink>
             </CategoriesContainer>
+// >>>>>>> master
 
         </SidebarContainer>
     )
 }
 
 //--------------------------------- STYLES ---------------------------------
+
+=======
 
 const PriceSortContainer = styled.div`
     display: flex; 
@@ -66,11 +81,14 @@ const SidebarBody = styled.p`
      
 `
 
+// >>>>>>> master
 const NavigationLink = styled(NavLink)` 
     text-decoration: none;
     color: black;
 `
 
+
+=======
 
 const SidebarHeading = styled.h3`
     font-size: .9rem;
@@ -112,6 +130,7 @@ const StyledInput = styled.input`
     padding: 0 5px; 
 
 `
+
 
 const SidebarContainer = styled.div`
     margin-top: 30px; 

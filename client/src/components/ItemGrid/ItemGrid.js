@@ -3,10 +3,18 @@ import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
-import Sidebar from '../Sidebar';
-import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS';
+// <<<<<<< searchBar-2-manny
+import {
+    addItem,
+    requestItemData, receivedItemData, receivedItemDataError,
+} from '../../actions';
+import Sidebar from '../Sidebar'
+// =======
+// import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
+// import Sidebar from '../Sidebar';
+// import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS';
 
+// >>>>>>> master
 
 const ItemGrid = () => {
     const dispatch = useDispatch();
@@ -14,9 +22,9 @@ const ItemGrid = () => {
     //for state of item reducer.
     //also has the status - can be used for loading states. 
     const currentItems = useSelector(itemState => itemState.items);
+    console.log(currentItems)
 
     let [pageCount, setPageCounter] = useState(1);
-
 
 
     //Once app renders 
@@ -38,8 +46,6 @@ const ItemGrid = () => {
             //change for modal
             window.alert(pageCount + 'This page does not exist.')
         }
-
-
     }, [pageCount]);
 
     //function that will handle page directing. 
@@ -58,7 +64,7 @@ const ItemGrid = () => {
     return (
         <>
             <SideAndGrid>
-                <Sidebar />
+                {/* <Sidebar /> */}
                 {currentItems.items !== null && currentItems.status == 'success' ?
                     <GridContainer>
                         <GridWrapper>
@@ -66,7 +72,7 @@ const ItemGrid = () => {
                                 return (
                                     <Link to={`/item/${item.id}`}>
                                         {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
-                                        <RenderItem item={item}></RenderItem>
+                                        <RenderItem key={item.id} item={item}></RenderItem>
                                     </Link>
                                     // >>>>>>> master
                                     // >>>>>>> master

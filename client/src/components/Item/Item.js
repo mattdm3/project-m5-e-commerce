@@ -20,6 +20,12 @@ const Item = () => {
 
     console.log('INSIDE ITEM')
 
+// <<<<<<< searchBar-2-manny
+    //state to hold item information. 
+    const [itemInfo, setItemInfo] = useState(null);
+
+    console.log(itemInfo)
+
     useEffect(() => {
         //fetching from backend.
         fetch(`/items/${id}`, {
@@ -30,11 +36,17 @@ const Item = () => {
             },
         })
             .then(res => (res.json()))
-            .then(data => {
-                setItemInfo(data);
-                setLoaded(true);
-            })
-    }, []);
+// <<<<<<< searchBar-2-manny
+            .then(data => setItemInfo(data))
+
+    }, [id]);
+// =======
+//             .then(data => {
+//                 setItemInfo(data);
+//                 setLoaded(true);
+//             })
+//     }, []);
+// >>>>>>> master
 
     if (!loaded) {
         return null

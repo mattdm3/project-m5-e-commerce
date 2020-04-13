@@ -35,21 +35,37 @@ const Category = () => {
         //on change of the category params, this will re-fetch. 
         //try to reuse ItemGrid component?
     }, [category, pageCount])
-    return (
-        <React.Fragment>
-            <SideAndGrid>
-                <Sidebar />
-                {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
-                    <GridWrapper>
-                        {currentItems.items.map(item => {
-                            return <Link to={`/item/${item.id}`}>
-                                <RenderItem item={item}></RenderItem>
-                            </Link>
+// <<<<<<< searchBar-2-manny
 
-                        })}
-                    </GridWrapper>
-                    <button onClick={() => setPageCounter(pageCount += 1)}>
-                        Next page
+    return (<React.Fragment>
+        {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
+            <GridWrapper>
+                {currentItems.items.map(item => {
+                    return <Link to={`/item/${item.id}`}>
+                        <RenderItem item={item}></RenderItem>
+                    </Link>
+
+                })}
+            </GridWrapper>
+            <button onClick={() => setPageCounter(pageCount += 1)}>
+                Next page
+=======
+//     return (
+//         <React.Fragment>
+//             <SideAndGrid>
+//                 <Sidebar />
+//                 {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
+//                     <GridWrapper>
+//                         {currentItems.items.map(item => {
+//                             return <Link to={`/item/${item.id}`}>
+//                                 <RenderItem item={item}></RenderItem>
+//                             </Link>
+
+//                         })}
+//                     </GridWrapper>
+//                     <button onClick={() => setPageCounter(pageCount += 1)}>
+//                         Next page
+// >>>>>>> master
                       </button>
                     <button onClick={() => setPageCounter(pageCount -= 1)}>
                         Previous

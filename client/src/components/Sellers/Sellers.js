@@ -10,6 +10,8 @@ const Sellers = () => {
     //Get the comapny - ID from the URL
     const { companyId } = useParams();
 
+    console.log(companyState)
+
 
     //as soon as this company gets rendered. Will do a fetch
     useEffect(() => {
@@ -55,8 +57,6 @@ export default Sellers;
 
 
 const Wrapper = styled.div`
-
-
 `
 
 const GridSellerWrapper = styled.div`

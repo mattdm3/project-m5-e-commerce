@@ -14,7 +14,7 @@ const RenderItem = ({ item }) => {
 
     const dispatch = useDispatch();
 
-    return (<ImageContainer key={item.id}>
+    return (<ImageContainer >
         {/* <div> {item.name.split(" ")[0]} </div> */}
         <img src={item.imageSrc} />
         <TitleContainer>

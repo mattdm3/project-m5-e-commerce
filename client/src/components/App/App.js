@@ -16,18 +16,38 @@ import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
 import AllSellers from "../AllSellers"
 //---------------------------------------
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  receiveAllDataFromDataBase,
+  requestAllDataFromDataBase,
+  receiveAllDataFromDataBaseError,
+} from '../../actions';
+
 
 function App() {
+
+  const dispatch = useDispatch();
+
+
+  //Fetch ALL data. 
+  useEffect(() => {
+    dispatch(requestAllDataFromDataBase())
+    fetch('/allItemData')
+      .then(res => res.json())
+      .then(data => dispatch(receiveAllDataFromDataBase(data)))
+      .catch(() => dispatch(receiveAllDataFromDataBaseError()))
+
+  }, [])
+
 
 
   return (
     <>
-
       <Router>
         <GlobalStyles />
         <Navbar />
 
-        {/* <Sidebar></Sidebar> */}
+        <Sidebar></Sidebar>
         <Switch>
           <Route exact path="/">
             <ItemGrid></ItemGrid>
@@ -45,7 +65,6 @@ function App() {
             <AllSellers />
           </Route>
         </Switch>
-
       </Router>
 
     </>
