@@ -8,139 +8,192 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useHistory
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
+import Contact from "./Contact";
+import Seller from "./Seller";
 //---------------------------------------
 
 
 const Navbar = () => {
+    const cartCounter = useSelector(state => state.cartState.cartCounter);
+    let history = useHistory();
+
+    const [navbar, setNavbar] = React.useState(false);
+
+    function toggleNavbar() {
+
+        if (navbar) {
+            setNavbar(false)
+        } else if (!navbar) {
+            setNavbar(true)
+        }
+
+    }
+
 
     return (
-        <Router>
-            <StyledNav>
-                <Link to="/">
-                    <Logo>
-                        <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
-                        <h3> Six Tech Gear</h3>
-                    </Logo>
-                </Link>
-                <StyledUl>
-                    <Link to="/"><NavList>Shop</NavList></Link>
-                    <Link to="/Seller"><NavList>Sellers</NavList></Link>
-                    <Link to="/Cart"><NavList>Cart</NavList></Link>
-                    <Link to="/Contact"><NavList>Contact</NavList></Link>
-                </StyledUl>
-                <Hamburger>&#9776;</Hamburger>
-            </StyledNav>
 
-            <ContentContainer>
-                <Switch>
-                    <Route path="/">
-                    {/* <Shop />  not made yet*/}
-                    </Route>
+        <StyledNav>
+            <NavigationLink exact to="/">
+                <Logo onClick={() => history.push('/')} >
+                    <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
+                    <h3>Six Tech Gear</h3>
+                </Logo>
+            </NavigationLink>
 
-                    <Route path="/Seller">
-                    {/* <Seller />  not made yet*/}
-                    </Route>
+            <HiddenNavigation style={(navbar) ? { transform: "translateX(-80vw)" } : {
+                transform: "translateX(-200vw)"
+            }}>
+                <OverlayMenu>
+                    <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
+                    <Link to="/projects"><li>Sellers</li></Link>
+                    <Link to="/services"><li>Cart</li></Link>
+                    <Link to="/contact"><li>Contact</li></Link>
+                </OverlayMenu>
 
-                    <Route path="/Cart">
-                    <Cart />
-                    </Route>
+            </HiddenNavigation>
 
-                    <Route path="/Contact">
-                    {/* <Contact />  not made yet*/}
-                    </Route>
-                </Switch>
-            </ContentContainer>
-        </Router>
+
+            <StyledUl>
+                <NavList>
+                    <NavigationLink exact to="/">Shop</NavigationLink>
+                </NavList>
+                <NavList>
+                    <NavigationLink exact to="/sellers">Sellers</NavigationLink>
+                </NavList>
+                <NavList>
+                    <NavigationLink exact to="/cart">Cart {cartCounter}</NavigationLink>
+                </NavList>
+                <NavList>
+                    <NavigationLink exact to="/contact">Contact</NavigationLink>
+                </NavList>
+            </StyledUl>
+            <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
+        </StyledNav>
+
+
     )
 }
 
 //--------------------------------- STYLES ---------------------------------
-//----- NavLink instead of a is to style a Link -----
-const NavigationLink = styled(NavLink)` 
 
+const NavigationLink = styled(NavLink)`
+    text-decoration: none;
+    color: black;
 `
 
 const Logo = styled.div`
-display: flex; 
+display: flex;
 align-items: center;
-padding-bottom: 10px; 
+padding-bottom: 10px;
 
 h3 {
-    font-weight: 700; 
-    
-    
-    
+font-weight: 700;
+
 }
 
 `
 //Maybe use  styled.nav  instead
 const StyledNav = styled.div`
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
-    padding: 50px 50px;
-    /* position: fixed;  */
-    background: #FAFAFA;
+    padding: 50px 100px;
     transition-duration: .4s;
-
-    /* h4, h3 {
-        padding: 0 40px; 
-    } */
-
-    /* @media screen and (min-width: 768px) {
-        padding: 15px 0; 
-    }
-    @media screen and (min-width: 992px) {
-        padding: 15px 0; 
-    } */
-
 
 `
 
+const HiddenNavigation = styled.div`
+    position: fixed; 
+    width: 100%;
+    height: 100vh; 
+    transition-duration: .7s;
+    top: 0; 
+    z-index: 100; 
+    background-color: #007C89;
+    
+
+`
+
+const OverlayMenu = styled.ul`
+    display: flex; 
+    align-items: flex-end;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    top: 0; 
+    background-color: #333333;
+    color: white; 
+    margin: 0; 
+    padding: 0;
+    width: 100%;
+    height: 100vh; 
+    z-index: 100; 
+    font-size: 1.2rem;
+    /* opacity: .9; */
+
+
+    li {
+        list-style: none;
+        font-weight: 700;
+        color: white; 
+    
+        margin: 5px 0; 
+        padding: 15px; 
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+        border-bottom: 3px solid #FDC600;
+        }
+    }
+
+`
 
 const StyledUl = styled.ul`
-    /* padding: 0 40px; */
-    display: flex; 
+    display: flex;
     justify-content: space-evenly;
     display: none;
-    padding-inline-start: 0; 
+    padding-inline-start: 0;
 
 
     @media screen and (min-width: 768px) {
-        display: flex;
+                    display: flex;
     }
     @media screen and (min-width: 992px) {
-        display: flex;
+                    display: flex;
     }
 
 `
 
 const Hamburger = styled.h2`
     position: fixed;
-    right: 0; 
+    right: 0;
     top: 0;
-    padding-right: 50px; 
-    padding-top: 50px; 
-    
+    padding-right: 50px;
+    padding-top: 50px;
+
     margin: 0;
     cursor: pointer;
-    
+
 
     @media screen and (min-width: 768px) {
-        display: none;
+                    display: none;
     }
 `
 
 const NavList = styled.li`
     list-style: none;
-    padding: 0 10px; 
-    padding-bottom:10px; 
+    padding: 0 10px;
+    padding-bottom:10px;
     /* margin: 0 10px;  */
     cursor: pointer;
     border-bottom: 3px solid transparent;

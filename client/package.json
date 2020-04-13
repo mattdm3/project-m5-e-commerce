@@ -15,8 +15,10 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-simple-chatbot": "^0.6.1",
     "react-spinners": "^0.8.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
