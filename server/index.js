@@ -9,6 +9,14 @@ const { handleItemId, handleItemsData, handleCategory, handleCompany, handleSell
 
 const PORT = 4000;
 
+/*items.forEach((element, index) => {
+
+    if (index < 20) {
+      console.log(" testing for each", element.price)    }
+
+  });*/
+
+
 
 
 var app = express()
@@ -45,6 +53,7 @@ app.get('/sellers/:companyId', handleCompany)
 app.get('/sellers', handleSellers)
 
 app.get('/allItemData', handleAllData)
+
 
 
 
