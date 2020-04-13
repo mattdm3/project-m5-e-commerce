@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import Cart from "../Cart";
 import Contact from "./Contact";
 import Seller from "./Seller";
+import { PageContainer } from "../CONSTANTS";
 //---------------------------------------
 
 
@@ -39,43 +40,45 @@ const Navbar = () => {
 
     return (
 
-        <StyledNav>
-            <NavigationLink exact to="/">
-                <Logo onClick={() => history.push('/')} >
-                    <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
-                    <h3>Six Tech Gear</h3>
-                </Logo>
-            </NavigationLink>
+        <PageContainer>
+            <StyledNav>
+                <NavigationLink exact to="/">
+                    <Logo onClick={() => history.push('/')} >
+                        <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
+                        <h3>Six Tech Gear</h3>
+                    </Logo>
+                </NavigationLink>
 
-            <HiddenNavigation style={(navbar) ? { transform: "translateX(-80vw)" } : {
-                transform: "translateX(-200vw)"
-            }}>
-                <OverlayMenu>
-                    <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
-                    <Link to="/projects"><li>Sellers</li></Link>
-                    <Link to="/services"><li>Cart</li></Link>
-                    <Link to="/contact"><li>Contact</li></Link>
-                </OverlayMenu>
+                <HiddenNavigation style={(navbar) ? { transform: "translateX(-80vw)" } : {
+                    transform: "translateX(-200vw)"
+                }}>
+                    <OverlayMenu>
+                        <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
+                        <Link to="/projects"><li>Sellers</li></Link>
+                        <Link to="/services"><li>Cart</li></Link>
+                        <Link to="/contact"><li>Contact</li></Link>
+                    </OverlayMenu>
 
-            </HiddenNavigation>
+                </HiddenNavigation>
 
 
-            <StyledUl>
-                <NavList>
-                    <NavigationLink exact to="/">Shop</NavigationLink>
-                </NavList>
-                <NavList>
-                    <NavigationLink exact to="/sellers">Sellers</NavigationLink>
-                </NavList>
-                <NavList>
-                    <NavigationLink exact to="/cart">Cart {cartCounter}</NavigationLink>
-                </NavList>
-                <NavList>
-                    <NavigationLink exact to="/contact">Contact</NavigationLink>
-                </NavList>
-            </StyledUl>
-            <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
-        </StyledNav>
+                <StyledUl>
+                    <NavList>
+                        <NavigationLink exact to="/">Shop</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink exact to="/sellers">Sellers</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink exact to="/cart">Cart {cartCounter}</NavigationLink>
+                    </NavList>
+                    <NavList>
+                        <NavigationLink exact to="/contact">Contact</NavigationLink>
+                    </NavList>
+                </StyledUl>
+                <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
+            </StyledNav>
+        </PageContainer>
 
 
     )
@@ -105,7 +108,7 @@ const StyledNav = styled.div`
     justify-content: space-between;
     width: 100%;
     align-items: center;
-    padding: 50px 100px;
+    padding: 50px 0;
     transition-duration: .4s;
 
 `
@@ -178,15 +181,14 @@ const Hamburger = styled.h2`
     position: fixed;
     right: 0;
     top: 0;
-    padding-right: 50px;
+    padding-right: 8rem;
     padding-top: 50px;
 
     margin: 0;
     cursor: pointer;
 
-
     @media screen and (min-width: 768px) {
-                    display: none;
+        display: none;
     }
 `
 

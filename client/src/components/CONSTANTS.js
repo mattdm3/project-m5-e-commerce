@@ -3,10 +3,13 @@ import styled from 'styled-components';
 
 export const SideAndGrid = styled.div`
     display: flex; 
-    margin-top: 120px; 
-    padding: 0 100px; 
+    
+    /* padding: 0 100px;  */
+    /* margin: 0 150px;  */
+    margin-top: 130px; 
     justify-content: space-between;
-    width: 100%;  
+    /* width: 100%;   */
+    border-top: 1px solid #333333; 
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
@@ -39,4 +42,19 @@ export const GridWrapper = styled.div`
     a {
         color: black;
     }
+`
+
+export const PageContainer = styled.div`
+    /* padding: 0 8rem;  */
+    width: 80%; 
+    margin-left: auto; 
+    margin-right: auto; 
+    position: relative; 
+`
+
+export const DropdownContainer = styled.div`
+ position: absolute; 
+ right: 0;
+ top: -30px; 
+ z-index: 5; 
 `
