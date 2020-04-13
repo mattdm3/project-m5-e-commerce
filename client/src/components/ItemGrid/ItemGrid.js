@@ -14,6 +14,8 @@ import {
 import Sidebar from '../Sidebar';
 import { SideAndGrid, GridContainer, GridWrapper, PageContainer, DropdownContainer } from '../CONSTANTS';
 
+import shopImage from '../../images/stock/shop-image.jpg'
+import Header from '../Header/Header'
 
 
 // >>>>>>> master
@@ -66,6 +68,10 @@ const ItemGrid = () => {
     return (
         <>
             <PageContainer>
+                <Header
+                    imgSrc={shopImage}
+                    heading="Our Products" />
+
                 <SortDropdown exportFilter={(val) => test(val)}></SortDropdown>
                 <SideAndGrid>
                     <Sidebar />
@@ -97,10 +103,10 @@ const ItemGrid = () => {
                             </ButtonWrapper>
                             {/* Search for for particular page? - is it necessary?*/}
                             {/* Missing Styling */}
-                            <form>
+                            {/* <form>
                                 <div>...current page: {pageCount}</div>
                                 <input type='text' onChange={handlePageFinder}></input>
-                            </form>
+                            </form> */}
                         </GridContainer> : <div>LOADING</div>
                     }
                 </SideAndGrid>
@@ -110,13 +116,15 @@ const ItemGrid = () => {
         </>
     )
 };
-// =======
+
+// STYLING
 
 
 const ButtonWrapper = styled.div`
 display: flex;
 justify-content: center;
 padding: 20px;
+
 button {
     padding: 0 15px 0 15px;
     height: 40px; 

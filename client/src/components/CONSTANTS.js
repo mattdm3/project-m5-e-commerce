@@ -6,10 +6,10 @@ export const SideAndGrid = styled.div`
     
     /* padding: 0 100px;  */
     /* margin: 0 150px;  */
-    margin-top: 130px; 
+    margin-top: 100px; 
     justify-content: space-between;
     /* width: 100%;   */
-    border-top: 1px solid #333333; 
+    border-top: 2px solid #EEEEEE; 
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
@@ -50,11 +50,4 @@ export const PageContainer = styled.div`
     margin-left: auto; 
     margin-right: auto; 
     position: relative; 
-`
-
-export const DropdownContainer = styled.div`
- position: absolute; 
- right: 0;
- top: -30px; 
- z-index: 5; 
 `

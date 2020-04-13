@@ -28,7 +28,7 @@ const Sidebar = () => {
         <SidebarContainer>
 
 
-            {allDataFetchSuccess === 'success' && <Search></Search>}
+            {/* {allDataFetchSuccess === 'success' && <Search></Search>} */}
             {/* <StyledForm>
                 <StyledInput placeholder="Search Products..." />
             </StyledForm> */}
