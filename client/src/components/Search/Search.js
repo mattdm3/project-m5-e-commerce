@@ -99,6 +99,10 @@ export default Search;
 const StyledForm = styled.form`
     position: relative; 
     margin-bottom: 80px; 
+width: 400px;
+height: 300px;
+  overflow-y: scroll;
+
     
     button {
         border: none; 
