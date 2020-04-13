@@ -83,6 +83,9 @@ const Chatbot = () => {
 
         <ThemeProvider theme={theme}>
             <ChatBot
+                // userAvatar={'client/public/logo192.png'}
+                headerTitle={'Six Tech Gear Bot'}
+
                 steps={steps} {...config}
             />
         </ThemeProvider>
