@@ -59,7 +59,7 @@ app.get('/sellers', handleSellers)
 //all data
 app.get('/allItemData', handleAllData)
 
-app.get('/allItemData', handleAllData)
+
 
 
 
