@@ -9,7 +9,7 @@ import { isInCartSelector } from '../../reducers/cart-reducer';
 
 const RenderItem = ({ item }) => {
     const inCart = useSelector(state => isInCartSelector(state.cartState, item.id));
-    
+
 
 
     const dispatch = useDispatch();
@@ -19,13 +19,14 @@ const RenderItem = ({ item }) => {
         <img src={item.imageSrc} />
         <TitleContainer>
             <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]}`}</p>
+            <Price>{item.price}</Price>
         </TitleContainer>
 
         <DescriptionContainer>
-            <Price>{item.price}</Price>
+
             {!inCart && <StyledBuyBtn onClick={() =>
-                        dispatch(addItem( item ))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>}
-                        {inCart && <p>Already in cart</p>}
+                dispatch(addItem(item))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>}
+            {inCart && <p>Already in cart</p>}
         </DescriptionContainer>
 
     </ImageContainer>
@@ -62,23 +63,24 @@ const ImageContainer = styled.div`
 `
 const TitleContainer = styled.div`
     position: absolute;
-    top: 10px;
+    bottom: 20px;
     left: 0;
     display: flex; 
     justify-content: flex-start; 
     width: 100%; 
-    font-size: 1.1rem;
-    font-weight: 700; 
-    border-bottom: 2px solid #333333; 
+    font-size: 1rem;
+    font-weight: 500; 
+    color: black; 
+    /* border-bottom: 2px solid #333333;  */
     padding-bottom: 2px; 
 `
 
 const DescriptionContainer = styled.div`
     position: absolute; 
     align-items: flex-end;
-    bottom: 20px;
+    bottom: -4px;
     left: 0px; 
-    padding-left: 45px; 
+    padding-left: 40px; 
     display: flex; 
     justify-content: space-between;
     width: 100%; 
@@ -88,17 +90,18 @@ const DescriptionContainer = styled.div`
     transition-duration: 600ms; 
     opacity: 0; 
     &:hover {
-        animation: ${slideUp} 600ms forwards; 
+        animation: ${slideUp} 500ms forwards; 
     }    
     
 `
 
 const Price = styled.p`
     position: absolute; 
-    font-weight: 700; 
+    font-weight: 800; 
     font-size: 1rem; 
-    bottom: 0; 
+    bottom: -25px; 
     left: 0; 
+    color: #4A4F6A;
 `
 const StyledBuyBtn = styled.button`
     bottom: 13px;

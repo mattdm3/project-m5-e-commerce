@@ -136,9 +136,7 @@ const handleSellers = (req, res) => {
     res.send(companies);
 }
 
-const handleAllData = (req, res) => {
-    res.status(200).send(items)
-}
+
 
 
 module.exports = { handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };

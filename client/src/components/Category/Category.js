@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
 import Sidebar from '../Sidebar';
-import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS'
+import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS'
 
 
 
@@ -40,25 +40,27 @@ const Category = () => {
 
     return (
         <React.Fragment>
-            <SideAndGrid>
-                <Sidebar />
-                {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
-                    <GridWrapper>
-                        {currentItems.items.map(item => {
-                            return <Link to={`/item/${item.id}`}>
-                                <RenderItem item={item}></RenderItem>
-                            </Link>
-                        })}
-                    </GridWrapper>
-                    <button onClick={() => setPageCounter(pageCount += 1)}>
-                        Next page
+            <PageContainer>
+                <SideAndGrid>
+                    <Sidebar />
+                    {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
+                        <GridWrapper>
+                            {currentItems.items.map(item => {
+                                return <Link to={`/item/${item.id}`}>
+                                    <RenderItem item={item}></RenderItem>
+                                </Link>
+                            })}
+                        </GridWrapper>
+                        <button onClick={() => setPageCounter(pageCount += 1)}>
+                            Next page
                       </button>
-                    <button onClick={() => setPageCounter(pageCount -= 1)}>
-                        Previous
+                        <button onClick={() => setPageCounter(pageCount -= 1)}>
+                            Previous
                       </button>
-                </GridContainer>
-                }
-            </SideAndGrid>
+                    </GridContainer>
+                    }
+                </SideAndGrid>
+            </PageContainer>
 
         </React.Fragment>
 
