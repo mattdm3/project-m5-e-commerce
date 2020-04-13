@@ -34,7 +34,7 @@ const SortDropdown = ({ exportFilter }) => {
 
     return (
         <Dropdown>
-            <button class="dropbtn">Sort By: {filter.label}</button>
+            <StyledButton>Sort By {filter.label} ↓</StyledButton>
             <DropdownContent>
                 {options.map(option => {
                     return (
@@ -49,19 +49,37 @@ const SortDropdown = ({ exportFilter }) => {
 
 }
 
+const StyledButton = styled.button`
+    color: #164C81;
+    font-weight: 600; 
+    border: none; 
+    font-size: .9rem;
+    text-transform: uppercase;
+    
+
+`
+
 
 const DropdownContent = styled.div`
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    background-color: white;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 10;
+    color: #164C81;
+    font-size: .9rem;
+    font-weight: 600; 
 `;
 
 const Dropdown = styled.div`
-    position: relative;
+    position: absolute;
+    right: 0; 
+    top: -40px; 
     display: inline-block;
+    z-index: 50; 
+    
+
 
     &:hover ${DropdownContent} {
         display: block;
@@ -69,7 +87,10 @@ const Dropdown = styled.div`
     `;
 
 
-const SortOption = styled.div`
+const SortOption = styled.div` 
+
+      padding: 13px 18px; 
+      min-width: 200px; 
    
 
     &:hover  {
