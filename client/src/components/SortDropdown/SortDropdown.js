@@ -17,17 +17,19 @@ const options = [
         key: 'lowToHigh'
     },
 
+
 ]
 
 const SortDropdown = ({ exportFilter }) => {
 
     let [filter, setFilter] = useState(options[0])
-    console.log("filter", filter)
+    console.log("filter in SortDropdown", filter.key)
 
     const handleFilterSelect = (selection) => {
+
         setFilter(selection)
         exportFilter(selection)
-        console.log("selection", selection)
+        console.log("handleFilterSelect fired in SortDropdown", selection)
     }
 
     return (
