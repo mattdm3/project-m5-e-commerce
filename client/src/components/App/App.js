@@ -22,6 +22,7 @@ import {
   requestAllDataFromDataBase,
   receiveAllDataFromDataBaseError,
 } from '../../actions';
+import Chatbot from '../ChatBot/Chatbot';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
       <Router>
         <GlobalStyles />
         <Navbar />
+        <Chatbot></Chatbot>
 
         <Sidebar></Sidebar>
         <Switch>
@@ -65,6 +67,7 @@ function App() {
             <AllSellers />
           </Route>
         </Switch>
+
       </Router>
 
     </>
