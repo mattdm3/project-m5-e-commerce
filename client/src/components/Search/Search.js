@@ -99,7 +99,7 @@ const StyledForm = styled.form`
     position: relative; 
     margin-bottom: 80px; 
 width: 400px;
-height: 300px;
+height: 200px;
   overflow-y: scroll;
 
     
