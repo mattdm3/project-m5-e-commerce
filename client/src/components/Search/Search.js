@@ -15,7 +15,6 @@ const Search = () => {
     //will grab the url of the category. 
     let location = useLocation().pathname.split('/')
     let history = useHistory();
-
     console.log(location.length)
 
 
@@ -63,7 +62,7 @@ const Search = () => {
     return (<StyledForm>
         <StyledInput onChange={(e) => setTyped(e.target.value)}
             placeholder='Search Products...' />
-        <button>Go</button>
+        {/* <button>Go</button> */}
         {results !== null && <div>
             {results.map(result => {
 
@@ -90,7 +89,7 @@ const Search = () => {
                 )
             })}
         </div>}
-    </StyledForm >)
+    </StyledForm>)
 
 }
 

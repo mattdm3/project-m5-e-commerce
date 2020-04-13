@@ -14,6 +14,7 @@ import Item from "../Item"
 import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
+import Cart from '../Cart'
 import AllSellers from "../AllSellers"
 //---------------------------------------
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,7 +50,7 @@ function App() {
         <Navbar />
         <Chatbot></Chatbot>
 
-        <Sidebar></Sidebar>
+        {/* <Sidebar></Sidebar> */}
         <Switch>
           <Route exact path="/">
             <ItemGrid></ItemGrid>
@@ -65,6 +66,9 @@ function App() {
           </Route>
           <Route exact path='/sellers'>
             <AllSellers />
+          </Route>
+          <Route exact path='/cart'>
+            <Cart />
           </Route>
         </Switch>
 

@@ -10,7 +10,17 @@ const { handleItemId, handleItemsData,
   handleAllData,
 } = require('./handlers');
 
+
+
 const PORT = 4000;
+
+/*items.forEach((element, index) => {
+
+    if (index < 20) {
+      console.log(" testing for each", element.price)    }
+
+  });*/
+
 
 
 
@@ -49,6 +59,7 @@ app.get('/sellers', handleSellers)
 //all data
 app.get('/allItemData', handleAllData)
 
+app.get('/allItemData', handleAllData)
 
 
 

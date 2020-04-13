@@ -1,7 +1,17 @@
 import { combineReducers } from 'redux';
 import items from './items-reducer';
-import cart from './cart-reducer';
+// <<<<<<< searchBar-2-manny
+// // import cart from './cart-reducer';
 import dataItems from './dataItems-reducer';
 
-export default combineReducers({ items, cart, dataItems })
+// export default combineReducers({ items, cart, dataItems })
+
+import cartReducer from './cart-reducer';
+
+export default combineReducers({
+    dataItems,
+    cartState: cartReducer,
+    items,
+});
+// >>>>>>> master
 

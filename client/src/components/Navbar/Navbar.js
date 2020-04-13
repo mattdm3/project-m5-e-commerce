@@ -11,6 +11,7 @@ import {
     Link,
     useHistory
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
@@ -20,6 +21,7 @@ import Seller from "./Seller";
 
 
 const Navbar = () => {
+    const cartCounter = useSelector(state => state.cartState.cartCounter);
     let history = useHistory();
 
     const [navbar, setNavbar] = React.useState(false);
@@ -36,59 +38,46 @@ const Navbar = () => {
 
 
     return (
-        <Router>
-            <StyledNav>
-                <NavigationLink exact to="/">
-                    <Logo onClick={() => history.push('/')} >
-                        <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
-                        <h3>Six Tech Gear</h3>
-                    </Logo>
-                </NavigationLink>
 
-                <HiddenNavigation style={(navbar) ? { transform: "translateX(-80vw)" } : {
-                    transform: "translateX(-200vw)"
-                }}>
-                    <OverlayMenu>
-                        <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
-                        <Link to="/projects"><li>Sellers</li></Link>
-                        <Link to="/services"><li>Cart</li></Link>
-                        <Link to="/contact"><li>Contact</li></Link>
-                    </OverlayMenu>
+        <StyledNav>
+            <NavigationLink exact to="/">
+                <Logo onClick={() => history.push('/')} >
+                    <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
+                    <h3>Six Tech Gear</h3>
+                </Logo>
+            </NavigationLink>
 
-                </HiddenNavigation>
+            <HiddenNavigation style={(navbar) ? { transform: "translateX(-80vw)" } : {
+                transform: "translateX(-200vw)"
+            }}>
+                <OverlayMenu>
+                    <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
+                    <Link to="/projects"><li>Sellers</li></Link>
+                    <Link to="/services"><li>Cart</li></Link>
+                    <Link to="/contact"><li>Contact</li></Link>
+                </OverlayMenu>
+
+            </HiddenNavigation>
 
 
-                <StyledUl>
-                    <NavList>
-                        <NavigationLink exact to="/">Shop</NavigationLink>
-                    </NavList>
-                    <NavList>
-                        <NavigationLink exact to="/sellers">Sellers</NavigationLink>
-                    </NavList>
-                    <NavList>
-                        <NavigationLink exact to="/cart">Cart</NavigationLink>
-                    </NavList>
-                    <NavList>
-                        <NavigationLink exact to="/contact">Contact</NavigationLink>
-                    </NavList>
-                </StyledUl>
-                <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
-            </StyledNav>
+            <StyledUl>
+                <NavList>
+                    <NavigationLink exact to="/">Shop</NavigationLink>
+                </NavList>
+                <NavList>
+                    <NavigationLink exact to="/sellers">Sellers</NavigationLink>
+                </NavList>
+                <NavList>
+                    <NavigationLink exact to="/cart">Cart {cartCounter}</NavigationLink>
+                </NavList>
+                <NavList>
+                    <NavigationLink exact to="/contact">Contact</NavigationLink>
+                </NavList>
+            </StyledUl>
+            <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
+        </StyledNav>
 
-            <ContentContainer>
-                <Switch>
-                    <Route path="/Seller">
-                        <Seller />
-                    </Route>
-                    <Route path="/Cart">
-                        <Cart />
-                    </Route>
-                    <Route path="/Contact">
-                        <Contact />
-                    </Route>
-                </Switch>
-            </ContentContainer>
-        </Router>
+
     )
 }
 

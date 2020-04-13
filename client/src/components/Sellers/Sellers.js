@@ -17,7 +17,7 @@ const Sellers = () => {
     useEffect(() => {
         fetch(`/sellers/${companyId}`)
             .then(res => res.json())
-            .then(companyData => setCompanyState(companyData))
+            .then(companyData => setCompanyState(Object.values(companyData)))
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
@@ -27,16 +27,15 @@ const Sellers = () => {
         <div>
             <Header>
                 <div>
-                    <StyledCompanyName>{companyState.info.name}</StyledCompanyName>
-                    <a href={companyState.info.url}>{companyState.info.url}</a>
-                    <div>{companyState.info.country}</div>
+                    <StyledCompanyName>{companyState.name}</StyledCompanyName>
+                    <a href={companyState.url}>{companyState.url}</a>
+                    <div>{companyState.country}</div>
                     <Products>Our Products</Products>
                 </div>
             </Header>
             {/* all items */}
             <GridSellerWrapper>
-
-                {companyState.items.map(item => {
+                {companyState.map(item => {
                     return (
                         <Link to={`/item/${item.id}`}>
                             <RenderItem item={item}></RenderItem>
