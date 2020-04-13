@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
 // import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
+import { PageContainer } from '../CONSTANTS';
 
 const Item = () => {
     const [itemInfo, setItemInfo] = useState(null);
@@ -43,25 +44,162 @@ const Item = () => {
         return null
     }
 
-    return (<React.Fragment>
-        {itemInfo !== null ?
-            <div>
-                Item Details
-                <div><img src={itemInfo.imageSrc}></img></div>
-                <div>{itemInfo.name}</div>
-                <div>{itemInfo.price}</div>
-                <div><Link to={`/sellers/${itemInfo.companyId}`}>Click for Seller Details</Link></div>
-                {!inCart && <button
-                    onClick={() =>
-                        dispatch(addItem(itemInfo))}>
-                    Add to cart</button>}
-                {inCart && <p>Already in cart</p>}
-            </div> :
-            // add spinner loading.
-            <div>LOADING</div>}
-    </React.Fragment>
+    return (
+        <React.Fragment>
+            <PageContainer>
+
+
+
+                {itemInfo !== null ?
+                    <FlexContainer>
+                        <TitleContainer>
+                            <h1>Item Details</h1>
+                            <span>see more <StyledLink to={`/category/${itemInfo.category}`}>{itemInfo.category}</StyledLink> items</span>
+                        </TitleContainer>
+
+                        <Row>
+                            <ImageContainer>
+                                <img src={itemInfo.imageSrc} />
+                            </ImageContainer>
+                            <Column>
+                                <h2>{itemInfo.price}</h2>
+                                <p>{itemInfo.name}</p>
+
+                                <StyledLink to={`/sellers/${itemInfo.companyId}`}>
+                                    <p>
+                                        See More Items from {itemInfo.name.split(" ")[0]}
+                                    </p>
+                                </StyledLink>
+
+
+
+
+                                <CartButtonContainer>
+                                    <StyledInput value="1" type="number" />
+                                    {!inCart &&
+                                        <StyledButton
+                                            onClick={() =>
+                                                dispatch(addItem(itemInfo))}>
+                                            Add to cart</StyledButton>}
+                                    {inCart && <p>Already in cart</p>}
+                                </CartButtonContainer>
+
+                            </Column>
+
+                        </Row>
+                    </FlexContainer> :
+
+
+                    // add spinner loading.
+                    <div>LOADING</div>}
+            </PageContainer>
+        </React.Fragment>
     )
 }
 
+const FlexContainer = styled.div`
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: 80px; 
+`
+
+const TitleContainer = styled.div`
+    
+    margin-bottom: 70px; 
+    text-align: center;
+    width: 100%; 
+    
+
+    h1 {
+        margin: 0; 
+        padding: 0; 
+        font-size: 4rem;
+        font-weight: 800;
+    }
+
+    span {
+        margin: 0; 
+        padding: 0; 
+        color: #4A4F6A;
+        font-weight: 600; 
+        text-transform: lowercase; 
+        
+    }
+`
+
+
+
+const Row = styled.div`
+    display: flex; 
+    justify-content: center; 
+    
+
+`
+
+const ImageContainer = styled.image`
+
+    width: 50%; 
+    img {
+        width: 310px; 
+    }
+
+
+    `
+
+const Column = styled.div`
+
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 60px; 
+
+    h2 {
+        font-size: 2.2rem;
+        font-weight: 600; 
+    }
+    p {
+        font-size: 1.3rem; 
+    }
+    `
+
+const CartButtonContainer = styled.div`
+    display: flex; 
+    margin: 50px 0; 
+    
+    
+`
+const StyledInput = styled.input`
+    background: none; 
+    border: none;
+    border-bottom: 2px solid #EEEEEE;
+    width: 60px; 
+    font-size: 1.5rem; 
+    text-align: center;
+
+`
+
+const StyledButton = styled.button`
+    background: #164C81;
+    width: 235px; 
+    color: white; 
+    text-transform: uppercase; 
+    height: 55px; 
+    font-size: .8rem; 
+    margin-left: 10px; 
+    font-weight: 600; 
+    
+    
+`
+
+const StyledLink = styled(Link)`
+    color: inherit; 
+    text-decoration: none; 
+    p {
+        font-size: .9rem;
+        font-weight: 600; 
+        color: #164C81;
+    }
+`
 
 export default connect(null, { addItem })(Item); 
