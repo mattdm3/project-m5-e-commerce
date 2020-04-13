@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
+import Sidebar from '../Sidebar';
+import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS'
 
 
 
@@ -33,6 +35,7 @@ const Category = () => {
         //on change of the category params, this will re-fetch. 
         //try to reuse ItemGrid component?
     }, [category, pageCount])
+// <<<<<<< searchBar-2-manny
 
     return (<React.Fragment>
         {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
@@ -46,14 +49,32 @@ const Category = () => {
             </GridWrapper>
             <button onClick={() => setPageCounter(pageCount += 1)}>
                 Next page
-                      </button>
-            <button onClick={() => setPageCounter(pageCount -= 1)}>
-                Previous
-                      </button>
-        </GridContainer>
-        }
+=======
+//     return (
+//         <React.Fragment>
+//             <SideAndGrid>
+//                 <Sidebar />
+//                 {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
+//                     <GridWrapper>
+//                         {currentItems.items.map(item => {
+//                             return <Link to={`/item/${item.id}`}>
+//                                 <RenderItem item={item}></RenderItem>
+//                             </Link>
 
-    </React.Fragment>
+//                         })}
+//                     </GridWrapper>
+//                     <button onClick={() => setPageCounter(pageCount += 1)}>
+//                         Next page
+// >>>>>>> master
+                      </button>
+                    <button onClick={() => setPageCounter(pageCount -= 1)}>
+                        Previous
+                      </button>
+                </GridContainer>
+                }
+            </SideAndGrid>
+
+        </React.Fragment>
 
     )
 
@@ -61,23 +82,4 @@ const Category = () => {
 
 export default Category;
 
-const GridContainer = styled.div`
-    /* display: flex; */
-    /* justify-content: flex-end; */
-    /* flex-direction: column;  */
-    padding: 0 75px;
-    margin-top: 120px;
-    background: #FFFFFF;
-    width: 100%;
-`
-const GridWrapper = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-columns: repeat(auto-fill, minmax(100px, 300px));
-    /* grid-template-rows: repeat(3, 1fr); */
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
-    a{
-        color: #333333;
-    }
-`
+
