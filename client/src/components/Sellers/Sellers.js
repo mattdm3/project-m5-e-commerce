@@ -21,31 +21,34 @@ const Sellers = () => {
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
+    console.log(companyState)
 
-    return (<Wrapper> {companyState !== null ?
 
-        <div>
-            <Header>
-                <div>
-                    <StyledCompanyName>{companyState.name}</StyledCompanyName>
-                    <a href={companyState.url}>{companyState.url}</a>
-                    <div>{companyState.country}</div>
-                    <Products>Our Products</Products>
-                </div>
-            </Header>
-            {/* all items */}
-            <GridSellerWrapper>
-                {companyState.map(item => {
-                    return (
-                        <Link to={`/item/${item.id}`}>
-                            <RenderItem item={item}></RenderItem>
-                        </Link>
-                    )
-                })}
-            </GridSellerWrapper>
 
-        </div>
-        : <div>Loading...</div>}
+    return (<Wrapper>
+        {companyState !== null ?
+            <div>
+                <Header>
+                    <div>
+                        <StyledCompanyName>{companyState.name}</StyledCompanyName>
+                        <a href={companyState.url}>{companyState.url}</a>
+                        <div>{companyState.country}</div>
+                        <Products>Our Products</Products>
+                    </div>
+                </Header>
+                {/* all items */}
+                <GridSellerWrapper>
+                    {companyState[1].map(item => {
+                        return (
+                            <Link to={`/item/${item.id}`}>
+                                <RenderItem item={item}></RenderItem>
+                            </Link>
+                        )
+                    })}
+                </GridSellerWrapper>
+
+            </div>
+            : <div>Loading...</div>}
     </Wrapper>
     )
 
