@@ -9,7 +9,12 @@ const CartItem = (props) => {
 
   const handleQuantity = (event) => {
     const value = event.target.value;
-    dispatch(updateQuantity(props, value));
+    if (value > props.numInStock) {
+        return
+    } else {
+        dispatch(updateQuantity(props, parseInt(value)));
+    }
+    
   };
 
   useEffect(() => {
@@ -33,7 +38,7 @@ const CartItem = (props) => {
               onChange={handleQuantity}
             />
           </GreyP>
-          <GreyP>${subtotal}</GreyP>
+          <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
         </Details>
       </Container>
     </form>
@@ -45,6 +50,7 @@ const CartItem = (props) => {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  border-top: 1px solid grey;
 `;
 
 const Products = styled.div`

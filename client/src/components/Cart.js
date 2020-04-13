@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector } from '../reducers/cart-reducer';
-import { clearCart } from '../actions';
+import { clearCart, updateStock, clearInventoryReducer } from '../actions';
 
 
 // ------------ COMPONENTS ------------
 import CartItem from './CartItem';
+import inventoryReducer from '../reducers/inventory-reducer';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
@@ -16,7 +17,15 @@ const Cart = (props) => {
 
     const state = useSelector(state => itemsSelector(state.cartState));
     const total = useSelector(state => cartTotalSelector(state.cartState));
+    const cartState = useSelector(state => state.cartState);
+    const inventoryState = useSelector(state => state.inventoryReducer);
     
+    const handleInventory = (event) => {
+        dispatch(updateStock(cartState));
+        //POST
+        // .then dispatch(clearInventoryReducer(inventoryState));
+    }
+
     return (
         <Wrapper>
             <Container>
@@ -34,11 +43,12 @@ const Cart = (props) => {
             </Bordered>
             <Total>
                 <GreyP>Shipping:</GreyP>
-                <p style={{ margin: "0 20px" }}>$9.43 CAD</p>
+                <p style={{ margin: "0 20px" }}>$9.43</p>
                 <GreyP>Total Calculated:</GreyP>
-                <p style={{ margin: "0 20px" }}>{total}</p>
+                <p style={{ margin: "0 20px" }}>${Math.round(total * 100) / 100}</p>
             </Total>
             <button onClick={() => dispatch(clearCart(props.item))}>Clear Cart</button>
+            <button onClick={handleInventory}>Make purchase</button>
         </Wrapper>
     )
 };

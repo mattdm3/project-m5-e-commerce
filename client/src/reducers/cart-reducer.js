@@ -40,6 +40,8 @@ export default function cartReducer(state = initialState, action) {
   }
 }
 
+//---------------------------- FUNCTIONS ----------------------------
+
 export const itemsSelector = (state) => {
   const items = { ...state };
   delete items.cartCounter;
@@ -65,9 +67,5 @@ export const cartTotalSelector = (state) => {
         total += (item.quantity * parsedPrice);
         return total;
     }, 0);
-    return sum.toFixed(2);
+    return sum;
 };
-
-// useSelector
-// if no stock no add to cart
-// POST to change quantity
