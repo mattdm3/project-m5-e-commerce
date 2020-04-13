@@ -1,51 +1,73 @@
-import React from 'react';
-import styled from 'styled-components';
-import { updateQuantity, removeItem } from '../actions';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { updateQuantity, removeItem } from "../actions";
+import { useDispatch } from "react-redux";
 
-const CartItem = ({ item }) => {
-    const dispatch = useDispatch();
+const CartItem = (props) => {
+  const [subtotal, setSubtotal] = useState(props.price);
+  const dispatch = useDispatch();
 
-    return (
-        <form>
-            <Container>
-                <button onClick={() => dispatch(removeItem(item.id))}>x</button>
-                <Products> image
-                <img src={item.imageSrc} />
-                </Products>
-                <Details>
-                    <GreyP>{item.price}</GreyP>
-                    <GreyP><input type="number" min="1" placeholder="1" /></GreyP>
-                    <GreyP>Subtotal Calculation</GreyP>
-                </Details>
-            </Container>
-        </form>
-    )
-}
+  const handleQuantity = (event) => {
+    const value = event.target.value;
+    dispatch(updateQuantity(props, value));
+  };
+
+  useEffect(() => {
+    setSubtotal(props.price.slice(1) * props.quantity);
+  }, [handleQuantity]);
+
+  return (
+    <form>
+      <Container>
+        <button onClick={() => dispatch(removeItem(props))}>x</button>
+        <Products>
+          <ImageContainer src={props.imageSrc} />
+        </Products>
+        <Details>
+          <GreyP>{props.price}</GreyP>
+          <GreyP>
+            <input
+              type="number"
+              min="1"
+              value={props.quantity}
+              onChange={handleQuantity}
+            />
+          </GreyP>
+          <GreyP>${subtotal}</GreyP>
+        </Details>
+      </Container>
+    </form>
+  );
+};
 
 //------------------ STYLES ------------------
 
-
 const Container = styled.div`
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 `;
 
 const Products = styled.div`
-    width: 80px;
+  width: 80px;
+  height: 100px;
+  flex-grow: 3;
+`;
+
+const ImageContainer = styled.img`
+    width: 100px;
     height: 100px;
-    flex-grow: 3;
+    object fit: cover;
 `;
 
 const Details = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
 `;
 
 const GreyP = styled.p`
-    color: grey;
-    margin: 0 20px;
+  color: grey;
+  margin: 0 20px;
 `;
 
 export default CartItem;

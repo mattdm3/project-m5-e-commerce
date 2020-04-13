@@ -3,16 +3,14 @@ export const addItem = (item) => ({
     item,
 });
 
-// NOT YET WIRED
-export const removeItem = (itemId) => ({
+export const removeItem = (item) => ({
     type: 'REMOVE_ITEM',
-    itemId,
+    item,
 });
 
-//NOT YET WIRED
-export const updateQuantity = (itemId, newQuantity) => ({
+export const updateQuantity = (item, newQuantity) => ({
     type: 'UPDATE_QUANTITY',
-    itemId,
+    item,
     newQuantity,
 });
 

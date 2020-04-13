@@ -11,6 +11,7 @@ import {
     Link,
     useHistory
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
@@ -20,6 +21,7 @@ import Seller from "./Seller";
 
 
 const Navbar = () => {
+    const cartCounter = useSelector(state => state.cartState.cartCounter);
     let history = useHistory();
 
     const [navbar, setNavbar] = React.useState(false);
@@ -66,7 +68,7 @@ const Navbar = () => {
                         <NavigationLink exact to="/sellers">Sellers</NavigationLink>
                     </NavList>
                     <NavList>
-                        <NavigationLink exact to="/cart">Cart</NavigationLink>
+                        <NavigationLink exact to="/cart">Cart {cartCounter}</NavigationLink>
                     </NavList>
                     <NavList>
                         <NavigationLink exact to="/contact">Contact</NavigationLink>

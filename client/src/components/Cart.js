@@ -1,19 +1,22 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getStoreItemArray } from '../reducers/cart-reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import { itemsSelector, cartTotalSelector } from '../reducers/cart-reducer';
+import { clearCart } from '../actions';
 
 
 // ------------ COMPONENTS ------------
-import Items from './Item/Item';
 import CartItem from './CartItem';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
-const Cart = () => {
-    const state = useSelector(getStoreItemArray);
-    console.log('~~ state Cart.js ~~ ', state);
+const Cart = (props) => {
+    const dispatch = useDispatch();
+
+    const state = useSelector(state => itemsSelector(state.cartState));
+    const total = useSelector(state => cartTotalSelector(state.cartState));
+    
     return (
         <Wrapper>
             <Container>
@@ -27,14 +30,15 @@ const Cart = () => {
                 </Details>
             </Container>
             <Bordered>
-                {/* {state.map((item) => <CartItem key={item} {...item}/>)} */}
+                {state.map((item) => <CartItem key={item.id} {...item}/>)}
             </Bordered>
             <Total>
                 <GreyP>Shipping:</GreyP>
                 <p style={{ margin: "0 20px" }}>$9.43 CAD</p>
                 <GreyP>Total Calculated:</GreyP>
-                <p style={{ margin: "0 20px" }}>Total Calculated</p>
+                <p style={{ margin: "0 20px" }}>{total}</p>
             </Total>
+            <button onClick={() => dispatch(clearCart(props.item))}>Clear Cart</button>
         </Wrapper>
     )
 };
