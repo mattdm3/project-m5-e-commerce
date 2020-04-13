@@ -113,7 +113,18 @@ const handleCompany = (req, res) => {
             return (company)
         }
     })
-    res.status(200).send(filteredCompany)
+
+    let companyItems = items.filter(item => {
+        if (item.companyId == companyId) {
+            return item;
+        }
+    })
+    //comment
+    let company = {
+        info: filteredCompany,
+        items: companyItems
+    }
+    res.status(200).send(company);
 }
 
 const handleSellers = (req, res) => {
@@ -125,6 +136,9 @@ const handleSellers = (req, res) => {
     res.send(companies);
 }
 
+const handleAllData = (req, res) => {
+    res.status(200).send(items)
+}
 
 
 module.exports = { handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
