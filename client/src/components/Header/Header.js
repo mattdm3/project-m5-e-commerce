@@ -11,7 +11,6 @@ const Header = ({ imgSrc, heading }) => {
 }
 
 const StyledHeaderImg = styled.div`
-
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -19,7 +18,6 @@ const StyledHeaderImg = styled.div`
     width: 100%; 
    
     position: relative; 
-
     h1 {
         position: absolute; 
         bottom: 150px;

@@ -70,7 +70,7 @@ const Navbar = () => {
                     transform: "translateX(-200vw)"
                 }}>
                     <OverlayMenu>
-                        <Link onClick={toggleNavbar} to="/"><li>Shop</li></Link>
+                        <Link onClick={toggleNavbar} to="/shop"><li>Shop</li></Link>
                         <Link to="/projects"><li>Sellers</li></Link>
                         <Link to="/services"><li>Cart</li></Link>
                         <Link to="/contact"><li>Contact</li></Link>
@@ -81,7 +81,7 @@ const Navbar = () => {
 
                 <StyledUl >
                     <NavList>
-                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/">Shop</NavigationLink>
+                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
                     </NavList>
                     <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/sellers">Sellers</NavigationLink>
@@ -97,7 +97,7 @@ const Navbar = () => {
                     </NavList> */}
                 </StyledUl>
                 <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
-                <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ? {opacity: "1", transition: "all 1s ease-in-out", width: "500px", zIndex: "10"} : {width: "0", opacity: "0", zIndex: "-10", transition: "all 500ms ease-in-out" }} /> 
+                <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ? { opacity: "1", transition: "all 1s ease-in-out", width: "500px", zIndex: "10" } : { width: "0", opacity: "0", zIndex: "-10", transition: "all 500ms ease-in-out" }} />
             </StyledNav>
         </PageContainer>
 

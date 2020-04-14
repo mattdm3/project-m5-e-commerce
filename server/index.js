@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const items = require('./data/items.json');
 const { handleItemId, handleItemsData,
   handleCategory, handleCompany, handleSellers,
-  handleAllData,
+  handleAllData, handleRelatedItems
 } = require('./handlers');
 
 
@@ -42,6 +42,8 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(__dirname + '/'))
 
+
+
 // REST endpoints?
 // .get('/bacon', (req, res) => res.status(200).json('🥓'))
 
@@ -58,7 +60,8 @@ app.get('/sellers/:companyId', handleCompany)
 app.get('/sellers', handleSellers)
 //all data
 app.get('/allItemData', handleAllData)
-
+//  get related items
+app.get('/relatedItems/:category', handleRelatedItems)
 
 
 

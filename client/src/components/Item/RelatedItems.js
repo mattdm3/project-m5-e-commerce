@@ -13,10 +13,12 @@ const RelatedItems = ({ itemInfo }) => {
     useEffect(() => {
         const handleRelatedItems = async () => {
             try {
-                let responseRelated = await fetch(`/relatedItems/${itemInfo.category}`)
+                let responseRelated = await fetch(`/relatedItems/${itemInfo.category}`);
+                console.log(responseRelated);
                 if (responseRelated.status === 200) {
                     let items = await responseRelated.json();
                     setRelatedItems(items)
+
                 }
                 else {
                     throw Error('Fetch for related items failed.')
@@ -47,7 +49,7 @@ const RelatedItems = ({ itemInfo }) => {
                     })
                 }
             </Wrapper>
-        </React.Fragment >
+        </React.Fragment>
     )
 
 }
@@ -56,16 +58,16 @@ export default RelatedItems;
 
 const Wrapper = styled.div`
 
-@media only screen and (min-width: 1025px) {
+    @media only screen and (min-width: 1025px) {
     overflow: auto;
-white-space: nowrap;
-width: 40vw;
-height: 100vh;
-display: flex;
+    white-space: nowrap;
+    width: 100%;
+    height: 100vh;
+    display: flex;
 
-a {
-    text-decoration: none;
-}
+    a {
+        text-decoration: none;
+    }
 
 }
 

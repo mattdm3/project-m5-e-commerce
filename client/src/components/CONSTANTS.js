@@ -69,3 +69,23 @@ display: inline-block;
 z-index: 20;
 
 `
+
+export const PageHeadings = styled.h2`
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333333;
+    margin-top: 5rem; 
+`
+
+export const StyledButton = styled.button`
+background: #164C81;
+width: 235px; 
+color: white; 
+text-transform: uppercase; 
+height: 55px; 
+font-size: .8rem; 
+margin-left: 10px; 
+font-weight: 600; 
+border: none; 
+`
