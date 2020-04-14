@@ -41,6 +41,7 @@ export const GridWrapper = styled.div`
 
     a {
         color: black;
+        text-decoration: none;
     }
 `
 
@@ -50,4 +51,21 @@ export const PageContainer = styled.div`
     margin-left: auto; 
     margin-right: auto; 
     position: relative; 
+`
+
+
+export const StyledStock = styled.span`
+background-color: rgb(22,76,129);
+color: white;
+border-radius: 50%;
+font-size: 10px;
+line-height: 1.4;
+width: 40px;
+padding: 5px;
+position: relative;
+bottom: 120px;
+
+display: inline-block;
+z-index: 20;
+
 `
