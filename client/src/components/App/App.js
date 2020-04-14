@@ -26,6 +26,7 @@ import {
 import Chatbot from '../ChatBot/Chatbot';
 import BodyPart from '../Bodypart/BodyPart';
 import Home from '../Home';
+import Footer from '../Footer';
 
 
 function App() {
@@ -81,6 +82,8 @@ function App() {
             <BodyPart></BodyPart>
           </Route>
         </Switch>
+
+        <Footer />
 
       </Router>
 
