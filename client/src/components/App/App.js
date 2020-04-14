@@ -54,12 +54,13 @@ function App() {
 
         {/* <Sidebar></Sidebar> */}
         <Switch>
-          <Route exact path="/">
-            <ItemGrid></ItemGrid>
-          </Route>
-          <Route exact path='/grid'>
-            <Home />
 
+          <Route exact path='/'>
+            <Home />
+          </Route>
+
+          <Route exact path="/shop">
+            <ItemGrid></ItemGrid>
           </Route>
           <Route exact path="/item/:id">
             <Item></Item>
