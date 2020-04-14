@@ -5,6 +5,8 @@ import { FaDiceSix } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom';
 import { FiShoppingCart } from 'react-icons/fi'
 import { FiSearch } from 'react-icons/fi'
+import Login from '../Login';
+import Signup from '../Signup';
 
 import {
     BrowserRouter as Router,
@@ -80,6 +82,10 @@ const Navbar = () => {
 
 
                 <StyledUl >
+                    {/* google login */}
+                    {/* <Login></Login> */}
+                    <Signup></Signup>
+
                     <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
                     </NavList>

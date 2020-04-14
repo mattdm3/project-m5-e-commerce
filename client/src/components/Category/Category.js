@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
 import Sidebar from '../Sidebar';
-import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS'
+import { SideAndGrid, GridContainer, GridWrapper, PageContainer, StyledStock } from '../CONSTANTS'
 
 
 
@@ -48,6 +48,8 @@ const Category = () => {
                             {currentItems.items.map(item => {
                                 return <Link to={`/item/${item.id}`}>
                                     <RenderItem item={item}></RenderItem>
+                                    {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
+
                                 </Link>
                             })}
                         </GridWrapper>

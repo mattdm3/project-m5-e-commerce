@@ -62,3 +62,16 @@ export const receiveAllDataFromDataBaseError = (allData) => ({
     type: 'RECEIVE_ALL_DATA_ERROR',
 
 })
+
+//USER INFO
+
+export const receiveUserInfo = (user) => ({
+    type: 'RECEIVE_USER_DATA',
+    user,
+})
+export const requestUserInfo = () => ({
+    type: 'REQUEST_USER_DATA',
+})
+export const receiveUserInfoError = () => ({
+    type: 'RECEIVE_USER_ERROR',
+})
