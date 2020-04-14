@@ -25,6 +25,7 @@ import {
 } from '../../actions';
 import Chatbot from '../ChatBot/Chatbot';
 import BodyPart from '../Bodypart/BodyPart';
+import CategoryGrid from '../CategoryGrid/CategoryGrid';
 
 
 function App() {
@@ -55,6 +56,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <ItemGrid></ItemGrid>
+          </Route>
+          <Route exact path='/grid'>
+            <CategoryGrid />
           </Route>
           <Route exact path="/item/:id">
             <Item></Item>
