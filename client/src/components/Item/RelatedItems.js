@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import { Link } from "react-router-dom";
+import { StyledStock } from '../CONSTANTS';
 
 
 const RelatedItems = ({ itemInfo }) => {
@@ -36,7 +37,11 @@ const RelatedItems = ({ itemInfo }) => {
                 {relatedItems !== null &&
                     relatedItems.map(item => {
                         return <Link to={`/item/${item.id}`}>
+
                             <RenderItem item={item}></RenderItem>
+                            {item.numInStock == 0 && <StyledStock> Out Of<br></br> Stock</StyledStock>
+                            }
+
                         </Link>
 
                     })
@@ -57,6 +62,10 @@ white-space: nowrap;
 width: 40vw;
 height: 100vh;
 display: flex;
+
+a {
+    text-decoration: none;
+}
 
 }
 

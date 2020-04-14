@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
 import SortDropdown from '../SortDropdown/index'
+import { StyledStock } from '../CONSTANTS';
 // <<<<<<< searchBar-2-manny
 import {
     addItem,
@@ -63,7 +64,7 @@ const ItemGrid = () => {
         console.log("testing exportFilter", val)
         setSortState(val.key)
     }
-
+    console.log(currentItems)
 
     return (
         <>
@@ -82,10 +83,13 @@ const ItemGrid = () => {
                                     return (
                                         <Link to={`/item/${item.id}`}>
                                             {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
+
                                             <RenderItem key={item.id} item={item}></RenderItem>
+                                            {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
+
                                         </Link>
                                         // >>>>>>> master
-                                        // >>>>>>> master
+                                        // >>>>>>> maste
                                     )
                                 })}
                             </GridWrapper>
@@ -118,6 +122,7 @@ const ItemGrid = () => {
 };
 
 // STYLING
+
 
 
 const ButtonWrapper = styled.div`

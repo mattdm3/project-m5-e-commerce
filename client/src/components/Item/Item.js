@@ -78,12 +78,17 @@ const Item = () => {
 
 
                                 <CartButtonContainer>
-                                    <StyledInput value="1" type="number" />
-                                    {!inCart &&
+                                    {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
+                                        <StyledInput value="1" type="number" />
+                                    }
+                                    {!inCart && itemInfo.numInStock > 0 ?
                                         <StyledButton
                                             onClick={() =>
                                                 dispatch(addItem(itemInfo))}>
-                                            Add to cart</StyledButton>}
+                                            Add to cart</StyledButton> :
+                                        <StyledButton disabled>Add to cart</StyledButton>}
+
+
                                     {inCart && <p>Already in cart</p>}
                                 </CartButtonContainer>
 
