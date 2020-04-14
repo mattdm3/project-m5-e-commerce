@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { itemsSelector, cartTotalSelector } from '../reducers/cart-reducer';
-import { clearCart, updateStock, clearInventoryReducer } from '../actions';
+import { itemsSelector, cartTotalSelector, getItemsAndQuantities } from '../reducers/cart-reducer';
+import { clearCart } from '../actions';
 
 
 // ------------ COMPONENTS ------------
 import CartItem from './CartItem';
-import inventoryReducer from '../reducers/inventory-reducer';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
@@ -17,14 +16,25 @@ const Cart = (props) => {
 
     const state = useSelector(state => itemsSelector(state.cartState));
     const total = useSelector(state => cartTotalSelector(state.cartState));
-    const cartState = useSelector(state => state.cartState);
-    const inventoryState = useSelector(state => state.inventoryReducer);
+    // const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
+    // console.log('purchaseBag: ', purchaseBag);
     
-    const handleInventory = (event) => {
-        dispatch(updateStock(cartState));
-        //POST
-        // .then dispatch(clearInventoryReducer(inventoryState));
-    }
+
+    // const handleInventory = async(event) => {
+    //     let response = await fetch('/updateItemInventory', {
+    //         method: "PUT",
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(purchaseBag)
+    //     })
+    //     let data = await response.json()
+    //     return data
+    // }
+
+    
+
 
     return (
         <Wrapper>

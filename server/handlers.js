@@ -136,7 +136,10 @@ const handleSellers = (req, res) => {
     res.send(companies);
 }
 
+const handleUpdateStock = (req, res) => {
+    console.log('handleUpdateStock', req.body)
+}
 
 
 
-module.exports = { handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
+module.exports = { handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers, handleUpdateStock };

@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const items = require('./data/items.json');
 const { handleItemId, handleItemsData,
   handleCategory, handleCompany, handleSellers,
-  handleAllData,
+  handleAllData, handleUpdateStock,
 } = require('./handlers');
 
 
@@ -58,6 +58,8 @@ app.get('/sellers/:companyId', handleCompany)
 app.get('/sellers', handleSellers)
 //all data
 app.get('/allItemData', handleAllData)
+//update stock
+app.put('/updateItemInventory', handleUpdateStock)
 
 
 
