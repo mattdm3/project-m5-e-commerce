@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
 import SortDropdown from '../SortDropdown/index'
-import { StyledStock } from '../CONSTANTS';
+import { StyledStock, MiddlePage } from '../CONSTANTS';
 // <<<<<<< searchBar-2-manny
 import {
     addItem,
@@ -17,6 +17,7 @@ import { SideAndGrid, GridContainer, GridWrapper, PageContainer, DropdownContain
 
 import shopImage from '../../images/stock/shop-image.jpg'
 import Header from '../Header/Header'
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 // >>>>>>> master
@@ -111,7 +112,7 @@ const ItemGrid = () => {
                                 <div>...current page: {pageCount}</div>
                                 <input type='text' onChange={handlePageFinder}></input>
                             </form> */}
-                        </GridContainer> : <div>LOADING</div>
+                        </GridContainer> : <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>
                     }
                 </SideAndGrid>
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom"
-import { GridWrapper, StyledStock } from '../CONSTANTS';
+import { GridWrapper, StyledStock, MiddlePage } from '../CONSTANTS';
 import RenderItem from '../ItemGrid/RenderItem';
 import { Link } from "react-router-dom";
+import { css } from "@emotion/core";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -43,6 +45,7 @@ const BodyPart = () => {
 
     return (
         <div>
+
             {bodyItemInfo !== null ? <div>
                 <GridWrapper>
                     {bodyItemInfo.map(item => {
@@ -56,7 +59,7 @@ const BodyPart = () => {
 
             </div>
                 :
-                <div>LOADING</div>}
+                <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>}
 
         </div>
     )
