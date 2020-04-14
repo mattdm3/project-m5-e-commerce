@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from "react-router-dom"
+import { MiddlePage } from '../CONSTANTS'
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Sellers = () => {
 
@@ -48,8 +50,8 @@ const Sellers = () => {
                 </GridSellerWrapper>
 
             </div>
-            : <div>Loading...</div>}
-    </Wrapper>
+            : <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>}
+    </Wrapper >
     )
 
 
