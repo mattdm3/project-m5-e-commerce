@@ -12,10 +12,12 @@ const RelatedItems = ({ itemInfo }) => {
     useEffect(() => {
         const handleRelatedItems = async () => {
             try {
-                let responseRelated = await fetch(`/relatedItems/${itemInfo.category}`)
+                let responseRelated = await fetch(`/relatedItems/${itemInfo.category}`);
+                console.log(responseRelated);
                 if (responseRelated.status === 200) {
                     let items = await responseRelated.json();
                     setRelatedItems(items)
+
                 }
                 else {
                     throw Error('Fetch for related items failed.')
@@ -42,7 +44,7 @@ const RelatedItems = ({ itemInfo }) => {
                     })
                 }
             </Wrapper>
-        </React.Fragment >
+        </React.Fragment>
     )
 
 }
