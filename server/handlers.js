@@ -179,4 +179,4 @@ const handleBodyItems = (req, res) => {
 
 
 
-module.exports = { handleRelatedItems, handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
+module.exports = { handleBodyItems, handleRelatedItems, handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
