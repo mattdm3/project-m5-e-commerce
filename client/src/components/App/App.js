@@ -24,6 +24,7 @@ import {
   receiveAllDataFromDataBaseError,
 } from '../../actions';
 import Chatbot from '../ChatBot/Chatbot';
+import BodyPart from '../Bodypart/BodyPart';
 
 
 function App() {
@@ -69,6 +70,9 @@ function App() {
           </Route>
           <Route exact path='/cart'>
             <Cart />
+          </Route>
+          <Route exact path="/bodypart/:body">
+            <BodyPart></BodyPart>
           </Route>
         </Switch>
 
