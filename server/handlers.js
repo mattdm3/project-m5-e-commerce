@@ -1,9 +1,16 @@
 
+
+//THIS IS A COPY!!!
 const items = require('./data/items.json');
 const companies = require('./data/companies.json');
+const users = require('./data/users.json');
 
 const handleAllData = (req, res) => {
+
+    //happens when app render
     res.status(200).send(items)
+
+
 }
 
 //handle clicking on a category
@@ -56,10 +63,8 @@ const handleItemsData = (req, res) => {
 
     let sortItems;
 
-    const defaultItems = items.slice()
 
     if (sort === 'lowToHigh') {
-        console.log('low to high')
         sortItems = items.slice().sort(function (a, b) {
 
             return parseInt(a.price.replace('$', '').replace(',', '')) - parseInt(b.price.replace('$', '').replace(',', ''))
@@ -67,32 +72,12 @@ const handleItemsData = (req, res) => {
 
     }
     else if (sort === 'highToLow') {
-        console.log('high to low')
         sortItems = items.slice().sort(function (a, b) {
-
             return parseInt(b.price.replace('$', '').replace(',', '')) - parseInt(a.price.replace('$', '').replace(',', ''))
         })
-
-
     } else if (sort === 'bestMatch') {
-        console.log("best match last else if", items[0].price)
-
         sortItems = items;
-
     }
-
-
-
-
-
-    /*items.forEach((element, index) => {
-  
-      if (index < 20) {
-        console.log(" testing for each", element.price)
-      }
-  
-    });*/
-
 
     let firstIndex = (page - 1) * limit; //0
     let endIndex = (limit * page);//9
@@ -135,11 +120,33 @@ const handleSellers = (req, res) => {
 
     res.send(companies);
 }
-
+// const handleUpdateStock = (req, res) => {
+//     let response = req.body;
+//     console.log(Object.keys)
+//     if (Object.entries(response).length === 0) {
+//         return
+//     }
+//     else {
+//         items.forEach(item => {
+//             //for each item
+//             Object.keys(response).forEach(element => {
+//                 //stock levels?
+//                 if (element === item.id) {
+//                     item.numInStock -= response[element]
+//                 }
+//                 else {
+//                     return
+//                 }
+//             });
+//         });
+//     }
+// }
 
 
 const handleRelatedItems = (req, res) => {
+
     let category = req.params.category;
+
     let filteredCategories = items.filter((item, index) => {
         if (category == item.category) {
             return item
@@ -150,8 +157,26 @@ const handleRelatedItems = (req, res) => {
             return item
         }
     })
+
     res.status(200).send(reducedItems)
 }
+
+const handleBodyItems = (req, res) => {
+    let bodypart = req.params.body;
+
+    let filteredBodyItems = items.filter(item => {
+        if (item.body_location == bodypart) {
+            return item;
+        }
+    })
+
+    res.status(200).send(filteredBodyItems);
+
+}
+
+
+
+
 
 
 module.exports = { handleRelatedItems, handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
