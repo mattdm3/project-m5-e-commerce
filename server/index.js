@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const items = require('./data/items.json');
 const { handleItemId, handleItemsData,
   handleCategory, handleCompany, handleSellers,
-  handleAllData, handleRelatedItems
+  handleAllData, handleRelatedItems, handleBodyItems
 } = require('./handlers');
 
 
@@ -63,7 +63,7 @@ app.get('/allItemData', handleAllData)
 //  get related items
 app.get('/relatedItems/:category', handleRelatedItems)
 
-
+app.get('/bodypart/:body', handleBodyItems)
 
 
 

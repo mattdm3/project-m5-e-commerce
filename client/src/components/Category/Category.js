@@ -8,11 +8,29 @@ import { addItem, requestItemData, receivedItemData, receivedItemDataError } fro
 import Sidebar from '../Sidebar';
 import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS'
 
-
-
-
+const fitness = require('../../images/stock/fitness-image1.jpg');
+const gaming = require('../../images/stock/gaming-logo.png')
+const entertainment = require('../../images/stock/entertain-image1.jpg')
+const industrial = require('../../images/stock/industrial-image1.jpg')
+const lifestyle = require('../../images/stock/lifestyle-logo1.jpg')
+const medical = require('../../images/stock/medical-img.png');
+const pet = require('../../images/stock/pet-image1.jpg')
 
 const Category = () => {
+
+
+
+
+    const array = {
+        "Fitness": fitness,
+        "Gaming": gaming,
+        "Entertainment": entertainment,
+        "Industrial": industrial,
+        "Lifestyle": lifestyle,
+        "Medical": medical,
+        "PetsandAnimals": pet
+    }
+
 
     const dispatch = useDispatch();
     //renamed same as itemGrid. 
@@ -21,6 +39,8 @@ const Category = () => {
     let [pageCount, setPageCounter] = useState(1);
     // grab category from the url
     const { category } = useParams();
+
+    const categoryNoSpace = category.replace(/\s+/g, '')
 
 
     useEffect(() => {
@@ -37,36 +57,70 @@ const Category = () => {
     }, [category, pageCount])
     // <<<<<<< searchBar-2-manny
 
+    console.log(category)
 
     return (
         <React.Fragment>
-            <PageContainer>
-                <SideAndGrid>
-                    <Sidebar />
-                    {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
-                        <GridWrapper>
-                            {currentItems.items.map(item => {
-                                return <Link to={`/item/${item.id}`}>
-                                    <RenderItem item={item}></RenderItem>
-                                </Link>
-                            })}
-                        </GridWrapper>
-                        <button onClick={() => setPageCounter(pageCount += 1)}>
-                            Next page
-                      </button>
-                        <button onClick={() => setPageCounter(pageCount -= 1)}>
-                            Previous
-                      </button>
-                    </GridContainer>
-                    }
-                </SideAndGrid>
-            </PageContainer>
 
-        </React.Fragment>
+
+
+            {currentItems.items !== null && currentItems.status === 'success' &&
+                <PageContainer>
+
+                    <StyledHeaderImg style={{ backgroundImage: `url(${array[categoryNoSpace]})` }}>
+                        <h1>{category}</h1>
+
+                    </StyledHeaderImg>
+
+
+
+                    <SideAndGrid>
+                        <Sidebar />
+                        <GridContainer>
+                            <GridWrapper>
+                                {currentItems.items.map(item => {
+                                    return <Link to={`/item/${item.id}`}>
+                                        <RenderItem item={item}></RenderItem>
+                                    </Link>
+                                })}
+                            </GridWrapper>
+                            <button onClick={() => setPageCounter(pageCount += 1)}>
+                                Next page
+                      </button>
+                            <button onClick={() => setPageCounter(pageCount -= 1)}>
+                                Previous
+                      </button>
+                        </GridContainer>
+                    </SideAndGrid>
+                </PageContainer>
+            }
+
+
+
+        </React.Fragment >
 
     )
 
 }
+
+const StyledHeaderImg = styled.div`
+
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 500px; 
+    width: 100%; 
+   
+    position: relative; 
+
+    h1 {
+        position: absolute; 
+        bottom: 150px;
+        left: 180px;  
+        font-size: 3.5rem;
+        font-weight: 800; 
+    }
+`
 
 export default Category;
 
