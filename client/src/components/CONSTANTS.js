@@ -69,3 +69,10 @@ display: inline-block;
 z-index: 20;
 
 `
+
+export const PageHeadings = styled.h2`
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333333;
+`

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import { PageContainer } from '../CONSTANTS'
+import { PageHeadings } from '../CONSTANTS'
 import industrial from '../../images/stock/industrial-image.png';
 import medical from '../../images/stock/medical-img.png';
 import gaming from '../../images/stock/gaming-logo.png';
@@ -12,7 +12,8 @@ import pet from '../../images/stock/pet-image.png'
 
 const CategoryGrid = () => {
     return (
-        <PageContainer>
+        <>
+            <PageHeadings>Product Categories</PageHeadings>
             <Parent>
                 <Industrial style={{ backgroundImage: `url(${industrial})` }}>
                     <p>Industrial</p>
@@ -39,8 +40,8 @@ const CategoryGrid = () => {
 
 
             </Parent>
+        </>
 
-        </PageContainer>
 
     )
 }
@@ -54,6 +55,7 @@ const Parent = styled.div`
     grid-row-gap: 20px;
     max-height: 500px; 
     min-height: 900px; 
+    margin: 5rem 0; 
 
     div {
         transition-duration: 600ms; 
@@ -85,12 +87,13 @@ const Parent = styled.div`
     @media screen and (max-width: 1000px) {
 
     display: flex; 
-    flex-wrap: wrap; 
+    flex-direction: column; 
     justify-content: center; 
+    margin: 30rem 0; 
 
     div {
         width: 100%; 
-        height: 250px; 
+        min-height: 190px; 
         margin: 10px 0; 
     }
 
