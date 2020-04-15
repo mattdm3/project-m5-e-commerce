@@ -97,13 +97,13 @@ const ItemGrid = () => {
                             {/* make this button wrapper reusableinsde category as well.  */}
                             <ButtonWrapper>
                                 {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
-                                    Previous
+                                    ←
                       </button>}
                                 <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
                                 <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
                                 <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
                                 <button onClick={() => setPageCounter(pageCount += 1)}>
-                                    >
+                                    →
                       </button>
                             </ButtonWrapper>
                             {/* Search for for particular page? - is it necessary?*/}

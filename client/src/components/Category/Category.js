@@ -84,12 +84,17 @@ const Category = () => {
                                     </Link>
                                 })}
                             </GridWrapper>
-                            <button onClick={() => setPageCounter(pageCount += 1)}>
-                                Next page
+                            <ButtonWrapper>
+                                {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
+                                    ←
+                      </button>}
+                                <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
+                                <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
+                                <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
+                                <button onClick={() => setPageCounter(pageCount += 1)}>
+                                    →
                       </button>
-                            <button onClick={() => setPageCounter(pageCount -= 1)}>
-                                Previous
-                      </button>
+                            </ButtonWrapper>
                         </GridContainer>
                     </SideAndGrid>
                 </PageContainer>
@@ -97,7 +102,7 @@ const Category = () => {
 
 
 
-        </React.Fragment >
+        </React.Fragment>
 
     )
 
@@ -122,6 +127,25 @@ const StyledHeaderImg = styled.div`
     }
 `
 
+
+const ButtonWrapper = styled.div`
+display: flex;
+justify-content: center;
+padding: 20px;
+
+button {
+    padding: 0 15px 0 15px;
+    height: 40px; 
+    background: none; 
+    border: 2px solid #164C81;
+    color: #164C81;
+    font-size: 1rem; 
+    &:hover {
+        cursor: pointer;
+        background: #FAFAFA; 
+    }
+}
+`
 export default Category;
 
 
