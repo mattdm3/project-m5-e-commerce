@@ -27,14 +27,14 @@ const CartItem = (props) => {
       <Container>
         <Products>
           <ButtonContainer>
-            <StyledRemoveItemButton onClick={() => dispatch(removeItem(props))}>x</StyledRemoveItemButton>
+            <StyledRemoveItemButton onClick={() => dispatch(removeItem(props))}>❌</StyledRemoveItemButton>
           </ButtonContainer>
           <ImageContainer src={props.imageSrc} />
         </Products>
           <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
            <GreyP>{props.price}</GreyP>
           </div>
-          <div style={{ gridArea: "1 / 5 / 2 / 6" }}>
+          <div style={{ gridArea: "1 / 5 / 2 / 6", zIndex: "2" }}>
             <StyledInput
               type="number"
               min="1"
@@ -46,6 +46,27 @@ const CartItem = (props) => {
            <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
           </div>
       </Container>
+
+      <MobileContainer>
+        <MobileProducts>
+          <StyledRemoveItemButton onClick={() => dispatch(removeItem(props))}>❌</StyledRemoveItemButton>
+          <ImageContainer src={props.imageSrc} />
+        </MobileProducts>
+
+        <MobileProducts>
+          <div>
+            <StyledInput
+              type="number"
+              min="1"
+              value={props.quantity}
+              onChange={handleQuantity}
+            />
+          </div>
+          <div>
+           <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
+          </div>
+        </MobileProducts>
+      </MobileContainer>
     </form>
   );
 };
@@ -53,6 +74,7 @@ const CartItem = (props) => {
 //------------------ STYLES ------------------
 
 const Container = styled.div`
+@media only screen and (min-width: 630px) {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr;
@@ -61,6 +83,27 @@ const Container = styled.div`
     justify-items: center;
     align-items: center;
     border-top: 1px solid grey;
+}
+@media screen and (max-width: 629px) {
+    display: none;
+}
+`;
+
+const MobileContainer = styled.div`
+@media only screen and (max-width: 630px) {
+    margin: 20px;
+    display: block;
+    border-bottom: 1px solid grey;
+}
+@media screen and (min-width: 629px) {
+    display: none;
+}
+`;
+
+const MobileProducts = styled.div`
+    display: flex;
+    justify-content: center;
+    margin: 20px;
 `;
 
 const Products = styled.div`
@@ -85,22 +128,19 @@ const ButtonContainer = styled.div`
     grid-area: 1 / 1 / 2 / 7;
     transition-duration: 600ms; 
     opacity: 0;
+    margin-left: 25%;
+    position absolute;
+    width: 90%;
+    
     :hover {
         animation: ${slideIn} 500ms forwards;
-        cursor: pointer;
-}
+    }
 `
 
 const StyledRemoveItemButton = styled.button`
-    background: #164C81;
-    color: white;
-    font-size: 15px; 
-    font-weight: 600;
-    height: 20px;
-    width: 20px;
+    background-color: transparent;
     margin: 20px;
     border: none;
-    border-radius: 50%;
 
     :hover {
         cursor: pointer;
@@ -110,7 +150,6 @@ const StyledRemoveItemButton = styled.button`
 const ImageContainer = styled.img`
     width: 100px;
     height: 100px;
-    margin-right: 60px;
     object fit: cover;
 `;
 

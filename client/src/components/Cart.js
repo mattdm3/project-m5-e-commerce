@@ -36,7 +36,6 @@ const Cart = () => {
 
     
 
-
     return (
         <Wrapper>
             <Container>
@@ -53,12 +52,14 @@ const Cart = () => {
                     <GreyP>Subtotal</GreyP>
                 </div>
             </Container>
+            <CartTitle>Cart</CartTitle>
             <Bordered>
                 {state.map((item) => <CartItem key={item.id} {...item} />)}
             </Bordered>
             <Total>
                 <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
                     <StyledInput type="text" placeholder="Coupon code?"/>
+                    {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
                 </form>
               <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
                 <GreyP>Shipping:</GreyP>
@@ -86,17 +87,33 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+@media only screen and (min-width: 630px) {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     justify-items: center;
+}
+@media screen and (max-width: 760px) {
+    display: none;
+}
 `;
 
 const GreyP = styled.p`
     color: grey;
     margin: 0 20px;
+    
+`;
+
+const CartTitle = styled.p`
+@media only screen and (max-width: 630px) {
+    font-size: 20px;
+    text-align: center
+}
+@media screen and (min-width: 629px) {
+    display: none;
+}
 `;
 
 const Bordered = styled.div`
@@ -104,6 +121,7 @@ const Bordered = styled.div`
 `;
 
 const Total = styled.div`
+@media only screen and (min-width: 630px) {
     border-top: 1px solid grey;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -111,6 +129,8 @@ const Total = styled.div`
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     justify-items: center;
+}
+    display: block;
 `;
 
 const StyledInput = styled.input`
@@ -125,12 +145,12 @@ const StyledInput = styled.input`
 
 const StyledButton = styled.div`
     margin: 20px;
-    padding: 20px auto;
+    border-radius: 4px;
     background: #164C81;
-    width: 235px; 
+    width: 200px; 
     color: white; 
     text-transform: uppercase; 
-    height: 55px; 
+    height: 20px; 
     font-size: 15px; 
     font-weight: 600;
     text-align: center;
