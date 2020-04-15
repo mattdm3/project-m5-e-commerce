@@ -85,6 +85,7 @@ export default RelatedItems;
 
 const StyledLink = styled(Link)`
     margin: 0 2.3rem; 
+    position: relative; 
 `
 
 const Container = styled.div`

@@ -82,13 +82,15 @@ const ItemGrid = () => {
                             <GridWrapper>
                                 {currentItems.items.map((item, arrayNum) => {
                                     return (
-                                        <Link to={`/item/${item.id}`}>
+                                        <StyledLink to={`/item/${item.id}`}>
                                             {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
 
-                                            <RenderItem key={item.id} item={item}></RenderItem>
-                                            {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
+                                            <RenderItem key={item.id} item={item}>
 
-                                        </Link>
+                                            </RenderItem>
+                                            {item.numInStock == 0 && <StyledStock> Out Of <br></br> Stock</StyledStock>}
+
+                                        </StyledLink>
                                         // >>>>>>> master
                                         // >>>>>>> maste
                                     )
@@ -124,6 +126,9 @@ const ItemGrid = () => {
 
 // STYLING
 
+const StyledLink = styled(Link)`
+    position: relative; 
+`
 
 
 const ButtonWrapper = styled.div`
