@@ -113,10 +113,6 @@ const handleCompany = (req, res) => {
 }
 
 const handleSellers = (req, res) => {
-    // const arrayOfnames = [];
-    // companies.forEach(company => arrayOfnames.push(company.name))
-
-    // res.send(arrayOfnames);
 
     res.send(companies);
 }
