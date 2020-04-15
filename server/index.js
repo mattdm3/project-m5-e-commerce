@@ -7,7 +7,8 @@ const morgan = require('morgan');
 const items = require('./data/items.json');
 const { handleItemId, handleItemsData,
   handleCategory, handleCompany, handleSellers,
-  handleAllData, handleRelatedItems, handleBodyItems
+  handleAllData, handleRelatedItems, handleBodyItems,
+  handleSignUp, handleLogin, handleCartItemsForUser
 } = require('./handlers');
 
 
@@ -62,6 +63,14 @@ app.get('/sellers', handleSellers)
 app.get('/allItemData', handleAllData)
 //  get related items
 app.get('/relatedItems/:category', handleRelatedItems)
+//
+app.get('/bodypart/:body', handleBodyItems)
+//post sign up info
+app.post('/SignUp', handleSignUp)
+//get login credentials
+app.post('/Login', handleLogin)
+//store cart items.
+app.post('/storeCartItemsUser/:user', handleCartItemsForUser)
 
 app.get('/bodypart/:body', handleBodyItems)
 

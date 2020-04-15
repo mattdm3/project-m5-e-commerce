@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
 import Sidebar from '../Sidebar';
-import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS'
+import { SideAndGrid, GridContainer, GridWrapper, PageContainer, StyledStock } from '../CONSTANTS'
 
 const fitness = require('../../images/stock/fitness-image1.jpg');
 const gaming = require('../../images/stock/gaming-logo.png')

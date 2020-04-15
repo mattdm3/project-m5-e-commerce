@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,24 +10,20 @@ import { receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../ac
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function SignUp({ setLoginState }) {
+export default function Login({ setLoginState }) {
 
-    const [open, setOpen] = React.useState(false);
-    const [userInfo, setUserInfo] = React.useState({
+    const [open, setOpen] = useState(false);
+    const [userInfo, setUserInfo] = useState({
         user: '',
         pass: '',
     })
-    //error will control failed user inputs
-    const [error, setError] = React.useState(false)
     const dispatch = useDispatch();
 
-
+    const [error, setError] = useState(false)
 
     const handleClickOpen = () => {
         setOpen(true);
-        //if you re-open, no errors from previous inputs will be shown.
         setError(false)
-
     };
 
     const handleClose = () => {
@@ -38,10 +34,10 @@ export default function SignUp({ setLoginState }) {
     const handleDone = (e) => {
         e.preventDefault();
 
-        const handleSignUp = async () => {
+        const handleLogin = async () => {
+            //requestUserInfo - change status to loading
             dispatch(requestUserInfo())
-
-            let response = await fetch('/Signup', {
+            let response = await fetch('/Login', {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -49,51 +45,49 @@ export default function SignUp({ setLoginState }) {
                 },
                 body: JSON.stringify(userInfo)
             })
-            //successful sign up
+            //authenticated
             if (response.status === 200) {
+                console.log("Success")
                 let userCredentials = await response.json()
                 dispatch(receiveUserInfo(userCredentials))
                 setOpen(false)
                 setLoginState(false)
             }
+            else if (response.status === 404) {
+                console.log("User Not Found!")
+                //reset on CHange
 
-            else if (response.status === 401) {
-                console.log("User Already Exists!")
-                //setError (will display error message)
+                setUserInfo({
+                    ...userInfo,
+                    user: '',
+                    pass: ''
+                })
                 setError(true)
-                //reset on CHange
-                setUserInfo({
-                    ...userInfo,
-                    user: '',
-                    pass: ''
-                })
-                //dispatch error action 
                 dispatch(receiveUserInfoError())
-
             }
-            else if (response.status === 400) {
-                console.log('Some error occured signing up')
+            else if (response.status === 400 || response.status === 401) {
                 //reset on CHange
+
                 setUserInfo({
                     ...userInfo,
                     user: '',
                     pass: ''
                 })
+                console.log('Some error occured login')
                 dispatch(receiveUserInfoError())
-
             }
         }
-        handleSignUp();
+        handleLogin();
 
     }
 
     return (
         <div>
             <Button style={{ color: 'black' }} variant="outlined" onClick={handleClickOpen}>
-                Create An Account
+                Login
       </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Sign Up Here :)</DialogTitle>
+                <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <form onSubmit={handleDone}>
                     <DialogContent>
                         <DialogContentText>
@@ -111,12 +105,10 @@ export default function SignUp({ setLoginState }) {
                                 user: e.target.value,
                             })}
                             required
-                            //if incorrect
-                            helperText={!error ? "" : "Existing User."}
-
+                            helperText={!error ? '' : "User not found. You may need to Sign Up!"}
                         />
-                        <TextField
 
+                        <TextField
                             margin="dense"
                             id="password"
                             label="Password"

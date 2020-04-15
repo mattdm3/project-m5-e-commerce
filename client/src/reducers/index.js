@@ -8,12 +8,14 @@ import inventoryReducer from './inventory-reducer';
 // export default combineReducers({ items, cart, dataItems })
 
 import cartReducer from './cart-reducer';
+import userReducer from './user-reducer';
 
 export default combineReducers({
     dataItems,
     cartState: cartReducer,
     inventoryReducer,
     items,
+    userReducer,
 });
 // >>>>>>> master
 
