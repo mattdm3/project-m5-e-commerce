@@ -8,7 +8,6 @@ import { FiSearch, FiX } from 'react-icons/fi'
 import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube } from 'react-icons/fa'
 import { AiFillInstagram } from 'react-icons/ai'
 
-import { FiSearch } from 'react-icons/fi'
 import Login from '../Login';
 import Signup from '../Signup';
 import { logOutUser } from '../../actions';

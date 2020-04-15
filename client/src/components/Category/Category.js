@@ -61,7 +61,6 @@ const Category = () => {
 
     return (
         <React.Fragment>
-<<<<<<< HEAD
 
 
 
@@ -87,23 +86,6 @@ const Category = () => {
                             </GridWrapper>
                             <button onClick={() => setPageCounter(pageCount += 1)}>
                                 Next page
-=======
-            <PageContainer>
-                <SideAndGrid>
-                    <Sidebar />
-                    {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
-                        <GridWrapper>
-                            {currentItems.items.map(item => {
-                                return <Link to={`/item/${item.id}`}>
-                                    <RenderItem item={item}></RenderItem>
-                                    {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
-
-                                </Link>
-                            })}
-                        </GridWrapper>
-                        <button onClick={() => setPageCounter(pageCount += 1)}>
-                            Next page
->>>>>>> google-auth-manny
                       </button>
                             <button onClick={() => setPageCounter(pageCount -= 1)}>
                                 Previous
