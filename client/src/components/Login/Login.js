@@ -10,7 +10,7 @@ import { receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../ac
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function Login() {
+export default function Login({ setLoginState }) {
 
     const [open, setOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({
@@ -51,6 +51,7 @@ export default function Login() {
                 let userCredentials = await response.json()
                 dispatch(receiveUserInfo(userCredentials))
                 setOpen(false)
+                setLoginState(false)
             }
             else if (response.status === 404) {
                 console.log("User Not Found!")

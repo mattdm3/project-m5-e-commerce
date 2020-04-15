@@ -30,11 +30,13 @@ import { PageContainer } from "../CONSTANTS";
 const Navbar = () => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
     const userLoggedIn = useSelector(state => state.userReducer)
+
     let history = useHistory();
     const dispatch = useDispatch();
 
 
     const [navbar, setNavbar] = useState(false);
+    const [loginState, setLoginState] = useState(true)
 
     const [triggerSearchBar, setTriggerSearchBar] = useState(false);
 
@@ -55,6 +57,13 @@ const Navbar = () => {
         } else if (!triggerSearchBar) {
             setTriggerSearchBar(true)
         }
+    }
+
+    const handleResetLogging = () => {
+        dispatch(logOutUser());
+        //set loginstate back to true to show login and sign up
+        setLoginState(true)
+
     }
 
     console.log(triggerSearchBar)
@@ -88,16 +97,23 @@ const Navbar = () => {
 
                 <StyledUl >
                     {/* LOGIN - SIGNUP*/}
-                    {userLoggedIn.status !== 'authenticated' ? <Login></Login> :
-
-                        <StyledSignUp>
-                            <User>{userLoggedIn.user.name}</User>
-
-                            <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
-                        </StyledSignUp>
-
+                    {/* {userLoggedIn.status === 'authenticated' ? <StyledSignUp>
+                        <User>{userLoggedIn.user.name}</User>
+                        <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
+                    </StyledSignUp>
+                        :
+                        <Login></Login>
                     }
-                    {userLoggedIn.status !== 'authenticated' && <Signup></Signup>}
+                    {userLoggedIn.status !== 'authenticated' && <Signup></Signup>} */}
+                    {loginState && <Login setLoginState={setLoginState}></Login>}
+                    {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                    {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                        <User>{userLoggedIn.user.name}</User>
+                        <NavList onClick={handleResetLogging}>Logout</NavList>
+                    </StyledSignUp>}
+                    {/* LOGIN - SIGNUP*/}
+
+
 
                     <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>

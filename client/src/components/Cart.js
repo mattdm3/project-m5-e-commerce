@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector } from '../reducers/cart-reducer';
 import { clearCart, updateStock, clearInventoryReducer } from '../actions';
@@ -20,11 +20,14 @@ const Cart = (props) => {
     const cartState = useSelector(state => state.cartState);
     const inventoryState = useSelector(state => state.inventoryReducer);
 
+
     const handleInventory = (event) => {
         dispatch(updateStock(cartState));
         //POST
         // .then dispatch(clearInventoryReducer(inventoryState));
     }
+
+
 
     return (
         <Wrapper>

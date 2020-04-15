@@ -10,7 +10,7 @@ import { receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../ac
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function SignUp() {
+export default function SignUp({ setLoginState }) {
 
     const [open, setOpen] = React.useState(false);
     const [userInfo, setUserInfo] = React.useState({
@@ -54,6 +54,7 @@ export default function SignUp() {
                 let userCredentials = await response.json()
                 dispatch(receiveUserInfo(userCredentials))
                 setOpen(false)
+                setLoginState(false)
             }
 
             else if (response.status === 401) {
