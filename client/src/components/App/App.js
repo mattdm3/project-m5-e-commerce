@@ -57,15 +57,26 @@ function App() {
 
       console.log('inside app post fetch')
       const handleCartItemsForUser = async () => {
-        console.log(userLoggedIn)
-        let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify(cartState)
-        })
+
+        try {
+          let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(cartState)
+          })
+          //to ensure
+          console.log(response)
+          let received = response.json();
+          console.log(received)
+
+        }
+        catch (err) {
+          console.log(err, 'ERROR')
+        }
+
       }
       handleCartItemsForUser();
     }
