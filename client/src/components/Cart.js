@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector, getItemsAndQuantities } from '../reducers/cart-reducer';
 import { clearCart } from '../actions';
@@ -34,7 +34,9 @@ const Cart = () => {
         return data
     }
 
-    
+    const handleCoupon = () => {
+        console.log('clicked')
+    }
 
     return (
         <Wrapper>
@@ -58,7 +60,8 @@ const Cart = () => {
             </Bordered>
             <Total>
                 <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
-                    <StyledInput type="text" placeholder="Coupon code?"/>
+                    <StyledInput name="coupon" type="text" placeholder="Coupon code?"/>
+                    <StyledInputButton onClick={handleCoupon}>?</StyledInputButton>
                     {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
                 </form>
               <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
@@ -135,12 +138,19 @@ const Total = styled.div`
 
 const StyledInput = styled.input`
     margin: 40px;
+    margin-right: 0;
     background: none; 
     border: 2px solid red;
     border-radius: 4px;
     width: 200px; 
     font-size: 15px; 
     text-align: center;
+`
+
+const StyledInputButton = styled.button`
+    background: red; 
+    border: 2px solid red;
+    border-radius: 4px;
 `
 
 const StyledButton = styled.div`

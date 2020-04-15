@@ -41,6 +41,7 @@ export const GridWrapper = styled.div`
 
     a {
         color: black;
+        text-decoration: none;
     }
 `
 
@@ -50,4 +51,50 @@ export const PageContainer = styled.div`
     margin-left: auto; 
     margin-right: auto; 
     position: relative; 
+`
+
+
+export const StyledStock = styled.div`
+background-color: rgb(22,76,129);
+color: white;
+border-radius: 50%;
+font-size: .6rem;
+font-weight: 600; 
+line-height: 1.4;
+padding: 15px;
+position: absolute;
+top: 3rem;
+right: 1rem; 
+text-align: center;
+text-transform: uppercase;
+display: inline-block;
+z-index: 20;
+
+`
+
+export const PageHeadings = styled.h2`
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333333;
+    margin-top: 5rem; 
+`
+
+export const StyledButton = styled.button`
+background: #164C81;
+width: 235px; 
+color: white; 
+text-transform: uppercase; 
+height: 55px; 
+font-size: .8rem; 
+margin-left: 10px; 
+font-weight: 600; 
+border: none; 
+`
+
+export const MiddlePage = styled.div`
+    position: absolute; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 `

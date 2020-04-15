@@ -7,11 +7,13 @@ import dataItems from './dataItems-reducer';
 // export default combineReducers({ items, cart, dataItems })
 
 import cartReducer from './cart-reducer';
+import userReducer from './user-reducer';
 
 export default combineReducers({
     dataItems,
     cartState: cartReducer,
     items,
+    userReducer,
 });
 // >>>>>>> master
 

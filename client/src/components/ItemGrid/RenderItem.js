@@ -15,6 +15,8 @@ const RenderItem = ({ item }) => {
     const dispatch = useDispatch();
 
     return (<ImageContainer >
+
+
         {/* <div> {item.name.split(" ")[0]} </div> */}
         <img src={item.imageSrc} />
         <TitleContainer>
@@ -24,15 +26,18 @@ const RenderItem = ({ item }) => {
 
         <DescriptionContainer>
 
-            {!inCart && <StyledBuyBtn onClick={() =>
-                dispatch(addItem(item))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>}
-            {inCart && <p>Added to cart</p>}
+            {!inCart && item.numInStock > 0 && <StyledBuyBtn onClick={() =>
+                dispatch(addItem(item))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
+            }
+
+            {inCart && <p>Already in cart</p>}
         </DescriptionContainer>
 
     </ImageContainer>
 
     )
 }
+
 
 
 

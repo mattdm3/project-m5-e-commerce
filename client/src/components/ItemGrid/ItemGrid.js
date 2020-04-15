@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
 import SortDropdown from '../SortDropdown/index'
+import { StyledStock, MiddlePage } from '../CONSTANTS';
 // <<<<<<< searchBar-2-manny
 import {
     addItem,
@@ -16,6 +17,7 @@ import { SideAndGrid, GridContainer, GridWrapper, PageContainer, DropdownContain
 
 import shopImage from '../../images/stock/shop-image.jpg'
 import Header from '../Header/Header'
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 // >>>>>>> master
@@ -63,7 +65,7 @@ const ItemGrid = () => {
         console.log("testing exportFilter", val)
         setSortState(val.key)
     }
-
+    console.log(currentItems)
 
     return (
         <>
@@ -80,25 +82,30 @@ const ItemGrid = () => {
                             <GridWrapper>
                                 {currentItems.items.map((item, arrayNum) => {
                                     return (
-                                        <Link to={`/item/${item.id}`}>
+                                        <StyledLink to={`/item/${item.id}`}>
                                             {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
-                                            <RenderItem key={item.id} item={item}></RenderItem>
-                                        </Link>
+
+                                            <RenderItem key={item.id} item={item}>
+
+                                            </RenderItem>
+                                            {item.numInStock == 0 && <StyledStock> Out Of <br></br> Stock</StyledStock>}
+
+                                        </StyledLink>
                                         // >>>>>>> master
-                                        // >>>>>>> master
+                                        // >>>>>>> maste
                                     )
                                 })}
                             </GridWrapper>
                             {/* make this button wrapper reusableinsde category as well.  */}
                             <ButtonWrapper>
                                 {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
-                                    Previous
+                                    ←
                       </button>}
                                 <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
                                 <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
                                 <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
                                 <button onClick={() => setPageCounter(pageCount += 1)}>
-                                    >
+                                    →
                       </button>
                             </ButtonWrapper>
                             {/* Search for for particular page? - is it necessary?*/}
@@ -107,7 +114,7 @@ const ItemGrid = () => {
                                 <div>...current page: {pageCount}</div>
                                 <input type='text' onChange={handlePageFinder}></input>
                             </form> */}
-                        </GridContainer> : <div>LOADING</div>
+                        </GridContainer> : <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>
                     }
                 </SideAndGrid>
 
@@ -118,6 +125,10 @@ const ItemGrid = () => {
 };
 
 // STYLING
+
+const StyledLink = styled(Link)`
+    position: relative; 
+`
 
 
 const ButtonWrapper = styled.div`

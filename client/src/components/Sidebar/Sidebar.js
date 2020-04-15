@@ -17,12 +17,21 @@ const categories = [
     'Pets and Animals',
     'Gaming'
 ]
+const bodyLocation = [
+    'Head',
+    'Neck',
+    'Chest',
+    'Arms',
+    'Wrist',
+    'Waist',
+    'Hands',
+    'Feet'
+]
 
 const Sidebar = () => {
 
     const allDataFetchSuccess = useSelector(items => items.dataItems.status);
 
-    console.log(allDataFetchSuccess)
 
     return (
         <SidebarContainer>
@@ -48,6 +57,15 @@ const Sidebar = () => {
                     )
                 })}
                 <NavigationLink exact to="/"><SidebarBody>All Items</SidebarBody></NavigationLink>
+            </CategoriesContainer>
+            <CategoriesContainer>
+                <SidebarHeading>Body Locations</SidebarHeading>
+                {bodyLocation.map(bodyPart => {
+                    return (
+
+                        <NavigationLink exact to={`/bodypart/${bodyPart}`} activeStyle={{ color: "#164C81", fontWeight: "600" }} ><SidebarBody>{bodyPart}</SidebarBody></NavigationLink>
+                    )
+                })}
             </CategoriesContainer>
 
 

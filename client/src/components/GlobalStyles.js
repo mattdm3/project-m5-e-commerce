@@ -4,6 +4,7 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 16px;
+    scroll-behavior: smooth; 
 
     @media screen and (max-width: 1200px) {
       font-size: 15px
@@ -21,9 +22,6 @@ const GlobalStyles = createGlobalStyle`
       font-size: 12px
     }
 
-    @media screen and (max-width: 500px) {
-      font-size: 11px
-    }
   }
 
   html,

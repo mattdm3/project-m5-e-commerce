@@ -11,11 +11,11 @@ const CartItem = (props) => {
   const handleQuantity = (event) => {
     const value = event.target.value;
     if (value > props.numInStock) {
-        return
+      return
     } else {
-        dispatch(updateQuantity(props, parseInt(value)));
+      dispatch(updateQuantity(props, parseInt(value)));
     }
-    
+
   };
 
   useEffect(() => {
@@ -150,7 +150,7 @@ const StyledRemoveItemButton = styled.button`
 const ImageContainer = styled.img`
     width: 100px;
     height: 100px;
-    object fit: cover;
+    object-fit: cover;
 `;
 
 const GreyP = styled.p`

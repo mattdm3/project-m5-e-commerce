@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
 // import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
-import { PageContainer } from '../CONSTANTS';
+import { PageContainer, MiddlePage, PageHeadings } from '../CONSTANTS';
 import RelatedItems from './RelatedItems';
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 const Item = (props) => {
     const [itemInfo, setItemInfo] = useState(null);
@@ -105,12 +107,18 @@ const Item = (props) => {
                             </Column>
 
                         </Row>
+
+                        <PageHeadings>Similar {itemInfo.category} Items</PageHeadings>
+
+
+
                         {itemInfo !== null && <RelatedItems itemInfo={itemInfo}></RelatedItems>}
+
                     </FlexContainer> :
 
 
                     // add spinner loading.
-                    <div>LOADING</div>}
+                    <div><MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage></div>}
             </PageContainer>
         </React.Fragment>
     )

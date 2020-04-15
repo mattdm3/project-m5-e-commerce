@@ -24,11 +24,18 @@ import {
   receiveAllDataFromDataBaseError,
 } from '../../actions';
 import Chatbot from '../ChatBot/Chatbot';
+import BodyPart from '../Bodypart/BodyPart';
+import Home from '../Home';
+import Footer from '../Footer';
 
 
 function App() {
 
   const dispatch = useDispatch();
+  const cartState = useSelector(state => state.cartState);
+  const userLoggedIn = useSelector(state => state.userReducer)
+
+
 
 
   //Fetch ALL data. 
@@ -40,6 +47,31 @@ function App() {
       .catch(() => dispatch(receiveAllDataFromDataBaseError()))
 
   }, [])
+  //
+
+  //at App -top lvl componenet - as he purchases, updated it in the backend ?
+  //is there a better way to do this?
+  useEffect(() => {
+    //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
+    if (userLoggedIn.user !== null || userLoggedIn.user !== undefined
+      && userLoggedIn.status == 'authenticated') {
+
+      console.log('inside app post fetch')
+      const handleCartItemsForUser = async () => {
+        console.log(userLoggedIn)
+        let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(cartState)
+        })
+      }
+      handleCartItemsForUser();
+    }
+
+  }, [cartState])
 
 
 
@@ -52,7 +84,12 @@ function App() {
 
         {/* <Sidebar></Sidebar> */}
         <Switch>
-          <Route exact path="/">
+
+          <Route exact path='/'>
+            <Home />
+          </Route>
+
+          <Route exact path="/shop">
             <ItemGrid></ItemGrid>
           </Route>
           <Route exact path="/item/:id">
@@ -70,7 +107,12 @@ function App() {
           <Route exact path='/cart'>
             <Cart />
           </Route>
+          <Route exact path="/bodypart/:body">
+            <BodyPart></BodyPart>
+          </Route>
         </Switch>
+
+        <Footer />
 
       </Router>
 
