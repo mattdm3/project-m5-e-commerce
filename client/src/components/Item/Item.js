@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
 // import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
-import { PageContainer, MiddlePage } from '../CONSTANTS';
+import { PageContainer, MiddlePage, PageHeadings } from '../CONSTANTS';
 import RelatedItems from './RelatedItems';
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -97,7 +97,13 @@ const Item = () => {
                             </Column>
 
                         </Row>
+
+                        <PageHeadings>Similar {itemInfo.category} Items</PageHeadings>
+
+
+
                         {itemInfo !== null && <RelatedItems itemInfo={itemInfo}></RelatedItems>}
+
                     </FlexContainer> :
 
 

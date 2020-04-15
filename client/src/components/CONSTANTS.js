@@ -54,17 +54,19 @@ export const PageContainer = styled.div`
 `
 
 
-export const StyledStock = styled.span`
+export const StyledStock = styled.div`
 background-color: rgb(22,76,129);
 color: white;
 border-radius: 50%;
-font-size: 10px;
+font-size: .6rem;
+font-weight: 600; 
 line-height: 1.4;
-width: 40px;
-padding: 5px;
-position: relative;
-bottom: 120px;
-
+padding: 15px;
+position: absolute;
+top: 3rem;
+right: 1rem; 
+text-align: center;
+text-transform: uppercase;
 display: inline-block;
 z-index: 20;
 

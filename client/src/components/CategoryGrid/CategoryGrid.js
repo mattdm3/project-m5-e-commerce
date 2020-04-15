@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 import { PageHeadings } from '../CONSTANTS'
 import industrial from '../../images/stock/industrial-image.png';
 import medical from '../../images/stock/medical-img.png';
@@ -15,27 +16,30 @@ const CategoryGrid = () => {
         <>
             <PageHeadings>Product Categories</PageHeadings>
             <Parent>
+
                 <Industrial style={{ backgroundImage: `url(${industrial})` }}>
-                    <p>Industrial</p>
+                    <StyledLink to="/category/Industrial"> <p>Industrial</p>  </StyledLink>
                 </Industrial>
+
+
                 <Entertainment style={{ backgroundImage: `url(${entertainment})` }}>
-                    <p>Entertainment</p>
+                    <StyledLink to="/category/Entertainment"> <p>Entertainment</p>  </StyledLink>
                 </Entertainment>
                 <Lifestyle style={{ backgroundImage: `url(${lifestyle})` }}>
-                    <p>Lifestyle</p>
+                    <StyledLink to="/category/Lifestyle"> <p>Lifestyle</p>  </StyledLink>
                 </Lifestyle>
                 <Medical style={{ backgroundImage: `url(${medical})` }}>
-                    <p>Medical</p>
+                    <StyledLink to="/category/Medical"> <p>Medical</p>  </StyledLink>
                 </Medical>
                 <Fitness style={{ backgroundImage: `url(${fitness})` }}>
-                    <p>Fitness</p>
+                    <StyledLink to="/category/Fitness"> <p>Fitness</p>  </StyledLink>
                 </Fitness>
                 <Pet style={{ backgroundImage: `url(${pet})` }}>
-                    <p>Pets</p>
+                    <StyledLink to="/category/Pets%20and%20Animals"> <p>Pets & Animals</p>  </StyledLink>
                 </Pet>
 
                 <Gaming style={{ backgroundImage: `url(${gaming})` }}>
-                    <p>Gaming</p>
+                    <StyledLink to="/category/Gaming"> <p>Gaming</p>  </StyledLink>
                 </Gaming>
 
 
@@ -46,6 +50,16 @@ const CategoryGrid = () => {
     )
 }
 
+const StyledLink = styled(Link)`
+    text-decoration: none; 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+`
 
 const Parent = styled.div`
     display: grid;
