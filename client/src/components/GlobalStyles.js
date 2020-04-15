@@ -21,9 +21,6 @@ const GlobalStyles = createGlobalStyle`
       font-size: 12px
     }
 
-    @media screen and (max-width: 500px) {
-      font-size: 11px
-    }
   }
 
   html,
