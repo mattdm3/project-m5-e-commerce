@@ -37,10 +37,10 @@ const FeaturedProducts = () => {
                     <FeaturedItems>
                         {featuredItemsArray.map(item => {
                             return (
-                                <Link to={`item/${item.id}`}>
+                                <StyledLink to={`item/${item.id}`}>
                                     <RenderItem item={item}></RenderItem>
-                                    {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
-                                </Link>
+                                    {item.numInStock == 0 && <StyledStock> Out Of <br></br> Stock</StyledStock>}
+                                </StyledLink>
                             )
 
 
@@ -55,6 +55,10 @@ const FeaturedProducts = () => {
         </Wrapper>
     )
 }
+
+const StyledLink = styled(Link)`
+    position: relative; 
+`
 
 const Wrapper = styled.div`
     color: #333333;  
