@@ -32,6 +32,10 @@ import Footer from '../Footer';
 function App() {
 
   const dispatch = useDispatch();
+  const cartState = useSelector(state => state.cartState);
+  const userLoggedIn = useSelector(state => state.userReducer)
+
+
 
 
   //Fetch ALL data. 
@@ -43,6 +47,28 @@ function App() {
       .catch(() => dispatch(receiveAllDataFromDataBaseError()))
 
   }, [])
+  //
+
+  //at App -top lvl componenet - as he purchases, updated it in the backend ?
+  //is there a better way to do this?
+  useEffect(() => {
+    //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
+    if (userLoggedIn.user !== null) {
+      const handleCartItemsForUser = async () => {
+        console.log(userLoggedIn)
+        let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(cartState)
+        })
+      }
+      handleCartItemsForUser();
+    }
+
+  }, [cartState])
 
 
 

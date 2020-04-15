@@ -8,6 +8,10 @@ import { FiSearch, FiX } from 'react-icons/fi'
 import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube } from 'react-icons/fa'
 import { AiFillInstagram } from 'react-icons/ai'
 
+import { FiSearch } from 'react-icons/fi'
+import Login from '../Login';
+import Signup from '../Signup';
+import { logOutUser } from '../../actions';
 
 
 import {
@@ -17,7 +21,7 @@ import {
     Link,
     useHistory
 } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
@@ -29,9 +33,15 @@ import { PageContainer } from "../CONSTANTS";
 
 const Navbar = () => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
+    const userLoggedIn = useSelector(state => state.userReducer)
+
     let history = useHistory();
+    const dispatch = useDispatch();
+
 
     const [navbar, setNavbar] = useState(false);
+    const [loginState, setLoginState] = useState(true)
+
     const [triggerSearchBar, setTriggerSearchBar] = useState(false);
 
     function toggleNavbar() {
@@ -66,6 +76,14 @@ const Navbar = () => {
         return () => window.removeEventListener("resize", handleWindowResize);
 
     }, [])
+    const handleResetLogging = () => {
+        dispatch(logOutUser());
+        //set loginstate back to true to show login and sign up
+        setLoginState(true)
+
+    }
+
+    console.log(triggerSearchBar)
 
 
     return (
@@ -105,6 +123,25 @@ const Navbar = () => {
 
 
                 <StyledUl >
+                    {/* LOGIN - SIGNUP*/}
+                    {/* {userLoggedIn.status === 'authenticated' ? <StyledSignUp>
+                        <User>{userLoggedIn.user.name}</User>
+                        <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
+                    </StyledSignUp>
+                        :
+                        <Login></Login>
+                    }
+                    {userLoggedIn.status !== 'authenticated' && <Signup></Signup>} */}
+                    {loginState && <Login setLoginState={setLoginState}></Login>}
+                    {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                    {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                        <User>{userLoggedIn.user.name}</User>
+                        <NavList onClick={handleResetLogging}>Logout</NavList>
+                    </StyledSignUp>}
+                    {/* LOGIN - SIGNUP*/}
+
+
+
                     <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
                     </NavList>
@@ -138,7 +175,7 @@ const Navbar = () => {
                     }
                 } />
             </StyledNav>
-        </PageContainer>
+        </PageContainer >
 
 
     )
@@ -162,6 +199,20 @@ const StyledNav = styled.nav`
 
 `
 
+
+const StyledSignUp = styled.div`
+display: flex;
+`
+const User = styled.div`
+background-color: #164C81;
+color: white;
+font-weight: 600;
+border-radius: 25px;
+height: 70%;
+padding: 3px 5px;
+
+
+`
 const NavigationLink = styled(NavLink)`
     text-decoration: none;
     color: black;

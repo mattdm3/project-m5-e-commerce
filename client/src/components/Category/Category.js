@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, requestItemData, receivedItemData, receivedItemDataError } from '../../actions';
 import Sidebar from '../Sidebar';
-import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS'
+import { SideAndGrid, GridContainer, GridWrapper, PageContainer, StyledStock } from '../CONSTANTS'
 
 const fitness = require('../../images/stock/fitness-image1.jpg');
 const gaming = require('../../images/stock/gaming-logo.png')
@@ -61,6 +61,7 @@ const Category = () => {
 
     return (
         <React.Fragment>
+<<<<<<< HEAD
 
 
 
@@ -86,6 +87,23 @@ const Category = () => {
                             </GridWrapper>
                             <button onClick={() => setPageCounter(pageCount += 1)}>
                                 Next page
+=======
+            <PageContainer>
+                <SideAndGrid>
+                    <Sidebar />
+                    {currentItems.items !== null && currentItems.status === 'success' && <GridContainer>
+                        <GridWrapper>
+                            {currentItems.items.map(item => {
+                                return <Link to={`/item/${item.id}`}>
+                                    <RenderItem item={item}></RenderItem>
+                                    {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
+
+                                </Link>
+                            })}
+                        </GridWrapper>
+                        <button onClick={() => setPageCounter(pageCount += 1)}>
+                            Next page
+>>>>>>> google-auth-manny
                       </button>
                             <button onClick={() => setPageCounter(pageCount -= 1)}>
                                 Previous
