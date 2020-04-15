@@ -26,6 +26,10 @@ export default function userReducer(state = intitialState, action) {
                 status: 'error authenticating',
             }
         }
+        case "LOGOUT": {
+            return {
+            }
+        }
         default:
             return state;
     }

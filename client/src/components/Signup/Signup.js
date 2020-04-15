@@ -18,6 +18,8 @@ export default function SignUp() {
         pass: '',
     })
     const [error, setError] = React.useState(false)
+    const dispatch = useDispatch();
+
 
 
     const handleClickOpen = () => {
@@ -33,6 +35,8 @@ export default function SignUp() {
         e.preventDefault();
 
         const handleSignUp = async () => {
+            dispatch(requestUserInfo())
+
             let response = await fetch('/Signup', {
                 method: "POST",
                 headers: {
@@ -43,15 +47,22 @@ export default function SignUp() {
             })
             //successful sign up
             if (response.status === 200) {
-                console.log("Success")
+                let userCredentials = await response.json()
+                dispatch(receiveUserInfo(userCredentials))
                 setOpen(false)
             }
             else if (response.status === 401) {
                 console.log("User Already Exists!")
                 setError(true)
+                setUserInfo(null)
+                dispatch(receiveUserInfoError())
+
             }
             else if (response.status === 400) {
                 console.log('Some error occured signing up')
+                setUserInfo(null)
+                dispatch(receiveUserInfoError())
+
             }
         }
         handleSignUp();
@@ -92,7 +103,7 @@ export default function SignUp() {
                             />}
 
                         <TextField
-                            autoFocus
+
                             margin="dense"
                             id="password"
                             label="Password"

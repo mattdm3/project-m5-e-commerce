@@ -7,6 +7,8 @@ import { FiShoppingCart } from 'react-icons/fi'
 import { FiSearch } from 'react-icons/fi'
 import Login from '../Login';
 import Signup from '../Signup';
+import { logOutUser } from '../../actions';
+
 
 import {
     BrowserRouter as Router,
@@ -15,7 +17,7 @@ import {
     Link,
     useHistory
 } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // ------------- COMPONENTS -------------
 import Cart from "../Cart";
@@ -27,7 +29,10 @@ import { PageContainer } from "../CONSTANTS";
 
 const Navbar = () => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
+    const userLoggedIn = useSelector(state => state.userReducer)
     let history = useHistory();
+    const dispatch = useDispatch();
+
 
     const [navbar, setNavbar] = useState(false);
 
@@ -82,9 +87,17 @@ const Navbar = () => {
 
 
                 <StyledUl >
-                    {/* google login */}
-                    <Login></Login>
-                    <Signup></Signup>
+                    {/* LOGIN - SIGNUP*/}
+                    {userLoggedIn.status !== 'authenticated' ? <Login></Login> :
+
+                        <StyledSignUp>
+                            <User>{userLoggedIn.user.name}</User>
+
+                            <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
+                        </StyledSignUp>
+
+                    }
+                    {userLoggedIn.status !== 'authenticated' && <Signup></Signup>}
 
                     <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
@@ -105,7 +118,7 @@ const Navbar = () => {
                 <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
                 <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ? { opacity: "1", transition: "all 1s ease-in-out", width: "500px", zIndex: "10" } : { width: "0", opacity: "0", zIndex: "-10", transition: "all 500ms ease-in-out" }} />
             </StyledNav>
-        </PageContainer>
+        </PageContainer >
 
 
     )
@@ -113,6 +126,19 @@ const Navbar = () => {
 
 //--------------------------------- STYLES ---------------------------------
 
+
+const StyledSignUp = styled.div`
+display: flex;
+`
+const User = styled.div`
+background-color: #164C81;
+border-radius: 50%;
+color: white;
+font-weight: 600;
+padding: 10px 5px 10px 5px;
+
+
+`
 const NavigationLink = styled(NavLink)`
     text-decoration: none;
     color: black;

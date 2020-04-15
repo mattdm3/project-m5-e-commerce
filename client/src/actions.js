@@ -75,3 +75,6 @@ export const requestUserInfo = () => ({
 export const receiveUserInfoError = () => ({
     type: 'RECEIVE_USER_ERROR',
 })
+export const logOutUser = () => ({
+    type: 'LOGOUT',
+})
