@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 // import { ShareIcons } from "./ShareIcons"
 import { FaDiceSix } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom';
+import { FiShoppingCart } from 'react-icons/fi'
+import { FiSearch } from 'react-icons/fi'
 
 import {
     BrowserRouter as Router,
@@ -25,7 +27,9 @@ const Navbar = () => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
     let history = useHistory();
 
-    const [navbar, setNavbar] = React.useState(false);
+    const [navbar, setNavbar] = useState(false);
+
+    const [triggerSearchBar, setTriggerSearchBar] = useState(false);
 
     function toggleNavbar() {
 
@@ -37,14 +41,27 @@ const Navbar = () => {
 
     }
 
+    const toggleSearchBar = () => {
+
+        if (triggerSearchBar) {
+            setTriggerSearchBar(false)
+        } else if (!triggerSearchBar) {
+            setTriggerSearchBar(true)
+        }
+    }
+
+    console.log(triggerSearchBar)
+
 
     return (
+
+
 
         <PageContainer>
             <StyledNav>
                 <NavigationLink exact to="/">
                     <Logo onClick={() => history.push('/')} >
-                        <FaDiceSix size={20} style={{ marginRight: "5px", color: "#FF4F40" }} />
+                        <FaDiceSix size={20} style={{ marginRight: "5px", color: "#164C81" }} />
                         <h3>Six Tech Gear</h3>
                     </Logo>
                 </NavigationLink>
@@ -62,21 +79,25 @@ const Navbar = () => {
                 </HiddenNavigation>
 
 
-                <StyledUl>
+                <StyledUl >
                     <NavList>
-                        <NavigationLink exact to="/">Shop</NavigationLink>
+                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/">Shop</NavigationLink>
                     </NavList>
                     <NavList>
-                        <NavigationLink exact to="/sellers">Sellers</NavigationLink>
+                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/sellers">Sellers</NavigationLink>
                     </NavList>
                     <NavList>
-                        <NavigationLink exact to="/cart">Cart {cartCounter}</NavigationLink>
+                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/cart"><FiShoppingCart /> {cartCounter}</NavigationLink>
                     </NavList>
-                    <NavList>
+                    <NavList >
+                        <FiSearch onClick={toggleSearchBar} style={{ fontSize: "1.2rem" }} />
+                    </NavList>
+                    {/* <NavList>
                         <NavigationLink exact to="/contact">Contact</NavigationLink>
-                    </NavList>
+                    </NavList> */}
                 </StyledUl>
                 <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
+                <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ? {opacity: "1", transition: "all 1s ease-in-out", width: "500px", zIndex: "10"} : {width: "0", opacity: "0", zIndex: "-10", transition: "all 500ms ease-in-out" }} /> 
             </StyledNav>
         </PageContainer>
 
@@ -89,6 +110,27 @@ const Navbar = () => {
 const NavigationLink = styled(NavLink)`
     text-decoration: none;
     color: black;
+    font-weight: 600; 
+    transition-duration: 400ms; 
+`
+
+const SearchInput = styled.input`
+    position: absolute; 
+    right: 38px; 
+    background: #EEEEEE; 
+    border: 1px solid #DEDEDE; 
+    border-style: solid; 
+    font-size: .9rem;
+    animation-duration: 400ms; 
+    padding: 0 5px; 
+
+    height: 35px; 
+    top: 45px; 
+
+    &:focus {
+        outline: none;
+    }
+
 `
 
 const Logo = styled.div`
@@ -110,6 +152,7 @@ const StyledNav = styled.div`
     align-items: center;
     padding: 50px 0;
     transition-duration: .4s;
+    position: relative; 
 
 `
 
@@ -155,7 +198,7 @@ const OverlayMenu = styled.ul`
         border-bottom: 3px solid transparent;
 
         &:hover {
-        border-bottom: 3px solid #FDC600;
+        border-bottom: 3px solid #164C81;
         }
     }
 
@@ -166,6 +209,7 @@ const StyledUl = styled.ul`
     justify-content: space-evenly;
     display: none;
     padding-inline-start: 0;
+    transition-duration: 400ms; 
 
 
     @media screen and (min-width: 768px) {
@@ -196,12 +240,17 @@ const NavList = styled.li`
     list-style: none;
     padding: 0 10px;
     padding-bottom:10px;
-    /* margin: 0 10px;  */
+    margin: 0 10px; 
     cursor: pointer;
+    transition-duration: 400ms; 
     border-bottom: 3px solid transparent;
 
+    :last-of-type {
+        margin-right: 0; 
+    }
+
     &:hover {
-        border-bottom: 3px solid #FF4F40;
+        border-bottom: 3px solid #164C81;
     }
 `
 

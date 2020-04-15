@@ -26,7 +26,7 @@ const RenderItem = ({ item }) => {
 
             {!inCart && <StyledBuyBtn onClick={() =>
                 dispatch(addItem(item))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>}
-            {inCart && <p>Already in cart</p>}
+            {inCart && <p>Added to cart</p>}
         </DescriptionContainer>
 
     </ImageContainer>
