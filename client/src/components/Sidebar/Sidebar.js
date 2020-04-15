@@ -54,28 +54,27 @@ const Sidebar = () => {
 
     const handleSelect = (e) => {
         const target = e.target.value;
-        console.log(companyList)
-        const companyObj = companyList.filter(company => company.name === target);
+        const companyObj = allCompanies.filter(company => company.name === target);
         console.log(companyObj[0].id)
         window.location = `/sellers/${companyObj[0].id}`
 
 
     }
 
-    // React.useEffect(() => {
-    //     dispatch(requestAllCompanies())
-    //     fetch('/sellers')
-    //         .then(res => res.json())
-    //         .then(data => dispatch(receiveAllCompanies(data)))
-    //         .catch(() => dispatch(receiveAllCompaniesError()))
-    // }, [])
-
     React.useEffect(() => {
+        dispatch(requestAllCompanies())
         fetch('/sellers')
             .then(res => res.json())
-            .then(data => setCompanyList(data))
-            .catch((err) => console.log(err))
+            .then(data => dispatch(receiveAllCompanies(data)))
+            .catch(() => dispatch(receiveAllCompaniesError()))
     }, [])
+
+    // React.useEffect(() => {
+    //     fetch('/sellers')
+    //         .then(res => res.json())
+    //         .then(data => setCompanyList(data))
+    //         .catch((err) => console.log(err))
+    // }, [])
 
 
     return (
@@ -97,10 +96,10 @@ const Sidebar = () => {
             <CategoriesContainer>
                 <SidebarHeading>Filter by Company</SidebarHeading>
 
-                {/* <select onChange={handleSelect}>
+                <select onChange={handleSelect}>
+                    <option value="" disabled="disabled" selected="selected">All</option>
                     {allCompanies != null ? allCompanies.map((company) => (
                         <>
-                            <option value="" disabled="disabled" selected="selected">All</option>
                             <option value={company.name}>{company.name}</option>
                         </>
                     )
@@ -108,18 +107,6 @@ const Sidebar = () => {
                         :
                         <option value="" disabled="disabled" selected="selected">LOADING</option>
                     }
-                </select> */}
-
-                {/* {allCompanies ? <h1>Sucess</h1> : <h1>FAIL</h1>} */}
-
-
-                <select onChange={handleSelect}>
-                    <option onchange={handleSelect} value="" disabled="disabled" selected="selected">All</option>
-                    {companyList && companyList.map(company => (
-                        <option onchange={handleSelect} value={company.name}>{company.name}</option>
-                    )
-
-                    )}
                 </select>
 
             </CategoriesContainer>
