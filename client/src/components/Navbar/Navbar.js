@@ -132,10 +132,11 @@ display: flex;
 `
 const User = styled.div`
 background-color: #164C81;
-border-radius: 50%;
 color: white;
 font-weight: 600;
-padding: 10px 5px 10px 5px;
+border-radius: 25px;
+height: 70%;
+padding: 3px 5px;
 
 
 `

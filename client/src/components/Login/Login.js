@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,15 +12,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Login() {
 
-    const [open, setOpen] = React.useState(false);
-    const [userInfo, setUserInfo] = React.useState({
+    const [open, setOpen] = useState(false);
+    const [userInfo, setUserInfo] = useState({
         user: '',
         pass: '',
     })
     const dispatch = useDispatch();
 
-    const [error, setError] = React.useState(false)
-
+    const [error, setError] = useState(false)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,12 +54,24 @@ export default function Login() {
             }
             else if (response.status === 404) {
                 console.log("User Not Found!")
-                setUserInfo(null)
+                //reset on CHange
+
+                setUserInfo({
+                    ...userInfo,
+                    user: '',
+                    pass: ''
+                })
                 setError(true)
                 dispatch(receiveUserInfoError())
             }
             else if (response.status === 400 || response.status === 401) {
-                setUserInfo(null)
+                //reset on CHange
+
+                setUserInfo({
+                    ...userInfo,
+                    user: '',
+                    pass: ''
+                })
                 console.log('Some error occured login')
                 dispatch(receiveUserInfoError())
             }
@@ -81,7 +92,7 @@ export default function Login() {
                         <DialogContentText>
                             Please fill out the following information:
           </DialogContentText>
-                        {!error ? <TextField
+                        <TextField
                             autoFocus
                             margin="dense"
                             id="name"
@@ -93,13 +104,8 @@ export default function Login() {
                                 user: e.target.value,
                             })}
                             required
-                        /> :
-                            <TextField
-                                error
-                                id="standard-error-helper-text"
-                                label="Error"
-                                helperText="User not found. You may need to Sign Up!"
-                            />}
+                            helperText={!error ? '' : "User not found. You may need to Sign Up!"}
+                        />
 
                         <TextField
                             margin="dense"

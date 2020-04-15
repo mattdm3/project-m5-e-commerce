@@ -17,6 +17,7 @@ export default function SignUp() {
         user: '',
         pass: '',
     })
+    //error will control failed user inputs
     const [error, setError] = React.useState(false)
     const dispatch = useDispatch();
 
@@ -24,6 +25,9 @@ export default function SignUp() {
 
     const handleClickOpen = () => {
         setOpen(true);
+        //if you re-open, no errors from previous inputs will be shown.
+        setError(false)
+
     };
 
     const handleClose = () => {
@@ -51,16 +55,29 @@ export default function SignUp() {
                 dispatch(receiveUserInfo(userCredentials))
                 setOpen(false)
             }
+
             else if (response.status === 401) {
                 console.log("User Already Exists!")
+                //setError (will display error message)
                 setError(true)
-                setUserInfo(null)
+                //reset on CHange
+                setUserInfo({
+                    ...userInfo,
+                    user: '',
+                    pass: ''
+                })
+                //dispatch error action 
                 dispatch(receiveUserInfoError())
 
             }
             else if (response.status === 400) {
                 console.log('Some error occured signing up')
-                setUserInfo(null)
+                //reset on CHange
+                setUserInfo({
+                    ...userInfo,
+                    user: '',
+                    pass: ''
+                })
                 dispatch(receiveUserInfoError())
 
             }
@@ -81,7 +98,7 @@ export default function SignUp() {
                         <DialogContentText>
                             Please fill out the following information:
           </DialogContentText>
-                        {!error ? <TextField
+                        <TextField
                             autoFocus
                             margin="dense"
                             id="name"
@@ -93,15 +110,10 @@ export default function SignUp() {
                                 user: e.target.value,
                             })}
                             required
-                        /> :
-                            <TextField
-                                error
-                                id="standard-error-helper-text"
-                                label="Error"
-                                defaultValue="Hello World"
-                                helperText="Existing User."
-                            />}
+                            //if incorrect
+                            helperText={!error ? "" : "Existing User."}
 
+                        />
                         <TextField
 
                             margin="dense"
