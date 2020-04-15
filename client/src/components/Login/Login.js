@@ -1,26 +1,129 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
-const Login = () => {
+import { useDispatch, useSelector } from 'react-redux';
+import { receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
 
-    const responseGoogle = (response) => {
-        console.log(response)
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+export default function Login() {
+
+    const [open, setOpen] = React.useState(false);
+    const [userInfo, setUserInfo] = React.useState({
+        user: '',
+        pass: '',
+    })
+    const dispatch = useDispatch();
+
+    const [error, setError] = React.useState(false)
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+        setError(false)
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+    const handleDone = (e) => {
+        e.preventDefault();
+
+        const handleLogin = async () => {
+            //requestUserInfo - change status to loading
+            dispatch(requestUserInfo())
+            let response = await fetch('/Login', {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(userInfo)
+            })
+            //authenticated
+            if (response.status === 200) {
+                console.log("Success")
+                let userCredentials = await response.json()
+                dispatch(receiveUserInfo(userCredentials))
+                setOpen(false)
+            }
+            else if (response.status === 404) {
+                console.log("User Not Found!")
+                setUserInfo(null)
+                setError(true)
+                dispatch(receiveUserInfoError())
+            }
+            else if (response.status === 400 || response.status === 401) {
+                setUserInfo(null)
+                console.log('Some error occured login')
+                dispatch(receiveUserInfoError())
+            }
+        }
+        handleLogin();
+
     }
-
 
     return (
         <div>
-            <GoogleLogin
-                clientId="636811091067-tosfcrkfmbrp1tvk8g6h9l4lla46qmj6.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
-            />
+            <Button style={{ color: 'black' }} variant="outlined" onClick={handleClickOpen}>
+                Login
+      </Button>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Login</DialogTitle>
+                <form onSubmit={handleDone}>
+                    <DialogContent>
+                        <DialogContentText>
+                            Please fill out the following information:
+          </DialogContentText>
+                        {!error ? <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Email Address"
+                            type="email"
+                            fullWidth
+                            onChange={(e) => setUserInfo({
+                                ...userInfo,
+                                user: e.target.value,
+                            })}
+                            required
+                        /> :
+                            <TextField
+                                error
+                                id="standard-error-helper-text"
+                                label="Error"
+                                helperText="User not found. You may need to Sign Up!"
+                            />}
 
+                        <TextField
+                            margin="dense"
+                            id="password"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            onChange={(e) => setUserInfo({
+                                ...userInfo,
+                                pass: e.target.value,
+                            })}
+                            required
+                        />
+                        <Button onClick={handleClose} >
+                            Cancel
+          </Button>
+                        <Button type='submit'>
+                            Done
+          </Button>
+                    </DialogContent>
+
+                </form>
+
+            </Dialog>
         </div>
-    )
-
+    );
 }
-
-export default Login;

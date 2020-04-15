@@ -83,7 +83,7 @@ const Navbar = () => {
 
                 <StyledUl >
                     {/* google login */}
-                    {/* <Login></Login> */}
+                    <Login></Login>
                     <Signup></Signup>
 
                     <NavList>

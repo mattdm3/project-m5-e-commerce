@@ -9,7 +9,7 @@ export default function userReducer(state = intitialState, action) {
         case "RECEIVE_USER_DATA": {
             return {
                 ...state,
-                status: 'success',
+                status: 'authenticated',
                 user: action.user
 
             }
@@ -17,13 +17,13 @@ export default function userReducer(state = intitialState, action) {
         case "REQUEST_USER_DATA": {
             return {
                 ...state,
-                status: 'loading',
+                status: 'authenticating...',
             }
         }
         case "RECEIVE_USER_ERROR": {
             return {
                 ...state,
-                status: 'error',
+                status: 'error authenticating',
             }
         }
         default:

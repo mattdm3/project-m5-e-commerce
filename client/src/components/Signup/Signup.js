@@ -7,7 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
 
-
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
@@ -47,32 +46,27 @@ export default function SignUp() {
                 console.log("Success")
                 setOpen(false)
             }
-            else if (response.status === 403) {
+            else if (response.status === 401) {
                 console.log("User Already Exists!")
                 setError(true)
             }
-            else if (response.status === 404) {
+            else if (response.status === 400) {
                 console.log('Some error occured signing up')
             }
         }
         handleSignUp();
 
-
-
-
-
     }
 
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button style={{ color: 'black' }} variant="outlined" onClick={handleClickOpen}>
                 Create An Account
       </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Sign Up Here :)</DialogTitle>
                 <form onSubmit={handleDone}>
                     <DialogContent>
-
                         <DialogContentText>
                             Please fill out the following information:
           </DialogContentText>
@@ -110,10 +104,10 @@ export default function SignUp() {
                             })}
                             required
                         />
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={handleClose} >
                             Cancel
           </Button>
-                        <Button type='submit' color="primary">
+                        <Button type='submit'>
                             Done
           </Button>
                     </DialogContent>
