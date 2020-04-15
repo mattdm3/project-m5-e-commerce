@@ -9,6 +9,7 @@ import inventoryReducer from './inventory-reducer';
 
 import cartReducer from './cart-reducer';
 import userReducer from './user-reducer';
+import companiesReducer from './companies-reducer';
 
 export default combineReducers({
     dataItems,
@@ -16,6 +17,7 @@ export default combineReducers({
     inventoryReducer,
     items,
     userReducer,
+    companiesReducer,
 });
 // >>>>>>> master
 
