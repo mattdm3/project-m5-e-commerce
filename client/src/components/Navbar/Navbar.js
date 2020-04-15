@@ -75,6 +75,7 @@ const Navbar = () => {
         return () => window.removeEventListener("resize", handleWindowResize);
 
     }, [])
+
     const handleResetLogging = () => {
         dispatch(logOutUser());
         dispatch(clearCart());

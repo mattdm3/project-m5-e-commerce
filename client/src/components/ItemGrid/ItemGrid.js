@@ -82,13 +82,15 @@ const ItemGrid = () => {
                             <GridWrapper>
                                 {currentItems.items.map((item, arrayNum) => {
                                     return (
-                                        <Link to={`/item/${item.id}`}>
+                                        <StyledLink to={`/item/${item.id}`}>
                                             {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
 
-                                            <RenderItem key={item.id} item={item}></RenderItem>
-                                            {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
+                                            <RenderItem key={item.id} item={item}>
 
-                                        </Link>
+                                            </RenderItem>
+                                            {item.numInStock == 0 && <StyledStock> Out Of <br></br> Stock</StyledStock>}
+
+                                        </StyledLink>
                                         // >>>>>>> master
                                         // >>>>>>> maste
                                     )
@@ -97,13 +99,13 @@ const ItemGrid = () => {
                             {/* make this button wrapper reusableinsde category as well.  */}
                             <ButtonWrapper>
                                 {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
-                                    Previous
+                                    ←
                       </button>}
                                 <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
                                 <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
                                 <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
                                 <button onClick={() => setPageCounter(pageCount += 1)}>
-                                    >
+                                    →
                       </button>
                             </ButtonWrapper>
                             {/* Search for for particular page? - is it necessary?*/}
@@ -124,6 +126,9 @@ const ItemGrid = () => {
 
 // STYLING
 
+const StyledLink = styled(Link)`
+    position: relative; 
+`
 
 
 const ButtonWrapper = styled.div`

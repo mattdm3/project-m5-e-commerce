@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom"
-import { GridWrapper, StyledStock, MiddlePage } from '../CONSTANTS';
+import { GridWrapper, StyledStock, MiddlePage, PageContainer } from '../CONSTANTS';
 import RenderItem from '../ItemGrid/RenderItem';
 import { Link } from "react-router-dom";
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
+import styled from 'styled-components';
 
 
 
@@ -44,9 +45,14 @@ const BodyPart = () => {
     console.log(bodyItemInfo)
 
     return (
-        <div>
+        <PageContainer>
 
             {bodyItemInfo !== null ? <div>
+                <Title>
+                    <h1>{body} Gear</h1>
+                </Title>
+
+
                 <GridWrapper>
                     {bodyItemInfo.map(item => {
                         return (
@@ -61,14 +67,16 @@ const BodyPart = () => {
                 :
                 <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>}
 
-        </div>
+        </PageContainer>
     )
 
-
-
-
-
-
 }
+
+const Title = styled.div`
+    font-size: 1.9rem;
+    font-weight: 800; 
+    margin-top: 2rem; 
+    
+`
 
 export default BodyPart;

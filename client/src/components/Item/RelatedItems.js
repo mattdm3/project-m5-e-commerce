@@ -2,13 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import { Link } from "react-router-dom";
-import { StyledStock } from '../CONSTANTS';
+import { StyledStock, PageContainer } from '../CONSTANTS';
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa'
 
 
 const RelatedItems = ({ itemInfo }) => {
 
     const [relatedItems, setRelatedItems] = useState(null)
+    const scrollRef = React.useRef();
 
+    const scrollLeft = (ref) => {
+        scrollRef.current.scrollBy(-300, 0)
+    }
+    const scrollRight = (ref) => {
+        scrollRef.current.scrollBy(300, 0)
+    }
+
+    if (scrollRef.current != null) {
+        console.log(scrollRef.current.scrollLeft)
+
+    }
+    const executeScrollLeft = () => scrollLeft(scrollRef);
+    const executeScrollRight = () => scrollRight(scrollRef);
 
     useEffect(() => {
         const handleRelatedItems = async () => {
@@ -34,47 +49,83 @@ const RelatedItems = ({ itemInfo }) => {
     console.log(relatedItems)
 
     return (
-        <React.Fragment>
-            <Wrapper>
-                {relatedItems !== null &&
-                    relatedItems.map(item => {
-                        return <Link to={`/item/${item.id}`}>
+        <>
+            <PageContainer>
+                <Container>
+                    <StyledScrollLeft onClick={executeScrollLeft}>
+                        <FaCaretLeft />
+                    </StyledScrollLeft>
+                    <Wrapper style={{ scrollBehavior: "smooth" }} ref={scrollRef} >
 
-                            <RenderItem item={item}></RenderItem>
-                            {item.numInStock == 0 && <StyledStock> Out Of<br></br> Stock</StyledStock>
-                            }
+                        {relatedItems !== null &&
+                            relatedItems.map(item => {
+                                return <StyledLink to={`/item/${item.id}`}>
 
-                        </Link>
+                                    <RenderItem item={item}></RenderItem>
+                                    {item.numInStock == 0 && <StyledStock> Out Of<br></br> Stock</StyledStock>
+                                    }
 
-                    })
-                }
-            </Wrapper>
-        </React.Fragment>
+                                </StyledLink>
+
+                            })
+                        }
+
+                    </Wrapper>
+                    <StyledScrollRight onClick={executeScrollRight}>
+                        <FaCaretRight />
+                    </StyledScrollRight>
+                </Container>
+            </PageContainer>
+        </>
     )
 
 }
 
 export default RelatedItems;
 
-const Wrapper = styled.div`
+const StyledLink = styled(Link)`
+    margin: 0 2.3rem; 
+    position: relative; 
+`
 
-    @media only screen and (min-width: 1025px) {
+const Container = styled.div`
+    position: relative;
+    height: 100%; 
+`
+
+const StyledScrollLeft = styled.div`
+    position: absolute; 
+    left: -4.5rem;
+    top: 50%;  
+    z-index: 10; 
+    font-size:4rem; 
+    cursor: pointer;
+
+`
+const StyledScrollRight = styled.div`
+    position: absolute; 
+    right: -4.5rem;
+    top: 50%;  
+    z-index: 10; 
+    font-size:4rem; 
+    cursor: pointer;
+
+`
+
+const Wrapper = styled.div`
     overflow: auto;
     white-space: nowrap;
     width: 100%;
-    height: 100vh;
     display: flex;
+    overflow: hidden; 
 
     a {
         text-decoration: none;
     }
 
+
+@media only screen and (max-width: 600px) {
+    overflow-y: hidden;
+    
 }
-
-@media only screen and (max-width: 1024px) {
-    overflow-y: scroll;
-    height: 50vh;
-
-}
-
-    `
+`

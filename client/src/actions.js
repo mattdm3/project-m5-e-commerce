@@ -83,3 +83,19 @@ export const receiveUserInfoError = () => ({
 export const logOutUser = () => ({
     type: 'LOGOUT',
 })
+
+//GET ALL COMPANIES FROM DATABASE
+
+export const requestAllCompanies = () => ({
+    type: 'REQUEST_COMPANIES',
+
+})
+export const receiveAllCompanies = (allCompanies) => ({
+    type: 'RECEIVE_COMPANIES',
+    allCompanies,
+
+})
+export const receiveAllCompaniesError = () => ({
+    type: 'RECEIVE_COMPANIES_ERROR',
+
+})

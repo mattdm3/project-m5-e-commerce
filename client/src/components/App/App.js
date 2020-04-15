@@ -22,6 +22,9 @@ import {
   receiveAllDataFromDataBase,
   requestAllDataFromDataBase,
   receiveAllDataFromDataBaseError,
+  requestAllCompanies,
+  receiveAllCompanies,
+  receiveAllCompaniesError,
 } from '../../actions';
 import Chatbot from '../ChatBot/Chatbot';
 import BodyPart from '../Bodypart/BodyPart';
@@ -37,7 +40,6 @@ function App() {
 
 
 
-
   //Fetch ALL data. 
   useEffect(() => {
     dispatch(requestAllDataFromDataBase())
@@ -48,6 +50,15 @@ function App() {
 
   }, [])
   //
+
+  //Fetch the companies
+  // useEffect(() => {
+  //   dispatch(requestAllCompanies())
+  //   fetch('/sellers')
+  //     .then(res => res.json())
+  //     .then(data => dispatch(receiveAllCompanies(data)))
+  //     .catch(() => dispatch(receiveAllCompaniesError()))
+  // }, [])
 
   //at App -top lvl componenet - as he purchases, updated it in the backend ?
   //is there a better way to do this?
