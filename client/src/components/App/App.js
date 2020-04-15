@@ -53,8 +53,7 @@ function App() {
   //is there a better way to do this?
   useEffect(() => {
     //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
-    if (userLoggedIn.user !== null || userLoggedIn.user !== undefined
-      && userLoggedIn.status == 'authenticated') {
+    if (userLoggedIn.status == 'authenticated') {
 
       console.log('inside app post fetch')
       const handleCartItemsForUser = async () => {

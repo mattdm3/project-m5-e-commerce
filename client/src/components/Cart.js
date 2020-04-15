@@ -17,6 +17,11 @@ const Cart = (props) => {
 
     const state = useSelector(state => itemsSelector(state.cartState));
     const total = useSelector(state => cartTotalSelector(state.cartState));
+    const userLoggedIn = useSelector(state => state.userReducer)
+
+
+    console.log(state, 'THIS IS TATE IN CART')
+    //if its a guest. 
     const cartState = useSelector(state => state.cartState);
     const inventoryState = useSelector(state => state.inventoryReducer);
 
@@ -42,8 +47,11 @@ const Cart = (props) => {
                 </Details>
             </Container>
             <Bordered>
+
                 {state.map((item) => <CartItem key={item.id} {...item} />)}
             </Bordered>
+
+
             <Total>
                 <GreyP>Shipping:</GreyP>
                 <p style={{ margin: "0 20px" }}>$9.43</p>

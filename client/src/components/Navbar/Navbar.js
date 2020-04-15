@@ -10,7 +10,7 @@ import { AiFillInstagram } from 'react-icons/ai'
 
 import Login from '../Login';
 import Signup from '../Signup';
-import { logOutUser } from '../../actions';
+import { logOutUser, clearCart } from '../../actions';
 
 
 import {
@@ -77,8 +77,10 @@ const Navbar = () => {
     }, [])
     const handleResetLogging = () => {
         dispatch(logOutUser());
+        dispatch(clearCart());
         //set loginstate back to true to show login and sign up
         setLoginState(true)
+
 
     }
 
