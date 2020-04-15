@@ -174,9 +174,96 @@ const handleBodyItems = (req, res) => {
 
 }
 
+const handleSignUp = (req, res) => {
+    let userInfo = req.body;
+
+    //if any error getting the user. 
+    if (!userInfo) {
+        res.status(400).send('Unable to Process Sign Up Request - Bad')
+    }
+    else {
+        let existingUser = users.find(user => {
+            if (user.user == userInfo.user) {
+                console.log('inside')
+                return ('That user already exists!')
+            }
+        })
+        //change this
+        //if undefined then there is no user and can proceed with sign up
+        if (existingUser == undefined) {
+            users.push(userInfo)
+            let name = userInfo.user.split('@')[0]
+            res.status(200).send({ name })
+        }
+        else {
+            res.status(401).send({ message: 'User already exists' })
+        }
+    }
+}
+
+const handleLogin = (req, res) => {
+
+    let loginInfo = req.body;
+
+
+    if (!loginInfo) {
+        res.status(400).send('Unable to Process Login Request - Bad')
+    }
+    //meaning there is something in the array of users 
+    else if (loginInfo) {
+        let getUserInfo = users.find(user => {
+            if (user.user === loginInfo.user && user.pass === loginInfo.pass) {
+                return (user)
+            }
+        })
+        //if user was found
+        if (getUserInfo !== undefined) {
+            //send only the Profile Name
+            let name = getUserInfo.user.split('@')[0]
+            let data = getUserInfo.cart;
+            console.log(data, 'this is data')
+
+            res.status(200).send({ name, data })
+        } else {
+            res.status(404).send('User Not Found')
+        }
+
+    }
+    //can remove
+    else {
+        res.status(401).send('Error occured Authenticating')
+    }
+
+
+}
+
+const handleCartItemsForUser = (req, res) => {
+    let name = req.params.user; //just the name 
+    let notYetPurchasedCartItems = req.body; //array of objects
+
+    console.log(name)
+    console.log(notYetPurchasedCartItems)
+
+    //first thing is find the user. 
+    let userInfo = users.find(user => {
+        if (name == user.user.split('@')[0]) {
+            return user
+        }
+    })
+    //user was found
+    if (userInfo !== undefined) {
+        userInfo.cart = notYetPurchasedCartItems;
+
+    }
 
 
 
+}
 
 
-module.exports = { handleBodyItems, handleRelatedItems, handleAllData, handleCompany, handleItemId, handleCategory, handleItemsData, handleSellers };
+
+module.exports = {
+    handleSignUp, handleBodyItems, handleRelatedItems,
+    handleAllData, handleCompany, handleItemId, handleCategory,
+    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser
+};
