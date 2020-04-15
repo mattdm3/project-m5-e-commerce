@@ -48,6 +48,8 @@ function App() {
   }, [])
   //
 
+  //at App -top lvl componenet - as he purchases, updated it in the backend ?
+  //is there a better way to do this?
   useEffect(() => {
     //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
     if (userLoggedIn.user !== null) {
