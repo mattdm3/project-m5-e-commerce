@@ -13,11 +13,13 @@ export default function companiesReducer(state = intitialState, action) {
             }
         }
         case "RECEIVE_COMPANIES": {
+
             return {
                 ...state,
                 status: "success",
                 allCompanies: action.allCompanies,
             }
+
         }
 
         case "RECEIVE_COMPANIES_ERROR": {
