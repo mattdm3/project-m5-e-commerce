@@ -1,49 +1,111 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { PageHeadings } from '../CONSTANTS';
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa'
 
 const AllSellers = () => {
 
-    //state will hold the company info
-    const [companyNames, setCompanyNames] = useState(null)
+    //Companies from redux store
+    const { allCompanies } = useSelector(state => state.companiesReducer)
 
+    const scrollRef = React.useRef();
 
-    //as soon as this company gets rendered. Will do a fetch
-    useEffect(() => {
-        fetch(`/sellers`)
-            .then(res => res.json())
-            .then(names => setCompanyNames(names))
-            .catch(() => window.alert('Error occured finding the companies'))
-    }, [])
+    const scrollLeft = (ref) => {
+        scrollRef.current.scrollBy(-300, 0)
+    }
+    const scrollRight = (ref) => {
+        scrollRef.current.scrollBy(300, 0)
+    }
 
-    // FIX LINK
+    const executeScrollLeft = () => scrollLeft(scrollRef);
+    const executeScrollRight = () => scrollRight(scrollRef);
 
     return (
-        <CompanyContainer>
-            {companyNames && companyNames.map(company => {
-                return (
-                    <ContentContainer>
-                        <a key={company.name} href={company.url} target="_blank">{company.name}</a>
-                        <Link to={`/sellers/${company.companyId}`}>
-                            <p>see products</p>
-                        </Link>
-                    </ContentContainer>
+        <>
+            <PageHeadings>Featured Sellers</PageHeadings>
+            <Container>
+
+                <StyledScrollLeft onClick={executeScrollLeft}>
+                    <FaCaretLeft />
+                </StyledScrollLeft>
+                <Wrapper ref={scrollRef} style={{ scrollBehavior: "smooth" }}>
+                    {allCompanies && allCompanies.map(company => {
+                        return (
+                            <ContentContainer key={company.name}>
+                                <Link to={`/sellers/${company.id}`}>
+                                    <p>{company.name}</p>
+                                </Link>
+                                <a href={company.url} target="_blank">Visit Website</a>
+                            </ContentContainer>
 
 
-                )
+                        )
 
-            })}
-        </CompanyContainer>
+                    })}
+                </Wrapper>
+                <StyledScrollRight onClick={executeScrollRight}>
+                    <FaCaretRight />
+                </StyledScrollRight>
+            </Container>
+        </>
+
     )
 }
 
-const CompanyContainer = styled.div`
-    display: flex; 
-    justify-content: space-between; 
-    flex-wrap: wrap; 
-    padding: 0 100px; 
-    margin: 50px 45px; 
-    text-align: center; 
+// const CompanyContainer = styled.div`
+//     display: flex; 
+//     justify-content: space-between; 
+//     flex-wrap: wrap; 
+//     padding: 0 100px; 
+//     margin: 50px 45px; 
+//     text-align: center; 
+
+// `
+
+const Wrapper = styled.div`
+    overflow: auto;
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    overflow: hidden; 
+    align-items:center;
+
+    a {
+        text-decoration: none;
+    }
+
+
+@media only screen and (max-width: 600px) {
+    overflow-y: hidden;
+    
+}
+`
+
+const Container = styled.div`
+    position: relative;
+    height: 100%; 
+    margin-top: 3rem;
+
+`
+
+const StyledScrollLeft = styled.div`
+    position: absolute; 
+    left: -4.5rem;
+    top: 0%;  
+    z-index: 10; 
+    font-size:4rem; 
+    cursor: pointer;
+
+`
+const StyledScrollRight = styled.div`
+    position: absolute; 
+    right: -4.5rem;
+    top: 0%;  
+    z-index: 10; 
+    font-size:4rem; 
+    cursor: pointer;
 
 `
 
@@ -53,22 +115,39 @@ const ContentContainer = styled.div`
     margin-bottom: 30px; 
     display: flex; 
     flex-direction: column; 
+    position: relative; 
 
-    a {
+    p {
         margin: 5px 45px; 
         text-transform: uppercase; 
         text-decoration: none; 
-        color: #333333;
+        color: black;
         font-size: 1.8rem; 
-        opacity: .6; 
+        opacity: .8; 
         font-weight: 700; 
+        z-index: 5; 
    
     }
-    p{ 
+    a:last-of-type { 
         margin: 0; 
         padding: 0;
         font-size: 1rem; 
         text-align: center;  
+        text-decoration: none; 
+        color: black;
+        opacity:0;
+        transition-duration: 400ms; 
+        padding-top: 10px; 
+        position: absolute; 
+        bottom: -22px; 
+        left: 50%; 
+        transform: translateX(-50%);
+    
+        &:hover {
+            opacity: 1;
+        }
+
+
     }
     &:hover {
             opacity: 1; 

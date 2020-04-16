@@ -18,10 +18,7 @@ const RelatedItems = ({ itemInfo }) => {
         scrollRef.current.scrollBy(300, 0)
     }
 
-    if (scrollRef.current != null) {
-        console.log(scrollRef.current.scrollLeft)
 
-    }
     const executeScrollLeft = () => scrollLeft(scrollRef);
     const executeScrollRight = () => scrollRight(scrollRef);
 
@@ -29,7 +26,6 @@ const RelatedItems = ({ itemInfo }) => {
         const handleRelatedItems = async () => {
             try {
                 let responseRelated = await fetch(`/relatedItems/${itemInfo.category}`);
-                console.log(responseRelated);
                 if (responseRelated.status === 200) {
                     let items = await responseRelated.json();
                     setRelatedItems(items)
@@ -46,7 +42,6 @@ const RelatedItems = ({ itemInfo }) => {
         handleRelatedItems();
     }, [])
 
-    console.log(relatedItems)
 
     return (
         <>
@@ -59,7 +54,7 @@ const RelatedItems = ({ itemInfo }) => {
 
                         {relatedItems !== null &&
                             relatedItems.map(item => {
-                                return <StyledLink to={`/item/${item.id}`}>
+                                return <StyledLink key={item.id} to={`/item/${item.id}`}>
 
                                     <RenderItem item={item}></RenderItem>
                                     {item.numInStock == 0 && <StyledStock> Out Of<br></br> Stock</StyledStock>

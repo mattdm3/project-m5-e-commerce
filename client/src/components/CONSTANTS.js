@@ -82,7 +82,7 @@ export const PageHeadings = styled.h2`
 
 export const StyledButton = styled.button`
 background: #164C81;
-width: 235px; 
+width: 15.5rem; 
 color: white; 
 text-transform: uppercase; 
 height: 55px; 

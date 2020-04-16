@@ -22,10 +22,6 @@ const Item = () => {
     const { id } = useParams();
 
 
-    console.log('INSIDE ITEM')
-
-    console.log(itemInfo)
-
     useEffect(() => {
 
         const handleItemDetailInfo = async () => {
@@ -81,7 +77,7 @@ const Item = () => {
 
                                 <CartButtonContainer>
                                     {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
-                                        <StyledInput value="1" type="number" />
+                                        <StyledInput defaultValue="1" type="number" />
                                     }
                                     {!inCart && itemInfo.numInStock > 0 ?
                                         <StyledButton
@@ -162,7 +158,7 @@ const Row = styled.div`
 
 `
 
-const ImageContainer = styled.image`
+const ImageContainer = styled.div`
 
     width: 50%; 
     img {
