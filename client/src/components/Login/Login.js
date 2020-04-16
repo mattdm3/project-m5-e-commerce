@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn({ setLoginState }) {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState(false)
-    const [signUp, setSignUp] = useState(false);
     const dispatch = useDispatch();
 
 
@@ -147,9 +146,7 @@ export default function SignIn({ setLoginState }) {
 
     }
 
-    const handleSignUp = () => {
-        setSignUp(true)
-    }
+
 
 
     return (<>
@@ -222,8 +219,8 @@ export default function SignIn({ setLoginState }) {
                         </Button>
                         <Grid container>
                             <Grid item>
-                                <Button onClick={handleSignUp} variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <Button variant="body2">
+                                    Don't have an account? <Signup setLoginState={setLoginState}></Signup>
                                 </Button>
                             </Grid>
                         </Grid>
@@ -233,7 +230,6 @@ export default function SignIn({ setLoginState }) {
                     <Copyright />
                 </Box>
             </Container>
-            {/* {signUp && <Signup></Signup>} */}
 
 
         </Dialog>
