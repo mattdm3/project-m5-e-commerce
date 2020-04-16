@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
+import { LoginCart, receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -37,45 +37,56 @@ export default function Login({ setLoginState }) {
         const handleLogin = async () => {
             //requestUserInfo - change status to loading
             dispatch(requestUserInfo())
-            let response = await fetch('/Login', {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(userInfo)
-            })
-            //authenticated
-            if (response.status === 200) {
-                console.log("Success")
-                let userCredentials = await response.json()
-                dispatch(receiveUserInfo(userCredentials))
-                setOpen(false)
-                setLoginState(false)
-            }
-            else if (response.status === 404) {
-                console.log("User Not Found!")
-                //reset on CHange
+            try {
 
-                setUserInfo({
-                    ...userInfo,
-                    user: '',
-                    pass: ''
+                let response = await fetch('/Login', {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
                 })
-                setError(true)
-                dispatch(receiveUserInfoError())
-            }
-            else if (response.status === 400 || response.status === 401) {
-                //reset on CHange
+                //authenticated
+                if (response.status === 200) {
+                    console.log("Success")
+                    let userCredentials = await response.json()
+                    dispatch(LoginCart(userCredentials.data))
+                    dispatch(receiveUserInfo(userCredentials))
 
-                setUserInfo({
-                    ...userInfo,
-                    user: '',
-                    pass: ''
-                })
-                console.log('Some error occured login')
-                dispatch(receiveUserInfoError())
+                    setOpen(false)
+                    setLoginState(false)
+                }
+                else if (response.status === 404) {
+                    console.log("User Not Found!")
+                    //reset on CHange
+
+                    setUserInfo({
+                        ...userInfo,
+                        user: '',
+                        pass: ''
+                    })
+                    setError(true)
+                    dispatch(receiveUserInfoError())
+                }
+                else if (response.status === 400 || response.status === 401) {
+                    //reset on CHange
+
+                    setUserInfo({
+                        ...userInfo,
+                        user: '',
+                        pass: ''
+                    })
+                    console.log('Some error occured login')
+                    dispatch(receiveUserInfoError())
+                }
+
             }
+            catch (err) {
+                console.log(err, 'CATCH ERROR')
+            }
+
+
         }
         handleLogin();
 

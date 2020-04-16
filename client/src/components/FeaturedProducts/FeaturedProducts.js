@@ -23,9 +23,9 @@ const FeaturedProducts = () => {
         featuredItemsArray.push((featuredItems[randomNum4]));
     }
 
-    if (featuredItemsArray.length != 0) {
-        console.log(featuredItemsArray)
-    }
+    // if (featuredItemsArray.length != 0) {
+    //     console.log(featuredItemsArray)
+    // }
 
 
 

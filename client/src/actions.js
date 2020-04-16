@@ -17,6 +17,11 @@ export const updateQuantity = (item, newQuantity) => ({
 export const clearCart = () => ({
     type: 'CLEAR_CART',
 });
+//update with login info
+export const LoginCart = (cartData) => ({
+    type: "LOGIN_CART",
+    cartData
+})
 
 export const updateStock = (cartState) => ({
     type: 'UPDATE_STOCK',

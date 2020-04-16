@@ -28,6 +28,7 @@ export default function userReducer(state = intitialState, action) {
         }
         case "LOGOUT": {
             return {
+                ...intitialState
             }
         }
         default:

@@ -82,7 +82,6 @@ const handleItemsData = (req, res) => {
     let firstIndex = (page - 1) * limit; //0
     let endIndex = (limit * page);//9
     let slicedItems = sortItems.slice(firstIndex, endIndex)
-    console.log(slicedItems[0].price)
 
     //will send back 9 items.
     res.send(slicedItems)
@@ -200,6 +199,7 @@ const handleSignUp = (req, res) => {
 const handleLogin = (req, res) => {
 
     let loginInfo = req.body;
+    console.log(loginInfo)
 
 
     if (!loginInfo) {
@@ -223,7 +223,6 @@ const handleLogin = (req, res) => {
         } else {
             res.status(404).send('User Not Found')
         }
-
     }
     //can remove
     else {
@@ -236,11 +235,8 @@ const handleLogin = (req, res) => {
 const handleCartItemsForUser = (req, res) => {
     let name = req.params.user; //just the name 
     let notYetPurchasedCartItems = req.body; //array of objects
-
-    console.log(name)
-    console.log(notYetPurchasedCartItems)
-
     //first thing is find the user. 
+    console.log(name, 'THIS IS NAME')
     let userInfo = users.find(user => {
         if (name == user.user.split('@')[0]) {
             return user
@@ -249,9 +245,8 @@ const handleCartItemsForUser = (req, res) => {
     //user was found
     if (userInfo !== undefined) {
         userInfo.cart = notYetPurchasedCartItems;
-
     }
-    res.status(200).send('Added to cart');
+    res.status(200)
 }
 
 

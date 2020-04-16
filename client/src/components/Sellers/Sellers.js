@@ -4,6 +4,8 @@ import { MiddlePage, PageContainer } from '../CONSTANTS'
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import ClipLoader from "react-spinners/ClipLoader";
+import Iframe from 'react-iframe'
+
 
 const Sellers = () => {
 
@@ -12,7 +14,7 @@ const Sellers = () => {
     //Get the comapny - ID from the URL
     const { companyId } = useParams();
 
-    console.log(companyState)
+    console.log(companyState, 'COMPANY STATE')
 
 
     //as soon as this company gets rendered. Will do a fetch
