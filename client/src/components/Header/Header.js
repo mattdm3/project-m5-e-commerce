@@ -22,10 +22,16 @@ const StyledHeaderImg = styled.div`
 
     h1 {
         position: absolute; 
-        bottom: 150px;
-        left: 180px;  
+        bottom: 11.2rem;
+        left: 11.2rem;  
         font-size: 3.5rem;
         font-weight: 800; 
+    }
+    @media screen and (max-width: 600px) {
+        h1 {
+            left: 2rem;
+            bottom: 8rem; 
+        }
     }
 `
 

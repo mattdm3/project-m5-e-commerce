@@ -56,9 +56,9 @@ const BodyPart = () => {
                 <GridWrapper>
                     {bodyItemInfo.map(item => {
                         return (
-                            <Link to={`/item/${item.id}`}>
+                            <Link style={{ position: "relative" }} to={`/item/${item.id}`}>
                                 <RenderItem item={item}></RenderItem>
-                                {item.numInStock == 0 && <StyledStock> Out Of Stock</StyledStock>}
+                                {item.numInStock == 0 && <StyledStock> Out Of <br></br>Stock</StyledStock>}
                             </Link>)
                     })}
                 </GridWrapper>
