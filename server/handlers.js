@@ -251,9 +251,7 @@ const handleCartItemsForUser = (req, res) => {
         userInfo.cart = notYetPurchasedCartItems;
 
     }
-
-
-
+    res.status(200).send('Added to cart');
 }
 
 
