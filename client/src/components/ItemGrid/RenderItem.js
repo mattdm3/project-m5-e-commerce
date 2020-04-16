@@ -99,7 +99,7 @@ const ImageContainer = styled.div`
 `
 const TitleContainer = styled.div`
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     display: flex; 
     justify-content: flex-start; 
@@ -128,9 +128,10 @@ const Price = styled.p`
 const DescriptionContainer = styled.div`
     position: absolute; 
     align-items: flex-end;
-    bottom: 0;
+    bottom: 20px;
     left: 0px; 
     padding-left: 40px; 
+
     display: flex; 
     justify-content: space-between;
     width: 100%; 
@@ -139,6 +140,7 @@ const DescriptionContainer = styled.div`
     /* padding: 0 15px;  */
     transition-duration: 600ms; 
     opacity: 0; 
+    /* border: 1px solid red;  */
     &:hover {
         animation: ${slideUp} 500ms forwards; 
     }    
