@@ -70,15 +70,6 @@ position: relative;
         font-size: 1rem; 
     }
 
-    /* @media screen and (max-width: 600px) {
-        h3{
-            font-size: 1.1rem;
-        }
-        h2{
-            font-size: 2.9rem;
-        }
-    } */
-
 `
 
 const AnimatedDiv = styled.div`

@@ -57,9 +57,10 @@ const Category = () => {
     }, [category, pageCount])
     // <<<<<<< searchBar-2-manny
 
-    console.log(category)
+    if (currentItems.items != null) {
+        console.log(currentItems.items.length)
 
-    console.log(currentItems);
+    }
 
     return (
         <React.Fragment>
@@ -88,7 +89,7 @@ const Category = () => {
                                     </Link>
                                 })}
                             </GridWrapper>
-                            <ButtonWrapper>
+                            {currentItems.items.length > 8 && <ButtonWrapper>
                                 {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
                                     ←
                       </button>}
@@ -98,7 +99,7 @@ const Category = () => {
                                 <button onClick={() => setPageCounter(pageCount += 1)}>
                                     →
                       </button>
-                            </ButtonWrapper>
+                            </ButtonWrapper>}
                         </GridContainer>
                     </SideAndGrid>
                 </PageContainer>
@@ -106,7 +107,7 @@ const Category = () => {
 
 
 
-        </React.Fragment>
+        </React.Fragment >
 
     )
 
