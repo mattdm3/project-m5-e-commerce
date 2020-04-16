@@ -1,33 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import styled from "styled-components";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
+//
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginCart, receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
+//
 
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
-export default function Login({ setLoginState }) {
-
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+//Reference Sebastian Silbermann - Materials UI OpenSource Code
 
 
+function Copyright() {
+    return (
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="/">
+                Tech6Gear.com
+      </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
+
+export default function SignIn({ setLoginState }) {
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false)
+    const dispatch = useDispatch();
+
+
     const [userInfo, setUserInfo] = useState({
         user: '',
         pass: '',
     })
-    const dispatch = useDispatch();
 
-    const [error, setError] = useState(false)
+
+    const classes = useStyles();
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -102,62 +144,91 @@ export default function Login({ setLoginState }) {
 
     }
 
-    return (
-        <div>
-            <StyledLoginButton onClick={handleClickOpen}>
-                Login
-      </StyledLoginButton>
-            <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Login</DialogTitle>
-                <form onSubmit={handleDone}>
-                    <DialogContent>
-                        <DialogContentText>
-                            Please fill out the following information:
-          </DialogContentText>
+
+    return (<>
+        <StyledLoginButton onClick={handleClickOpen}>
+            Login
+</StyledLoginButton>
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        {/* <LockOutlinedIcon /> */}
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Login
+        </Typography>
+                    <form className={classes.form} noValidate onSubmit={handleDone}>
                         <TextField
-                            autoFocus
-                            value={userInfo.user}
-                            margin="dense"
-                            id="name"
-                            label="Email Address"
-                            type="email"
+                            variant="outlined"
+                            margin="normal"
+                            required
                             fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
                             onChange={(e) => setUserInfo({
                                 ...userInfo,
                                 user: e.target.value,
                             })}
-                            required
+                            value={userInfo.user}
                             helperText={!error ? '' : "User not found. You may need to Sign Up!"}
                         />
-                        {/* PASSWORD */}
                         <TextField
-                            value={userInfo.pass}
-                            margin="dense"
-                            id="password"
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
                             label="Password"
                             type="password"
-                            fullWidth
+                            id="password"
+                            autoComplete="current-password"
                             onChange={(e) => setUserInfo({
                                 ...userInfo,
                                 pass: e.target.value,
                             })}
-                            required
+                            value={userInfo.pass}
+
                         />
-                        <Button onClick={handleClose} >
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign In
+                     </Button>
+                        <Button onClick={handleClose}
+
+                            fullWidth
+                            variant="contained"
+                            color="inherit"
+                            className={classes.submit}
+                        >
                             Cancel
-          </Button>
-                        <Button type='submit'>
-                            Done
-          </Button>
-                    </DialogContent>
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link href="#" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </div>
+                <Box mt={8}>
+                    <Copyright />
+                </Box>
+            </Container>
+        </Dialog>
 
-                </form>
-
-            </Dialog>
-        </div>
-    );
+    </>);
 }
-
 
 const StyledLoginButton = styled.button`
     width: 50px; 
