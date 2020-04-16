@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Iframe from 'react-iframe'
 
 
+
 const Sellers = () => {
 
     //state will hold the company info
@@ -25,19 +26,25 @@ const Sellers = () => {
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
-    console.log(companyState)
 
 
 
     return (<PageContainer>
         {companyState !== null ?
-            <div>
+
+
+            < div >
                 <Header>
                     <div>
+
+
                         <StyledCompanyName>{companyState.name}</StyledCompanyName>
                         <a href={companyState.url}>{companyState.url}</a>
                         <div>{companyState.country}</div>
-                        <Products>Our Products</Products>
+                        <Image src={`/SellerImages/${companyState[0].name}.jpg`}></Image>
+                        <Products>{companyState[0].name}</Products>
+                        {/* <div style={{ backgroundImage: `url(${image})` }}></div> */}
+
                     </div>
                 </Header>
                 {/* all items */}
@@ -60,6 +67,14 @@ const Sellers = () => {
 }
 
 export default Sellers;
+
+const Image = styled.img`
+width: 100%;
+height: 40vh;
+object-fit: cover;
+position: relative;
+
+`
 
 
 const Wrapper = styled.div`
@@ -98,5 +113,13 @@ font-size: 6em;
 `
 
 const Products = styled.h2`
-font-size: 3em;
+font-size: 5em;
+position: absolute;
+right: 40%;
+top: 20%;
+color: white;
+margin-left: auto; 
+    margin-right: auto; 
+
+
 `
