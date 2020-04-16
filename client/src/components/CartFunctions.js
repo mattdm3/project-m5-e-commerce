@@ -23,7 +23,7 @@ export const AddToCart = (props) => {
         } else {
             dispatch(updateQuantity(props, parseInt(value)));
         }
-        
+
     };
 
     useEffect(() => {
@@ -50,12 +50,12 @@ export const AddToCart = (props) => {
 
     return (
         <CartButtonContainer>
-            <StyledInput 
-            type="number"
-            min="1"
-            value={props.quantity}
-            placeholder="1"
-            onChange={handleQuantity} />
+            <StyledInput
+                type="number"
+                min="1"
+                value={props.quantity}
+                placeholder="1"
+                onChange={handleQuantity} />
             {!inCart &&
                 <StyledButton
                     onClick={() =>
@@ -64,7 +64,7 @@ export const AddToCart = (props) => {
             {inCart && <p>Added to cart</p>}
         </CartButtonContainer>
     )
-    
+
 }
 
 //------------------------------------ STYLES ------------------------------------

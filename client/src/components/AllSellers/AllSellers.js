@@ -113,6 +113,7 @@ const StyledScrollRight = styled.div`
     cursor: pointer;
 
 `
+
 const ContentContainer = styled.div`
     opacity: .7; 
     transition-duration: 500ms;     

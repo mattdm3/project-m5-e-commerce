@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from "react-router-dom"
-import { MiddlePage, PageContainer } from '../CONSTANTS'
+import { StyledStock, MiddlePage, PageContainer, GridWrapper } from '../CONSTANTS'
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import ClipLoader from "react-spinners/ClipLoader";
 import Iframe from 'react-iframe'
+
+
 
 
 const Sellers = () => {
@@ -29,25 +31,33 @@ const Sellers = () => {
 
     return (<PageContainer>
         {companyState !== null ?
-            <div>
+
+
+            < div >
                 <Header>
                     <div>
+
+
                         <StyledCompanyName>{companyState.name}</StyledCompanyName>
                         <a href={companyState.url}>{companyState.url}</a>
                         <div>{companyState.country}</div>
-                        <Products>Our Products</Products>
+                        <Image src={`/SellerImages/${companyState[0].name}.jpg`}></Image>
+                        <Products>{companyState[0].name}</Products>
+                        {/* <div style={{ backgroundImage: `url(${image})` }}></div> */}
+
                     </div>
                 </Header>
                 {/* all items */}
-                <GridSellerWrapper>
+                <GridWrapper>
                     {companyState[1].map(item => {
                         return (
-                            <Link key={item.id} to={`/item/${item.id}`}>
+                            <StyledLink to={`/item/${item.id}`}>
+                                {item.numInStock == 0 && <StyledStock> Out Of <br></br> Stock</StyledStock>}
                                 <RenderItem item={item}></RenderItem>
-                            </Link>
+                            </StyledLink>
                         )
                     })}
-                </GridSellerWrapper>
+                </GridWrapper>
 
             </div>
             : <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>}
@@ -59,22 +69,21 @@ const Sellers = () => {
 
 export default Sellers;
 
-
-const GridSellerWrapper = styled.div`
-    display: grid;
-
-    /* each take up their own fractional unit */
-    /* grid-template-columns: repeat(3, 1fr); */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    /* grid-template-rows: repeat(3, 1fr); */
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
-
-    a {
-        color: black;
-    }
+const Image = styled.img`
+width: 100%;
+height: 40vh;
+object-fit: cover;
+position: relative;
 `
 
+const StyledLink = styled(Link)`
+    position: relative; 
+`
+
+
+
+const Wrapper = styled.div`
+`
 const Header = styled.div`
 display: flex;
 justify-content: center;
@@ -93,5 +102,13 @@ font-size: 6em;
 `
 
 const Products = styled.h2`
-font-size: 3em;
+font-size: 5em;
+position: absolute;
+right: 40%;
+top: 20%;
+color: white;
+margin-left: auto; 
+    margin-right: auto; 
+
+
 `
