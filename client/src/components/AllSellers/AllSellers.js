@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
-
+import Iframe from 'react-iframe'
 // client/src/images/stock/SellerImages/Casio.jpg
 
 
@@ -11,7 +11,7 @@ const AllSellers = () => {
     //state will hold the company info
     const [companyNames, setCompanyNames] = useState(null)
 
-    console.log(companyNames, 'all sellers!!!')
+    console.log(companyNames)
 
 
     //as soon as this company gets rendered. Will do a fetch
@@ -48,7 +48,9 @@ const CompanyContainer = styled.div`
     padding: 0 100px; 
     margin: 50px 45px; 
     text-align: center; 
+
 `
+
 const ContentContainer = styled.div`
     opacity: .7; 
     transition-duration: 500ms;     
