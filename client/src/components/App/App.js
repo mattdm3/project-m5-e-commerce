@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // ------------- COMPONENTS -------------
 import GlobalStyles from '../GlobalStyles';
 import Navbar from '../Navbar';
+import PaymentMethod from '../PaymentMethod';
 // <<<<<<< cart
 // import ItemGrid from '../ItemGrid';
 // =======
@@ -109,6 +110,9 @@ function App() {
           </Route>
           <Route exact path="/bodypart/:body">
             <BodyPart></BodyPart>
+          </Route>
+          <Route exact path="/paymentMethod" >
+            <PaymentMethod />
           </Route>
         </Switch>
 

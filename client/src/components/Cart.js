@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector, getItemsAndQuantities } from '../reducers/cart-reducer';
 import { clearCart } from '../actions';
@@ -7,11 +7,13 @@ import { clearCart } from '../actions';
 
 // ------------ COMPONENTS ------------
 import CartItem from './CartItem';
+import { Redirect } from 'react-router-dom';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
 const Cart = () => {
+    const [coupon, setCoupon] = useState("❔")
     const dispatch = useDispatch();
 
     const state = useSelector(state => itemsSelector(state.cartState));
@@ -20,22 +22,22 @@ const Cart = () => {
     console.log('purchaseBag: ', purchaseBag);
     
 
-    const handleInventory = async(event) => {
-        let response = await fetch('/updateItemInventory', {
-            method: "PUT",
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(purchaseBag)
-        })
-        let data = await response.json();
-        await dispatch(clearCart());
-        return data
+    const handleInventory = (event) => {
+        dispatch(clearCart());
+
+        // <Redirect to="/paymentMethod" />
     }
 
-    const handleCoupon = () => {
-        console.log('clicked')
+    const handleCoupon = async (event) => {
+        event.preventDefault();
+        await console.log('clicked')
+        //fetch
+        //inner text changes to ❌ or ✔ depending on if coupon is good
+        if (1>2) { //fix condition according to fetch
+            setCoupon("❌")
+        } else {
+            setCoupon("✔")
+        }
     }
 
     return (
@@ -60,8 +62,10 @@ const Cart = () => {
             </Bordered>
             <Total>
                 <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
-                    <StyledInput name="coupon" type="text" placeholder="Coupon code?"/>
-                    <StyledInputButton onClick={handleCoupon}>?</StyledInputButton>
+                    <CouponContainer>
+                        <StyledInput name="coupon" type="text" placeholder="Coupon code?"/>
+                        <StyledInputButton onClick={handleCoupon}>{coupon}</StyledInputButton>
+                    </CouponContainer>
                     {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
                 </form>
               <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
@@ -136,22 +140,40 @@ const Total = styled.div`
     display: block;
 `;
 
+const CouponContainer = styled.div`
+    margin: 20px;
+    background: #FF4F40; 
+    border: none;
+    border-radius: 10px;
+    width: 240px; 
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const StyledInput = styled.input`
-    margin: 40px;
-    margin-right: 0;
-    background: none; 
-    border: 2px solid red;
+    margin-right: 5px;
+    background: white; 
+    border: none;
     border-radius: 4px;
     width: 200px; 
+    height: 40px;
     font-size: 15px; 
     text-align: center;
-`
+`;
 
 const StyledInputButton = styled.button`
-    background: red; 
-    border: 2px solid red;
-    border-radius: 4px;
-`
+    background: transparent; 
+    border: none;
+    border-radius: 10px;
+    height: 25px;
+    width: 25px;
+
+    :hover {
+        cursor: pointer;
+    }
+`;
 
 const StyledButton = styled.div`
     margin: 20px;
@@ -169,7 +191,7 @@ const StyledButton = styled.div`
     :hover {
         cursor: pointer;
     }
-`
+`;
 
 export default Cart;
 

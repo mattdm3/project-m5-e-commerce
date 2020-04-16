@@ -143,24 +143,6 @@ const handleSellers = (req, res) => {
 // }
 
 
-const handleRelatedItems = (req, res) => {
-
-    let category = req.params.category;
-
-    let filteredCategories = items.filter((item, index) => {
-        if (category == item.category) {
-            return item
-        }
-    })
-    let reducedItems = filteredCategories.filter((item, index) => {
-        if (index < 10) {
-            return item
-        }
-    })
-
-    res.status(200).send(reducedItems)
-}
-
 const handleBodyItems = (req, res) => {
     let bodypart = req.params.body;
 
