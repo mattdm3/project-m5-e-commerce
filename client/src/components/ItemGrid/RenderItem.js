@@ -5,12 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi"
 import { addItem } from '../../actions';
 import { isInCartSelector } from '../../reducers/cart-reducer';
+import { FaCheckCircle } from 'react-icons/fa'
 
 
 const RenderItem = ({ item }) => {
     const inCart = useSelector(state => isInCartSelector(state.cartState, item.id));
 
+    const handleButtonClick = (item, e) => {
+        e.preventDefault();
+        dispatch(addItem(item))
+        console.log(e);
 
+    }
 
     const dispatch = useDispatch();
 
@@ -26,11 +32,10 @@ const RenderItem = ({ item }) => {
 
         <DescriptionContainer>
 
-            {!inCart && item.numInStock > 0 && <StyledBuyBtn onClick={() =>
-                dispatch(addItem(item))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
+            {!inCart && item.numInStock > 0 && <StyledBuyBtn onClick={(e) => handleButtonClick(item, e)}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
             }
 
-            {inCart && <p>Already in cart</p>}
+            {inCart && <StyledBuyBtn disabled> <StyledCheck /> IN CART</StyledBuyBtn>}
         </DescriptionContainer>
 
     </ImageContainer>
@@ -38,8 +43,22 @@ const RenderItem = ({ item }) => {
     )
 }
 
+const scaleUp = keyframes`
+    0 {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+`
 
-
+const StyledCheck = styled(FaCheckCircle)`
+    margin-right: 1rem;
+    animation: ${scaleUp} 700ms ease forwards; 
+`
 
 const slideUp = keyframes`
     from {
@@ -126,6 +145,9 @@ const StyledBuyBtn = styled.button`
     border-radius: 5px; 
     align-items:center;
     display: flex; 
+    /* z-index: 500;  */
+    
+    
    
 `
 
