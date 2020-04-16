@@ -181,7 +181,7 @@ const handleSignUp = (req, res) => {
 const handleLogin = (req, res) => {
 
     let loginInfo = req.body;
-    console.log(loginInfo)
+    console.log(loginInfo, 'THIS IS LOGIN INFO')
 
 
     if (!loginInfo) {
@@ -210,26 +210,30 @@ const handleLogin = (req, res) => {
     else {
         res.status(401).send('Error occured Authenticating')
     }
-
-
 }
 
 const handleCartItemsForUser = (req, res) => {
-    let name = req.params.user; //just the name 
+    let name = req.params.user; //just the name
     let notYetPurchasedCartItems = req.body; //array of objects
-    //first thing is find the user. 
-    console.log(name, 'THIS IS NAME')
-    let userInfo = users.find(user => {
+
+    console.log(req.body)
+    //first thing is find the user.
+    console.log(name, 'THIS IS NAME');
+    let userInfo = users.find((user) => {
         if (name == user.user.split('@')[0]) {
-            return user
+            return user;
         }
-    })
+    });
     //user was found
     if (userInfo !== undefined) {
         userInfo.cart = notYetPurchasedCartItems;
+        res.status(200).send({ success: true });
     }
-    res.status(200)
-}
+    else {
+        res.status(401).send({ success: false });
+    }
+    // res.status(200);
+};
 
 const handleRelatedItems = (req, res) => {
     let category = req.params.category;
