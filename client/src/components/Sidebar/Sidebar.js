@@ -1,17 +1,8 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-import Search from '../Search/Search';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    receiveAllDataFromDataBase,
-    requestAllDataFromDataBase,
-    receiveAllDataFromDataBaseError,
-    requestAllCompanies,
-    receiveAllCompanies,
-    receiveAllCompaniesError,
-} from '../../actions';
+
 
 
 
@@ -37,9 +28,6 @@ const bodyLocation = [
 
 const Sidebar = () => {
 
-    const dispatch = useDispatch();
-
-    const allDataFetchSuccess = useSelector(items => items.dataItems.status);
 
     const { allCompanies } = useSelector(state => state.companiesReducer)
     const { status } = useSelector(state => state.companiesReducer)
@@ -51,24 +39,7 @@ const Sidebar = () => {
         const companyObj = allCompanies.filter(company => company.name === target);
         window.location = `/sellers/${companyObj[0].id}`
 
-
     }
-
-    React.useEffect(() => {
-        dispatch(requestAllCompanies())
-        fetch('/sellers')
-            .then(res => res.json())
-            .then(data => dispatch(receiveAllCompanies(data)))
-            .catch(() => dispatch(receiveAllCompaniesError()))
-    }, [])
-
-    // React.useEffect(() => {
-    //     fetch('/sellers')
-    //         .then(res => res.json())
-    //         .then(data => setCompanyList(data))
-    //         .catch((err) => console.log(err))
-    // }, [])
-
 
     return (
         <SidebarContainer>
@@ -89,16 +60,16 @@ const Sidebar = () => {
             <CategoriesContainer>
                 <SidebarHeading>Filter by Company</SidebarHeading>
 
-                <select onChange={handleSelect}>
-                    <option value="" disabled="disabled" selected="selected">All</option>
+                <select defaultValue="" onChange={handleSelect}>
+                    <option disabled="disabled" >All</option>
                     {allCompanies != null ? allCompanies.map((company) => (
                         <>
-                            <option value={company.name}>{company.name}</option>
+                            <option key={company.name} value={company.name}>{company.name}</option>
                         </>
                     )
                     )
                         :
-                        <option value="" disabled="disabled" selected="selected">LOADING</option>
+                        <option value="" disabled="disabled" >LOADING</option>
                     }
                 </select>
 
@@ -108,7 +79,7 @@ const Sidebar = () => {
                 {categories.map(category => {
                     return (
 
-                        <NavigationLink exact to={`/category/${category}`} activeStyle={{ color: "#164C81", fontWeight: "600" }} ><SidebarBody>{category}</SidebarBody></NavigationLink>
+                        <NavigationLink key={category} exact to={`/category/${category}`} activeStyle={{ color: "#164C81", fontWeight: "600" }} ><SidebarBody>{category}</SidebarBody></NavigationLink>
                     )
                 })}
                 <NavigationLink exact to="/"><SidebarBody>All Items</SidebarBody></NavigationLink>
@@ -118,13 +89,13 @@ const Sidebar = () => {
                 {bodyLocation.map(bodyPart => {
                     return (
 
-                        <NavigationLink exact to={`/bodypart/${bodyPart}`} activeStyle={{ color: "#164C81", fontWeight: "600" }} ><SidebarBody>{bodyPart}</SidebarBody></NavigationLink>
+                        <NavigationLink key={bodyPart} exact to={`/bodypart/${bodyPart}`} activeStyle={{ color: "#164C81", fontWeight: "600" }} ><SidebarBody>{bodyPart}</SidebarBody></NavigationLink>
                     )
                 })}
             </CategoriesContainer>
 
 
-        </SidebarContainer >
+        </SidebarContainer>
     )
 }
 

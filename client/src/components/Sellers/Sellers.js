@@ -14,7 +14,6 @@ const Sellers = () => {
     //Get the comapny - ID from the URL
     const { companyId } = useParams();
 
-    console.log(companyState, 'COMPANY STATE')
 
 
     //as soon as this company gets rendered. Will do a fetch
@@ -25,7 +24,6 @@ const Sellers = () => {
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
-    console.log(companyState)
 
 
 
@@ -44,7 +42,7 @@ const Sellers = () => {
                 <GridSellerWrapper>
                     {companyState[1].map(item => {
                         return (
-                            <Link to={`/item/${item.id}`}>
+                            <Link key={item.id} to={`/item/${item.id}`}>
                                 <RenderItem item={item}></RenderItem>
                             </Link>
                         )
@@ -53,7 +51,7 @@ const Sellers = () => {
 
             </div>
             : <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>}
-    </PageContainer >
+    </PageContainer>
     )
 
 
@@ -61,9 +59,6 @@ const Sellers = () => {
 
 export default Sellers;
 
-
-const Wrapper = styled.div`
-`
 
 const GridSellerWrapper = styled.div`
     display: grid;

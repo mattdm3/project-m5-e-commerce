@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, Link } from "react-router-dom"
+import { updateQuantity, removeItem } from "../../actions";
+
 
 import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +14,7 @@ import RelatedItems from './RelatedItems';
 import ClipLoader from "react-spinners/ClipLoader";
 
 
-const Item = () => {
+const Item = (props) => {
     const [itemInfo, setItemInfo] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const inCart = useSelector(state => isInCartSelector(state.cartState, itemInfo ? itemInfo.id : undefined));
@@ -21,10 +23,14 @@ const Item = () => {
 
     const { id } = useParams();
 
-
-    console.log('INSIDE ITEM')
-
-    console.log(itemInfo)
+    const handleQuantity = (event) => {
+        const value = event.target.value;
+        if (value > props.numInStock) {
+            return
+        } else {
+            dispatch(updateQuantity(props, parseInt(value)));
+        }
+    };
 
     useEffect(() => {
 
@@ -80,18 +86,26 @@ const Item = () => {
 
 
                                 <CartButtonContainer>
-                                    {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
-                                        <StyledInput value="1" type="number" />
-                                    }
-                                    {!inCart && itemInfo.numInStock > 0 ?
+                                    {/* REMOVED in commit */}
+                                    {/* // seller-page-styling
+//                                     {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
+                                         <StyledInput defaultValue="1" type="number" />
+                                     }
+                                     {!inCart && itemInfo.numInStock > 0 ?
+ ======= */}
+                                    <StyledInput
+                                        type="number"
+                                        min="1"
+                                        value={props.quantity}
+                                        placeholder="1"
+                                        onChange={handleQuantity} />
+                                    {!inCart &&
+                                        //>>>>>>> master
                                         <StyledButton
                                             onClick={() =>
                                                 dispatch(addItem(itemInfo))}>
-                                            Add to cart</StyledButton> :
-                                        <StyledButton disabled>Add to cart</StyledButton>}
-
-
-                                    {inCart && <p>Already in cart</p>}
+                                            Add to cart</StyledButton>}
+                                    {inCart && <p>Added to cart</p>}
                                 </CartButtonContainer>
 
                             </Column>
@@ -162,7 +176,7 @@ const Row = styled.div`
 
 `
 
-const ImageContainer = styled.image`
+const ImageContainer = styled.div`
 
     width: 50%; 
     img {

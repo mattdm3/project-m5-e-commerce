@@ -26,12 +26,14 @@ const ItemGrid = () => {
     //for state of item reducer.
     //also has the status - can be used for loading states. 
     const currentItems = useSelector(itemState => itemState.items);
+
     let [pageCount, setPageCounter] = useState(1);
     let [sortState, setSortState] = useState('bestMatch')
     //Once app renders 
     //Fetch the item data.
     useEffect(() => {
         //add logic to check to when page is 0 AND max pages.
+
         if (pageCount > 0 && pageCount <= 39) {
             //set the state to loading.
             dispatch(requestItemData())
@@ -63,6 +65,9 @@ const ItemGrid = () => {
         setSortState(val.key)
     }
 
+
+
+
     return (
         <>
             <PageContainer>
@@ -78,7 +83,7 @@ const ItemGrid = () => {
                             <GridWrapper>
                                 {currentItems.items.map((item, arrayNum) => {
                                     return (
-                                        <StyledLink to={`/item/${item.id}`}>
+                                        <StyledLink key={item.id} to={`/item/${item.id}`}>
                                             {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
 
                                             <RenderItem key={item.id} item={item}>

@@ -23,15 +23,6 @@ export const LoginCart = (cartData) => ({
     cartData
 })
 
-export const updateStock = (cartState) => ({
-    type: 'UPDATE_STOCK',
-    cartState,
-});
-
-export const clearInventoryReducer = () => ({
-    type: 'CLEAR_INVENTORY_REDUCER',
-});
-
 
 
 //ITEM DATA ACTIONS - PAGINATION (9 ITEMS AT A ITME)

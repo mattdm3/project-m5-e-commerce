@@ -37,7 +37,7 @@ const SortDropdown = ({ exportFilter }) => {
                 {options.map(option => {
                     return (
 
-                        <SortOption onClick={() => handleFilterSelect(option)}><div>{option.label}</div></SortOption>
+                        <SortOption key={option.key} onClick={() => handleFilterSelect(option)}><div>{option.label}</div></SortOption>
 
                     )
                 })}
