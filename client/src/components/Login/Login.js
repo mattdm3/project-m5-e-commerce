@@ -33,10 +33,12 @@ export default function Login({ setLoginState }) {
 
     const handleDone = (e) => {
         e.preventDefault();
+        console.log(userInfo, 'OUTSIDE ASYNC')
 
         const handleLogin = async () => {
             //requestUserInfo - change status to loading
             dispatch(requestUserInfo())
+            console.log(userInfo, 'inside login')
             try {
 
                 let response = await fetch('/Login', {
@@ -106,6 +108,7 @@ export default function Login({ setLoginState }) {
           </DialogContentText>
                         <TextField
                             autoFocus
+                            value={userInfo.user}
                             margin="dense"
                             id="name"
                             label="Email Address"
@@ -118,8 +121,9 @@ export default function Login({ setLoginState }) {
                             required
                             helperText={!error ? '' : "User not found. You may need to Sign Up!"}
                         />
-
+                        {/* PASSWORD */}
                         <TextField
+                            value={userInfo.pass}
                             margin="dense"
                             id="password"
                             label="Password"

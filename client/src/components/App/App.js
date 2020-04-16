@@ -78,8 +78,9 @@ function App() {
           body: JSON.stringify(cartState)
         })
         //to ensure
-        let received = response.json();
-        console.log(received)
+        //snakcbar item deleted - item added. !!!
+        let received = await response.json();
+        console.log(received.success, 'CART UPDATED SUCCESSFULLY')
       }
       handleCartItemsForUser();
 
