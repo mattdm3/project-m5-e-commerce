@@ -40,6 +40,12 @@ const Wrapper = styled.div`
     width: 100%; 
     height: 100%; 
     justify-content: space-around;
+
+    @media screen and (max-width: 600px) {
+        justify-content: space-between;
+        flex-direction: column; 
+        text-align: center;
+    }
     
 `
 
@@ -64,6 +70,15 @@ position: relative;
         font-size: 1rem; 
     }
 
+    /* @media screen and (max-width: 600px) {
+        h3{
+            font-size: 1.1rem;
+        }
+        h2{
+            font-size: 2.9rem;
+        }
+    } */
+
 `
 
 const AnimatedDiv = styled.div`
@@ -72,12 +87,20 @@ const AnimatedDiv = styled.div`
     height: 100%; 
     left: 0;
     top: 0; 
-    transition-duration: 400ms; 
+    transition-duration: 400ms;
 
     &:hover {
         transform: translateX(8px) scale(1.1);
         
     }
+
+    @media screen and (max-width: 600px) {
+
+        &:hover{
+            transform: translateY(28px) translateX(0); 
+        } 
+    }
+    
 `
 
 const StyledArrow = styled(IoIosArrowRoundForward)`    
@@ -85,6 +108,10 @@ const StyledArrow = styled(IoIosArrowRoundForward)`
     right: -80px;
     bottom: 5px;  
     position: absolute; 
+
+    @media screen and (max-width: 600px) {
+        transform: rotate(90deg) translateX(0px);
+    }
 `
 
 export default Footer; 
