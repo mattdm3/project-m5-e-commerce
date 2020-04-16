@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import styled from "styled-components";
+
 
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginCart, receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
@@ -96,9 +98,9 @@ export default function Login({ setLoginState }) {
 
     return (
         <div>
-            <Button style={{ color: 'black' }} variant="outlined" onClick={handleClickOpen}>
+            <StyledLoginButton onClick={handleClickOpen}>
                 Login
-      </Button>
+      </StyledLoginButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <form onSubmit={handleDone}>
@@ -149,3 +151,18 @@ export default function Login({ setLoginState }) {
         </div>
     );
 }
+
+
+const StyledLoginButton = styled.button`
+    width: 50px; 
+    border: none; 
+    background: none; 
+    color: white;
+    font-weight: 600; 
+    border-radius: 3px; 
+    
+    transition-duration: 400ms; 
+    cursor:pointer; 
+    font-size: .8rem;
+
+`
