@@ -8,6 +8,7 @@ import { clearCart } from '../actions';
 // ------------ COMPONENTS ------------
 import CartItem from './CartItem';
 import { Redirect } from 'react-router-dom';
+import { PageContainer } from './CONSTANTS';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
@@ -20,7 +21,7 @@ const Cart = () => {
     const total = useSelector(state => cartTotalSelector(state.cartState));
     const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
     console.log('purchaseBag: ', purchaseBag);
-    
+
 
     const handleInventory = (event) => {
         dispatch(clearCart());
@@ -33,7 +34,7 @@ const Cart = () => {
         await console.log('clicked')
         //fetch
         //inner text changes to ❌ or ✔ depending on if coupon is good
-        if (1>2) { //fix condition according to fetch
+        if (1 > 2) { //fix condition according to fetch
             setCoupon("❌")
         } else {
             setCoupon("✔")
@@ -41,7 +42,8 @@ const Cart = () => {
     }
 
     return (
-        <Wrapper>
+        <PageContainer>
+
             <Container>
                 <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
                     <GreyP>Products</GreyP>
@@ -63,35 +65,33 @@ const Cart = () => {
             <Total>
                 <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
                     <CouponContainer>
-                        <StyledInput name="coupon" type="text" placeholder="Coupon code?"/>
+                        <StyledInput name="coupon" type="text" placeholder="Coupon code?" />
                         <StyledInputButton onClick={handleCoupon}>{coupon}</StyledInputButton>
                     </CouponContainer>
                     {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
                 </form>
-              <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
-                <GreyP>Shipping:</GreyP>
-                <p style={{ margin: "0 20px" }}>$9.43</p>
-              </div>
-              <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
-                <GreyP>Total Calculated:</GreyP>
-                <p style={{ margin: "0 20px" }}>${Math.round(total * 100) / 100}</p>
-              </div>
-              <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
-                <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>
-              </div>
-              <div style={{ gridArea: "2 / 5 / 3 / 7" }}>
-                <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
-              </div>
+                <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
+                    <GreyP>Shipping:</GreyP>
+                    <p style={{ margin: "0 20px" }}>$9.43</p>
+                </div>
+                <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
+                    <GreyP>Total Calculated:</GreyP>
+                    <p style={{ margin: "0 20px" }}>${Math.round(total * 100) / 100}</p>
+                </div>
+                <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
+                    <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>
+                </div>
+                <div style={{ gridArea: "2 / 5 / 3 / 7" }}>
+                    <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
+                </div>
             </Total>
-        </Wrapper>
+
+        </PageContainer>
     )
 };
 
 //------------------ STYLES ------------------
 
-const Wrapper = styled.div`
-    padding: 30px;
-`;
 
 const Container = styled.div`
 @media only screen and (min-width: 630px) {
