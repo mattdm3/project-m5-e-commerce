@@ -32,10 +32,6 @@ const Item = (props) => {
         }
     };
 
-    console.log('INSIDE ITEM')
-
-    console.log(itemInfo)
-
     useEffect(() => {
 
         const handleItemDetailInfo = async () => {
@@ -90,6 +86,12 @@ const Item = (props) => {
 
 
                                 <CartButtonContainer>
+//<<<<<<< seller-page-styling
+//                                     {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
+//                                         <StyledInput defaultValue="1" type="number" />
+//                                     }
+//                                     {!inCart && itemInfo.numInStock > 0 ?
+// =======
                                     <StyledInput 
                                     type="number"
                                     min="1"
@@ -97,6 +99,7 @@ const Item = (props) => {
                                     placeholder="1"
                                     onChange={handleQuantity} />
                                     {!inCart &&
+//>>>>>>> master
                                         <StyledButton
                                             onClick={() =>
                                                 dispatch(addItem(itemInfo))}>
@@ -172,7 +175,7 @@ const Row = styled.div`
 
 `
 
-const ImageContainer = styled.image`
+const ImageContainer = styled.div`
 
     width: 50%; 
     img {

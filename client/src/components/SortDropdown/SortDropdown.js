@@ -23,13 +23,11 @@ const options = [
 const SortDropdown = ({ exportFilter }) => {
 
     let [filter, setFilter] = useState(options[0])
-    console.log("filter in SortDropdown", filter.key)
 
     const handleFilterSelect = (selection) => {
 
         setFilter(selection)
         exportFilter(selection)
-        console.log("handleFilterSelect fired in SortDropdown", selection)
     }
 
     return (
@@ -39,7 +37,7 @@ const SortDropdown = ({ exportFilter }) => {
                 {options.map(option => {
                     return (
 
-                        <SortOption onClick={() => handleFilterSelect(option)}><div>{option.label}</div></SortOption>
+                        <SortOption key={option.key} onClick={() => handleFilterSelect(option)}><div>{option.label}</div></SortOption>
 
                     )
                 })}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 // ------------- COMPONENTS -------------
@@ -12,7 +12,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import ItemGrid from '../ItemGrid/ItemGrid';
 // >>>>>>> master
 import Item from "../Item"
-import Sidebar from '../Sidebar/Sidebar';
 import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
 import Cart from '../Cart'
@@ -52,14 +51,14 @@ function App() {
   }, [])
   //
 
-  //Fetch the companies
-  // useEffect(() => {
-  //   dispatch(requestAllCompanies())
-  //   fetch('/sellers')
-  //     .then(res => res.json())
-  //     .then(data => dispatch(receiveAllCompanies(data)))
-  //     .catch(() => dispatch(receiveAllCompaniesError()))
-  // }, [])
+  React.useEffect(() => {
+    dispatch(requestAllCompanies())
+    fetch('/sellers')
+      .then(res => res.json())
+      .then(data => dispatch(receiveAllCompanies(data)))
+      .catch(() => dispatch(receiveAllCompaniesError()))
+  }, [])
+
 
   //at App -top lvl componenet - as he purchases, updated it in the backend ?
   //is there a better way to do this?
@@ -94,7 +93,6 @@ function App() {
         <Navbar />
         <Chatbot></Chatbot>
 
-        {/* <Sidebar></Sidebar> */}
         <Switch>
 
           <Route exact path='/'>
@@ -138,16 +136,7 @@ function App() {
 
 //--------------------------------- STYLES ---------------------------------
 
-const StyledContainer = styled.div`
-    margin: 0 ;
-    padding: 0; 
-    
-`
 
 export default App;
 
-
-// /item/companies/:companyId
-// item/companies
-// item/:id
 

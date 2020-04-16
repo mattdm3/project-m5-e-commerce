@@ -83,8 +83,6 @@ const Navbar = () => {
 
     }
 
-    console.log(triggerSearchBar)
-
 
     return (
 

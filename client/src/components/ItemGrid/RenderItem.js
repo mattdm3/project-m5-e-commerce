@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { Link } from "react-router-dom";
+
 import { useDispatch, useSelector } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi"
 import { addItem } from '../../actions';
@@ -109,14 +109,14 @@ const Price = styled.p`
     color: #4A4F6A;
 `
 const StyledBuyBtn = styled.button`
-    bottom: 13px;
+    bottom: 12px;
     padding: 3px; 
     left: 68px; 
     position: absolute; 
     font-size: .9rem;
-    font-weight: 700; 
+    font-weight: 900; 
     background: transparent; 
-    letter-spacing: 1px;
+    
     /* padding-bottom:16px; */
     margin: 0; 
     color: #164C81; 
