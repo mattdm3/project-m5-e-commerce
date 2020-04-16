@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from "react-router-dom"
-import { MiddlePage, PageContainer } from '../CONSTANTS'
+import { MiddlePage, PageContainer, PageHeadings } from '../CONSTANTS'
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -22,6 +22,8 @@ const Sellers = () => {
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
+    console.log(companyState);
+
 
 
 
@@ -30,10 +32,7 @@ const Sellers = () => {
             <div>
                 <Header>
                     <div>
-                        <StyledCompanyName>{companyState.name}</StyledCompanyName>
-                        <a href={companyState.url}>{companyState.url}</a>
-                        <div>{companyState.country}</div>
-                        <Products>Our Products</Products>
+                        <PageHeadings>{companyState[0].name}</PageHeadings>
                     </div>
                 </Header>
                 {/* all items */}

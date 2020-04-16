@@ -40,6 +40,12 @@ const Wrapper = styled.div`
     width: 100%; 
     height: 100%; 
     justify-content: space-around;
+
+    @media screen and (max-width: 600px) {
+        justify-content: space-between;
+        flex-direction: column; 
+        text-align: center;
+    }
     
 `
 
@@ -50,7 +56,7 @@ position: relative;
         font-size: 1.5rem;
     }
     h2 {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
         font-weight: 600; 
     }
     p {
@@ -72,19 +78,31 @@ const AnimatedDiv = styled.div`
     height: 100%; 
     left: 0;
     top: 0; 
-    transition-duration: 400ms; 
+    transition-duration: 400ms;
 
     &:hover {
-        transform: translateX(8px) scale(1.1);
+        transform: translateX(.6rem) scale(1.1);
         
     }
+
+    @media screen and (max-width: 600px) {
+
+        &:hover{
+            transform: translateY(2rem) translateX(0); 
+        } 
+    }
+    
 `
 
 const StyledArrow = styled(IoIosArrowRoundForward)`    
-    font-size: 5rem; 
-    right: -80px;
+    font-size: 4rem; 
+    right: -4rem;
     bottom: 5px;  
     position: absolute; 
+
+    @media screen and (max-width: 600px) {
+        transform: rotate(90deg) translateX(0px);
+    }
 `
 
 export default Footer; 

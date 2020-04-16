@@ -9,9 +9,9 @@ import Sidebar from '../Sidebar';
 import { SideAndGrid, GridContainer, GridWrapper, PageContainer, StyledStock } from '../CONSTANTS'
 
 const fitness = require('../../images/stock/fitness-image1.jpg');
-const gaming = require('../../images/stock/gaming-logo.png')
+const gaming = require('../../images/stock/gaming2.jpg')
 const entertainment = require('../../images/stock/entertain-image1.jpg')
-const industrial = require('../../images/stock/industrial-image1.jpg')
+const industrial = require('../../images/stock/industrial2.jpg')
 const lifestyle = require('../../images/stock/lifestyle-logo1.jpg')
 const medical = require('../../images/stock/medical-img.png');
 const pet = require('../../images/stock/pet-image1.jpg')
@@ -57,7 +57,10 @@ const Category = () => {
     }, [category, pageCount])
     // <<<<<<< searchBar-2-manny
 
-    console.log(category)
+    if (currentItems.items != null) {
+        console.log(currentItems.items.length)
+
+    }
 
     return (
         <React.Fragment>
@@ -79,12 +82,14 @@ const Category = () => {
                         <GridContainer>
                             <GridWrapper>
                                 {currentItems.items.map(item => {
-                                    return <Link to={`/item/${item.id}`}>
+                                    return <Link style={{ position: "relative" }} key={item.id} to={`/item/${item.id}`}>
                                         <RenderItem item={item}></RenderItem>
+                                        {item.numInStock == 0 && <StyledStock>Out of <br></br> Stock </StyledStock>}
+
                                     </Link>
                                 })}
                             </GridWrapper>
-                            <ButtonWrapper>
+                            {currentItems.items.length > 8 && <ButtonWrapper>
                                 {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
                                     ←
                       </button>}
@@ -94,7 +99,7 @@ const Category = () => {
                                 <button onClick={() => setPageCounter(pageCount += 1)}>
                                     →
                       </button>
-                            </ButtonWrapper>
+                            </ButtonWrapper>}
                         </GridContainer>
                     </SideAndGrid>
                 </PageContainer>
@@ -102,7 +107,7 @@ const Category = () => {
 
 
 
-        </React.Fragment>
+        </React.Fragment >
 
     )
 
@@ -111,19 +116,27 @@ const Category = () => {
 const StyledHeaderImg = styled.div`
 
     background-size: cover; 
-    background-position: center; 
+    background-position: left; 
     background-repeat: no-repeat; 
     height: 500px; 
-    width: 100%; 
-   
+    
+
     position: relative; 
 
     h1 {
         position: absolute; 
-        bottom: 150px;
-        left: 180px;  
+        bottom: 10rem;
+        left: 6rem;  
         font-size: 3.5rem;
         font-weight: 800; 
+    }
+    @media screen and (max-width: 600px) {
+
+        h1 {
+            left: 5rem; 
+        }
+
+
     }
 `
 
