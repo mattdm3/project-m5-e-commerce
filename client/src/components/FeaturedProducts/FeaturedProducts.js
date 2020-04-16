@@ -79,7 +79,7 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     overflow: hidden; 
-    align-items:center;
+    /* align-items:center; */
     justify-content: space-between;
 
     a {

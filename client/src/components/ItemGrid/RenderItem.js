@@ -5,41 +5,68 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FiShoppingCart } from "react-icons/fi"
 import { addItem } from '../../actions';
 import { isInCartSelector } from '../../reducers/cart-reducer';
+import { FaCheckCircle } from 'react-icons/fa'
 
 
 const RenderItem = ({ item }) => {
     const inCart = useSelector(state => isInCartSelector(state.cartState, item.id));
 
+    const handleButtonClick = (item, e) => {
+        e.preventDefault();
+        dispatch(addItem(item))
+        console.log(e);
 
+    }
 
     const dispatch = useDispatch();
 
-    return (<ImageContainer >
+    return (
+        <MainContainer>
+            <ImageContainer >
 
 
-        {/* <div> {item.name.split(" ")[0]} </div> */}
-        <img src={item.imageSrc} />
-        <TitleContainer>
-            <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]}`}</p>
-            <Price>{item.price}</Price>
-        </TitleContainer>
+                <img src={item.imageSrc} />
+                <TitleContainer>
+                    <p>{`${item.name.split(" ")[1]} ${item.name.split(" ")[2]} ${item.name.split(" ")[3]}`}</p>
+                    <Price>{item.price}</Price>
+                </TitleContainer>
 
-        <DescriptionContainer>
+                <DescriptionContainer>
 
-            {!inCart && item.numInStock > 0 && <StyledBuyBtn onClick={() =>
-                dispatch(addItem(item))}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
-            }
+                    {!inCart && item.numInStock > 0 && <StyledBuyBtn onClick={(e) => handleButtonClick(item, e)}>BUY IT NOW <StyledShoppingCart size={15} /> </StyledBuyBtn>
+                    }
 
-            {inCart && <p>Already in cart</p>}
-        </DescriptionContainer>
+                    {inCart && <StyledBuyBtn disabled> <StyledCheck /> IN CART</StyledBuyBtn>}
+                </DescriptionContainer>
 
-    </ImageContainer>
+            </ImageContainer>
+        </MainContainer>
 
     )
 }
 
+const MainContainer = styled.div`
+    position: relative; 
+    height: 100%; 
+    width: 100%; 
+`
 
+const scaleUp = keyframes`
+    0 {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+`
 
+const StyledCheck = styled(FaCheckCircle)`
+    margin-right: 1rem;
+    animation: ${scaleUp} 700ms ease forwards; 
+`
 
 const slideUp = keyframes`
     from {
@@ -61,6 +88,10 @@ const ImageContainer = styled.div`
     justify-content: center;
     position: relative;
     z-index: 5; 
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%, -50%);
+    position: relative;  
 
     &:hover {
         opacity: .8; 
@@ -68,22 +99,36 @@ const ImageContainer = styled.div`
 `
 const TitleContainer = styled.div`
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
     left: 0;
     display: flex; 
     justify-content: flex-start; 
+    flex-direction: column;
     width: 100%; 
     font-size: 1rem;
     font-weight: 500; 
     color: black; 
     /* border-bottom: 2px solid #333333;  */
-    padding-bottom: 2px; 
+
+    p{
+        padding: 0; 
+        margin: 0; 
+    }
+`
+
+const Price = styled.p`
+    
+    font-weight: 800; 
+    font-size: 1rem; 
+    bottom: 0; 
+    left: 0; 
+    color: #4A4F6A;
 `
 
 const DescriptionContainer = styled.div`
     position: absolute; 
     align-items: flex-end;
-    bottom: -4px;
+    bottom: 0;
     left: 0px; 
     padding-left: 40px; 
     display: flex; 
@@ -100,24 +145,14 @@ const DescriptionContainer = styled.div`
     
 `
 
-const Price = styled.p`
-    position: absolute; 
-    font-weight: 800; 
-    font-size: 1rem; 
-    bottom: -25px; 
-    left: 0; 
-    color: #4A4F6A;
-`
 const StyledBuyBtn = styled.button`
-    bottom: 12px;
-    padding: 3px; 
-    left: 68px; 
+    bottom: 0;
+    padding: 0 3px; 
+    left: 4rem; 
     position: absolute; 
     font-size: .9rem;
     font-weight: 900; 
     background: transparent; 
-    
-    /* padding-bottom:16px; */
     margin: 0; 
     color: #164C81; 
     cursor: pointer;
@@ -126,8 +161,14 @@ const StyledBuyBtn = styled.button`
     border-radius: 5px; 
     align-items:center;
     display: flex; 
+    z-index: 500; 
+    
+    
    
 `
+
+
+
 
 const StyledShoppingCart = styled(FiShoppingCart)`
     margin-left: 5px; 

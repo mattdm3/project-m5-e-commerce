@@ -8,6 +8,7 @@ import { clearCart } from '../actions';
 // ------------ COMPONENTS ------------
 import CartItem from './CartItem';
 import { Redirect } from 'react-router-dom';
+import { PageContainer } from './CONSTANTS';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
@@ -49,7 +50,8 @@ const Cart = () => {
     }
 
     return (
-        <Wrapper>
+        <PageContainer>
+
             <Container>
                 <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
                     <GreyP>Products</GreyP>
@@ -94,15 +96,13 @@ const Cart = () => {
                     <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
                 </div>
             </Total>
-        </Wrapper>
+
+        </PageContainer>
     )
 };
 
 //------------------ STYLES ------------------
 
-const Wrapper = styled.div`
-    padding: 30px;
-`;
 
 const Container = styled.div`
 @media only screen and (min-width: 630px) {

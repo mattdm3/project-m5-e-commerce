@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from "react-router-dom"
 import { StyledStock, MiddlePage, PageContainer, GridWrapper } from '../CONSTANTS'
+import { PageHeadings } from '../CONSTANTS'
 import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -26,6 +27,8 @@ const Sellers = () => {
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
+    console.log(companyState);
+
 
 
 
@@ -44,7 +47,8 @@ const Sellers = () => {
                         <Image src={`/SellerImages/${companyState[0].name}.jpg`}></Image>
                         <Products>{companyState[0].name}</Products>
                         {/* <div style={{ backgroundImage: `url(${image})` }}></div> */}
-
+                        {/* double check page heading */}
+                        <PageHeadings>{companyState[0].name}</PageHeadings>
                     </div>
                 </Header>
                 {/* all items */}
