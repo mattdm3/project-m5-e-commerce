@@ -25,6 +25,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { PageContainer } from "../CONSTANTS";
 //---------------------------------------
+import Test from '../Test';
+import Signuptest from '../Signup/Signuptest';
 
 
 const Navbar = () => {
@@ -89,8 +91,10 @@ const Navbar = () => {
             <StyledTopBar>
                 <LoginContainer>
                     <StyledUserIcon />
-                    {loginState && <Login setLoginState={setLoginState}></Login>}
+                    {loginState && <Test setLoginState={setLoginState}></Test>}
                     {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                    {loginState && <Signuptest setLoginState={setLoginState}></Signuptest>}
+
 
 
                     {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>

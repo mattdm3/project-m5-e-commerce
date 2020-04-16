@@ -4,7 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import styled from "styled-components";
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginCart, receiveUserInfo, requestUserInfo, receiveUserInfoError } from '../../actions';
@@ -13,6 +14,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function Login({ setLoginState }) {
+
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+
 
     const [open, setOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({
@@ -101,7 +107,7 @@ export default function Login({ setLoginState }) {
             <StyledLoginButton onClick={handleClickOpen}>
                 Login
       </StyledLoginButton>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <form onSubmit={handleDone}>
                     <DialogContent>
