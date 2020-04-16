@@ -64,12 +64,11 @@ function App() {
   //is there a better way to do this?
   useEffect(() => {
     //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
-    if (userLoggedIn.user !== null || userLoggedIn.user !== undefined
-      && userLoggedIn.status == 'authenticated') {
 
-      console.log('inside app post fetch')
+    if (userLoggedIn.status === "authenticated") {
+
       const handleCartItemsForUser = async () => {
-        console.log(userLoggedIn)
+
         let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
           method: "POST",
           headers: {
@@ -78,9 +77,15 @@ function App() {
           },
           body: JSON.stringify(cartState)
         })
+        //to ensure
+        //snakcbar item deleted - item added. !!!
+        let received = await response.json();
+        console.log(received.success, 'CART UPDATED SUCCESSFULLY')
       }
       handleCartItemsForUser();
+
     }
+
 
   }, [cartState])
 

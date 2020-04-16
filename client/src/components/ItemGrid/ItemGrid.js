@@ -62,9 +62,10 @@ const ItemGrid = () => {
     }
 
     const test = (val) => {
-
         setSortState(val.key)
     }
+
+
 
 
     return (

@@ -19,6 +19,14 @@ const Cart = () => {
 
     const state = useSelector(state => itemsSelector(state.cartState));
     const total = useSelector(state => cartTotalSelector(state.cartState));
+    const userLoggedIn = useSelector(state => state.userReducer)
+
+
+    console.log(state, 'THIS IS TATE IN CART')
+    //if its a guest. 
+    const cartState = useSelector(state => state.cartState);
+    const inventoryState = useSelector(state => state.inventoryReducer);
+
     const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
     console.log('purchaseBag: ', purchaseBag);
 
@@ -60,8 +68,11 @@ const Cart = () => {
             </Container>
             <CartTitle>Cart</CartTitle>
             <Bordered>
+
                 {state.map((item) => <CartItem key={item.id} {...item} />)}
             </Bordered>
+
+
             <Total>
                 <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
                     <CouponContainer>

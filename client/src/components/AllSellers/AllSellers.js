@@ -5,10 +5,15 @@ import { useSelector } from 'react-redux';
 import { PageHeadings } from '../CONSTANTS';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa'
 
+// client/src/images/stock/SellerImages/Casio.jpg
+
+
+
 const AllSellers = () => {
 
     //Companies from redux store
     const { allCompanies } = useSelector(state => state.companiesReducer)
+
 
     const scrollRef = React.useRef();
 

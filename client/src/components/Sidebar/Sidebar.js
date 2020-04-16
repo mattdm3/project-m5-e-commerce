@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,11 +30,13 @@ const Sidebar = () => {
 
 
     const { allCompanies } = useSelector(state => state.companiesReducer)
+    const { status } = useSelector(state => state.companiesReducer)
+
+    const [companyList, setCompanyList] = useState(null);
 
     const handleSelect = (e) => {
         const target = e.target.value;
         const companyObj = allCompanies.filter(company => company.name === target);
-        console.log(companyObj[0].id)
         window.location = `/sellers/${companyObj[0].id}`
 
     }

@@ -9,7 +9,7 @@ import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube, FaRegUser } from 'react
 
 import Login from '../Login';
 import Signup from '../Signup';
-import { logOutUser } from '../../actions';
+import { logOutUser, clearCart } from '../../actions';
 
 
 import {
@@ -75,8 +75,10 @@ const Navbar = () => {
 
     const handleResetLogging = () => {
         dispatch(logOutUser());
+        dispatch(clearCart());
         //set loginstate back to true to show login and sign up
         setLoginState(true)
+
 
     }
 
@@ -87,12 +89,18 @@ const Navbar = () => {
             <StyledTopBar>
                 <LoginContainer>
                     <StyledUserIcon />
-                    <p>Login</p>
-                    <StyledButton>Register</StyledButton>
+                    {loginState && <Login setLoginState={setLoginState}></Login>}
+                    {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                    {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                        <User>{userLoggedIn.user.name}</User>
+                        <StyledButton onClick={handleResetLogging}>Logout</StyledButton>
+                    </StyledSignUp>}
+
+
                 </LoginContainer>
-
-
             </StyledTopBar>
+
+
             <PageContainer>
 
                 <StyledNav>
@@ -116,10 +124,13 @@ const Navbar = () => {
                             <HiddenNavLink onClick={toggleNavbar} to="/cart"><li><FiShoppingCart /> {cartCounter}</li></HiddenNavLink>
                             {/* <HiddenNavLink to="/contact"><li>Contact</li></HiddenNavLink> */}
                             <LoginContainerMobile>
-
-                                <p>Login</p>
-                                <StyledButton>Register</StyledButton>
-
+                                <StyledUserIcon />
+                                {loginState && <Login setLoginState={setLoginState}></Login>}
+                                {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                                {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                                    <User>{userLoggedIn.user.name}</User>
+                                    <StyledButton onClick={handleResetLogging}>Logout</StyledButton>
+                                </StyledSignUp>}
                             </LoginContainerMobile>
                         </OverlayMenu>
 
@@ -134,21 +145,7 @@ const Navbar = () => {
 
 
                     <StyledUl >
-                        {/* LOGIN - SIGNUP*/}
-                        {/* {userLoggedIn.status === 'authenticated' ? <StyledSignUp>
-                        <User>{userLoggedIn.user.name}</User>
-                        <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
-                    </StyledSignUp>
-                        :
-                        <Login></Login>
-                    }
-                    {userLoggedIn.status !== 'authenticated' && <Signup></Signup>} */}
-                        {loginState && <Login setLoginState={setLoginState}></Login>}
-                        {loginState && <Signup setLoginState={setLoginState}></Signup>}
-                        {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
-                            <User>{userLoggedIn.user.name}</User>
-                            <NavList onClick={handleResetLogging}>Logout</NavList>
-                        </StyledSignUp>}
+
                         {/* LOGIN - SIGNUP*/}
 
 
@@ -229,12 +226,9 @@ const LoginContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
 
-    p{
-        font-size: .8rem;
-        font-weight: 600; 
-        cursor: pointer;
-    }
-    
+    /* @media screen and (min-width: 768px) {
+        display: none;
+    } */
 
 `
 const LoginContainerMobile = styled.div`
@@ -242,12 +236,10 @@ const LoginContainerMobile = styled.div`
     display: flex; 
     justify-content: flex-end;
     align-items: center;
+    font-size: .8rem;
+    font-weight: 600; 
+    cursor: pointer; 
 
-    p{
-        font-size: .8rem;
-        font-weight: 600; 
-        cursor: pointer; 
-    }
     
 
 `
@@ -277,6 +269,8 @@ const StyledButton = styled.button`
 
 const StyledSignUp = styled.div`
 display: flex;
+
+
 `
 const User = styled.div`
 background-color: #164C81;
@@ -285,6 +279,7 @@ font-weight: 600;
 border-radius: 25px;
 height: 70%;
 padding: 3px 5px;
+
 
 
 `
