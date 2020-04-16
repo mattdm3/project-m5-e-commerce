@@ -86,20 +86,21 @@ const Item = (props) => {
 
 
                                 <CartButtonContainer>
-//<<<<<<< seller-page-styling
+                                    {/* REMOVED in commit */}
+                                    {/* // seller-page-styling
 //                                     {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
-//                                         <StyledInput defaultValue="1" type="number" />
-//                                     }
-//                                     {!inCart && itemInfo.numInStock > 0 ?
-// =======
-                                    <StyledInput 
-                                    type="number"
-                                    min="1"
-                                    value={props.quantity}
-                                    placeholder="1"
-                                    onChange={handleQuantity} />
+                                         <StyledInput defaultValue="1" type="number" />
+                                     }
+                                     {!inCart && itemInfo.numInStock > 0 ?
+ ======= */}
+                                    <StyledInput
+                                        type="number"
+                                        min="1"
+                                        value={props.quantity}
+                                        placeholder="1"
+                                        onChange={handleQuantity} />
                                     {!inCart &&
-//>>>>>>> master
+                                        //>>>>>>> master
                                         <StyledButton
                                             onClick={() =>
                                                 dispatch(addItem(itemInfo))}>
