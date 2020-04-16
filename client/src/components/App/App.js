@@ -16,6 +16,7 @@ import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
 import Cart from '../Cart'
 import AllSellers from "../AllSellers"
+import SearchPage from "../SearchPage"
 //---------------------------------------
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -107,6 +108,9 @@ function App() {
           </Route>
           <Route exact path="/category/:category">
             <Category></Category>
+          </Route>
+          <Route exact path="/searching/:id">
+            <SearchPage></SearchPage>
           </Route>
           <Route exact path="/sellers/:companyId">
             <Sellers></Sellers>

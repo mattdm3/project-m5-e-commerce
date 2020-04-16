@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import Search from '../Search/Search';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -30,6 +31,7 @@ const Sidebar = () => {
 
 
     const { allCompanies } = useSelector(state => state.companiesReducer)
+    const allDataFetchSuccess = useSelector(items => items.dataItems.status);
 
     const handleSelect = (e) => {
         const target = e.target.value;
@@ -37,16 +39,15 @@ const Sidebar = () => {
         console.log(companyObj[0].id)
         window.location = `/sellers/${companyObj[0].id}`
 
+
+
     }
 
     return (
         <SidebarContainer>
 
 
-            {/* {allDataFetchSuccess === 'success' && <Search></Search>} */}
-            {/* <StyledForm>
-                <StyledInput placeholder="Search Products..." />
-            </StyledForm> */}
+            {allDataFetchSuccess === 'success' && <Search></Search>}
 
             <PriceSortContainer>
                 <SidebarHeading>Filter By Price</SidebarHeading>
