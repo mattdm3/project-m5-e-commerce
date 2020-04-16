@@ -11,7 +11,7 @@ import { SideAndGrid, GridContainer, GridWrapper, PageContainer, StyledStock } f
 const fitness = require('../../images/stock/fitness-image1.jpg');
 const gaming = require('../../images/stock/gaming2.jpg')
 const entertainment = require('../../images/stock/entertain-image1.jpg')
-const industrial = require('../../images/stock/industrial-image1.jpg')
+const industrial = require('../../images/stock/industrial2.jpg')
 const lifestyle = require('../../images/stock/lifestyle-logo1.jpg')
 const medical = require('../../images/stock/medical-img.png');
 const pet = require('../../images/stock/pet-image1.jpg')

@@ -5,7 +5,7 @@ import { FaDiceSix } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom';
 import { FiShoppingCart } from 'react-icons/fi'
 import { FiSearch, FiX } from 'react-icons/fi'
-import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube } from 'react-icons/fa'
+import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube, FaRegUser } from 'react-icons/fa'
 import { AiFillInstagram } from 'react-icons/ai'
 
 import Login from '../Login';
@@ -86,43 +86,51 @@ const Navbar = () => {
 
     return (
 
+        <>
+            <StyledTopBar>
+                <LoginContainer>
+                    <StyledUserIcon />
+                    <p>Login</p>
+                    <StyledButton>Register</StyledButton>
+                </LoginContainer>
 
 
-        <PageContainer>
-            <StyledNav>
-                <NavigationLink exact to="/">
-                    <Logo onClick={() => history.push('/')} >
-                        <FaDiceSix size={25} style={{ marginRight: "5px", color: "#164C81", padding: "0" }} />
-                        <h2>TECH 6 <span>GEAR</span></h2>
-                    </Logo>
-                </NavigationLink>
+            </StyledTopBar>
+            <PageContainer>
 
-                <HiddenNavigation style={(navbar) ? { transform: "translateX(0)" } : {
-                    transform: "translateX(100%)"
-                }}>
-                    <ExitNavigation onClick={toggleNavbar}>
-                        <FiX />
-                    </ExitNavigation>
-                    <OverlayMenu>
-                        <HiddenNavLink onClick={toggleNavbar} to="/"><li>Home</li></HiddenNavLink>
-                        <HiddenNavLink onClick={toggleNavbar} to="/shop"><li>Shop</li></HiddenNavLink>
-                        <HiddenNavLink onClick={toggleNavbar} to="/sellers"><li>Sellers</li></HiddenNavLink>
-                        <HiddenNavLink onClick={toggleNavbar} to="/services"><li><FiShoppingCart /> {cartCounter}</li></HiddenNavLink>
-                        {/* <HiddenNavLink to="/contact"><li>Contact</li></HiddenNavLink> */}
-                    </OverlayMenu>
-                    <SocialIcons>
-                        <FaFacebookF />
-                        <FaTwitter />
-                        <FaPinterest />
-                        <FaYoutube />
-                    </SocialIcons>
+                <StyledNav>
+                    <NavigationLink exact to="/">
+                        <Logo onClick={() => history.push('/')} >
+                            <FaDiceSix size={25} style={{ marginRight: "5px", color: "#164C81", padding: "0" }} />
+                            <h2>TECH 6 <span>GEAR</span></h2>
+                        </Logo>
+                    </NavigationLink>
 
-                </HiddenNavigation>
+                    <HiddenNavigation style={(navbar) ? { transform: "translateX(0)" } : {
+                        transform: "translateX(100%)"
+                    }}>
+                        <ExitNavigation onClick={toggleNavbar}>
+                            <FiX />
+                        </ExitNavigation>
+                        <OverlayMenu>
+                            <HiddenNavLink onClick={toggleNavbar} to="/"><li>Home</li></HiddenNavLink>
+                            <HiddenNavLink onClick={toggleNavbar} to="/shop"><li>Shop</li></HiddenNavLink>
+                            <HiddenNavLink onClick={toggleNavbar} to="/cart"><li><FiShoppingCart /> {cartCounter}</li></HiddenNavLink>
+                            {/* <HiddenNavLink to="/contact"><li>Contact</li></HiddenNavLink> */}
+                        </OverlayMenu>
+                        <SocialIcons>
+                            <FaFacebookF />
+                            <FaTwitter />
+                            <FaPinterest />
+                            <FaYoutube />
+                        </SocialIcons>
+
+                    </HiddenNavigation>
 
 
-                <StyledUl >
-                    {/* LOGIN - SIGNUP*/}
-                    {/* {userLoggedIn.status === 'authenticated' ? <StyledSignUp>
+                    <StyledUl >
+                        {/* LOGIN - SIGNUP*/}
+                        {/* {userLoggedIn.status === 'authenticated' ? <StyledSignUp>
                         <User>{userLoggedIn.user.name}</User>
                         <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
                     </StyledSignUp>
@@ -130,50 +138,51 @@ const Navbar = () => {
                         <Login></Login>
                     }
                     {userLoggedIn.status !== 'authenticated' && <Signup></Signup>} */}
-                    {loginState && <Login setLoginState={setLoginState}></Login>}
-                    {loginState && <Signup setLoginState={setLoginState}></Signup>}
-                    {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
-                        <User>{userLoggedIn.user.name}</User>
-                        <NavList onClick={handleResetLogging}>Logout</NavList>
-                    </StyledSignUp>}
-                    {/* LOGIN - SIGNUP*/}
+                        {loginState && <Login setLoginState={setLoginState}></Login>}
+                        {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                        {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                            <User>{userLoggedIn.user.name}</User>
+                            <NavList onClick={handleResetLogging}>Logout</NavList>
+                        </StyledSignUp>}
+                        {/* LOGIN - SIGNUP*/}
 
 
 
-                    <NavList>
-                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
-                    </NavList>
-                    <NavList>
+                        <NavList>
+                            <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
+                        </NavList>
+                        {/* <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/sellers">Sellers</NavigationLink>
-                    </NavList>
-                    <NavList>
-                        <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/cart"><FiShoppingCart /> {cartCounter}</NavigationLink>
-                    </NavList>
-                    <NavList >
-                        <FiSearch onClick={toggleSearchBar} style={{ fontSize: "1.2rem" }} />
-                    </NavList>
-                    {/* <NavList>
+                    </NavList> */}
+                        <NavList>
+                            <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/cart"><FiShoppingCart /> {cartCounter}</NavigationLink>
+                        </NavList>
+                        <NavList >
+                            <FiSearch onClick={toggleSearchBar} style={{ fontSize: "1.2rem" }} />
+                        </NavList>
+                        {/* <NavList>
                         <NavigationLink exact to="/contact">Contact</NavigationLink>
                     </NavList> */}
-                </StyledUl>
-                <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
-                <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ?
-                    {
-                        opacity: "1",
-                        transition: "all 1s ease-in-out",
-                        width: "500px",
-                        zIndex: "10"
-                    }
-                    :
-                    {
-                        width: "0",
-                        opacity: "0",
-                        zIndex: "-10",
-                        transition: "all 500ms ease-in-out"
-                    }
-                } />
-            </StyledNav>
-        </PageContainer >
+                    </StyledUl>
+                    <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
+                    <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ?
+                        {
+                            opacity: "1",
+                            transition: "all 1s ease-in-out",
+                            width: "500px",
+                            zIndex: "10"
+                        }
+                        :
+                        {
+                            width: "0",
+                            opacity: "0",
+                            zIndex: "-10",
+                            transition: "all 500ms ease-in-out"
+                        }
+                    } />
+                </StyledNav>
+            </PageContainer>
+        </>
 
 
     )
@@ -196,6 +205,48 @@ const StyledNav = styled.nav`
     } */
 
 `
+// STYLING FOR THE TOP BAR (BLUE BAR ON TOP OF NAV)
+const StyledTopBar = styled.div`
+    /* position: absolute; */
+    background: #164C81; 
+    width: 100%; 
+    color: white; 
+    height: 33px;
+
+`
+
+const LoginContainer = styled.div`
+    width: 80%; 
+    height: 100%; 
+    margin-left: auto; 
+    margin-right: auto; 
+    display: flex; 
+    justify-content: flex-end;
+    align-items: center;
+
+    p{
+        font-size: .8rem;
+        font-weight: 600; 
+    }
+    
+
+`
+
+const StyledUserIcon = styled(FaRegUser)`
+    margin-right: 1.3rem; 
+`
+
+const StyledButton = styled.button`
+    width: 70px; 
+    border: none; 
+    background: white; 
+    color: #164C81;
+    font-weight: 600; 
+    border-radius: 3px; 
+    margin-left: 1.3rem;
+`
+
+//******************************* */
 
 
 const StyledSignUp = styled.div`
