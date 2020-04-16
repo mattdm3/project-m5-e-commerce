@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import { FiShoppingCart } from 'react-icons/fi'
 import { FiSearch, FiX } from 'react-icons/fi'
 import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube, FaRegUser } from 'react-icons/fa'
-import { AiFillInstagram } from 'react-icons/ai'
 
 import Login from '../Login';
 import Signup from '../Signup';
@@ -23,9 +22,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 // ------------- COMPONENTS -------------
-import Cart from "../Cart";
-import Contact from "./Contact";
-import Seller from "./Seller";
+
 import { PageContainer } from "../CONSTANTS";
 //---------------------------------------
 
@@ -113,11 +110,19 @@ const Navbar = () => {
                             <FiX />
                         </ExitNavigation>
                         <OverlayMenu>
+
                             <HiddenNavLink onClick={toggleNavbar} to="/"><li>Home</li></HiddenNavLink>
                             <HiddenNavLink onClick={toggleNavbar} to="/shop"><li>Shop</li></HiddenNavLink>
                             <HiddenNavLink onClick={toggleNavbar} to="/cart"><li><FiShoppingCart /> {cartCounter}</li></HiddenNavLink>
                             {/* <HiddenNavLink to="/contact"><li>Contact</li></HiddenNavLink> */}
+                            <LoginContainerMobile>
+
+                                <p>Login</p>
+                                <StyledButton>Register</StyledButton>
+
+                            </LoginContainerMobile>
                         </OverlayMenu>
+
                         <SocialIcons>
                             <FaFacebookF />
                             <FaTwitter />
@@ -227,6 +232,21 @@ const LoginContainer = styled.div`
     p{
         font-size: .8rem;
         font-weight: 600; 
+        cursor: pointer;
+    }
+    
+
+`
+const LoginContainerMobile = styled.div`
+    height: 100%; 
+    display: flex; 
+    justify-content: flex-end;
+    align-items: center;
+
+    p{
+        font-size: .8rem;
+        font-weight: 600; 
+        cursor: pointer; 
     }
     
 
@@ -243,7 +263,13 @@ const StyledButton = styled.button`
     color: #164C81;
     font-weight: 600; 
     border-radius: 3px; 
-    margin-left: 1.3rem;
+    margin-left: 1.2rem;
+    transition-duration: 400ms; 
+    cursor:pointer; 
+
+    &:hover {
+        background: #EEEEEE;
+    }
 `
 
 //******************************* */
