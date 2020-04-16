@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
 import styled from "styled-components";
+import Signup from '../Signup';
+
 
 //
 import { useDispatch, useSelector } from 'react-redux';
@@ -59,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn({ setLoginState }) {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState(false)
+    const [signUp, setSignUp] = useState(false);
     const dispatch = useDispatch();
 
 
@@ -144,6 +147,10 @@ export default function SignIn({ setLoginState }) {
 
     }
 
+    const handleSignUp = () => {
+        setSignUp(true)
+    }
+
 
     return (<>
         <StyledLoginButton onClick={handleClickOpen}>
@@ -159,11 +166,12 @@ export default function SignIn({ setLoginState }) {
                     <Typography component="h1" variant="h5">
                         Login
         </Typography>
-                    <form className={classes.form} noValidate onSubmit={handleDone}>
+                    <form className={classes.form} onSubmit={handleDone}>
                         <TextField
+                            required
                             variant="outlined"
                             margin="normal"
-                            required
+
                             fullWidth
                             id="email"
                             label="Email Address"
@@ -178,9 +186,9 @@ export default function SignIn({ setLoginState }) {
                             helperText={!error ? '' : "User not found. You may need to Sign Up!"}
                         />
                         <TextField
+                            required
                             variant="outlined"
                             margin="normal"
-                            required
                             fullWidth
                             name="password"
                             label="Password"
@@ -214,9 +222,9 @@ export default function SignIn({ setLoginState }) {
                         </Button>
                         <Grid container>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Button onClick={handleSignUp} variant="body2">
                                     {"Don't have an account? Sign Up"}
-                                </Link>
+                                </Button>
                             </Grid>
                         </Grid>
                     </form>
@@ -225,6 +233,9 @@ export default function SignIn({ setLoginState }) {
                     <Copyright />
                 </Box>
             </Container>
+            {/* {signUp && <Signup></Signup>} */}
+
+
         </Dialog>
 
     </>);

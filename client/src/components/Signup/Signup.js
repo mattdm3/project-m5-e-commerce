@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
+
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -89,46 +90,48 @@ export default function SignUp({ setLoginState }) {
         const handleSignUp = async () => {
             dispatch(requestUserInfo())
 
-            let response = await fetch('/Signup', {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(userInfo)
-            })
-            //successful sign up
-            if (response.status === 200) {
-                let userCredentials = await response.json()
-                dispatch(receiveUserInfo(userCredentials))
-                setOpen(false)
-                setLoginState(false)
-            }
-
-            else if (response.status === 401) {
-                console.log("User Already Exists!")
-                //setError (will display error message)
-                setError(true)
-                //reset on CHange
-                setUserInfo({
-                    ...userInfo,
-                    user: '',
-                    pass: ''
+            if (userInfo.user.length > 0 && userInfo.pass.length > 0) {
+                let response = await fetch('/Signup', {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userInfo)
                 })
-                //dispatch error action 
-                dispatch(receiveUserInfoError())
+                //successful sign up
+                if (response.status === 200) {
+                    let userCredentials = await response.json()
+                    dispatch(receiveUserInfo(userCredentials))
+                    setOpen(false)
+                    setLoginState(false)
+                }
 
-            }
-            else if (response.status === 400) {
-                console.log('Some error occured signing up')
-                //reset on CHange
-                setUserInfo({
-                    ...userInfo,
-                    user: '',
-                    pass: ''
-                })
-                dispatch(receiveUserInfoError())
+                else if (response.status === 401) {
+                    console.log("User Already Exists!")
+                    //setError (will display error message)
+                    setError(true)
+                    //reset on CHange
+                    setUserInfo({
+                        ...userInfo,
+                        user: '',
+                        pass: ''
+                    })
+                    //dispatch error action 
+                    dispatch(receiveUserInfoError())
 
+                }
+                else if (response.status === 400) {
+                    console.log('Some error occured signing up')
+                    //reset on CHange
+                    setUserInfo({
+                        ...userInfo,
+                        user: '',
+                        pass: ''
+                    })
+                    dispatch(receiveUserInfoError())
+
+                }
             }
         }
         handleSignUp();
@@ -152,11 +155,12 @@ export default function SignUp({ setLoginState }) {
                     <Typography component="h1" variant="h5">
                         Sign Up
         </Typography>
-                    <form className={classes.form} noValidate onSubmit={handleDone}>
+                    <form className={classes.form} onSubmit={handleDone}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
+
                             fullWidth
                             id="email"
                             label="Email Address"
@@ -174,6 +178,7 @@ export default function SignUp({ setLoginState }) {
 
                             variant="outlined"
                             margin="normal"
+                            required
                             fullWidth
                             name="password"
                             label="Password"
@@ -184,8 +189,8 @@ export default function SignUp({ setLoginState }) {
                                 ...userInfo,
                                 pass: e.target.value,
                             })}
+
                             value={userInfo.pass}
-                            required
 
                         />
                         <Button
