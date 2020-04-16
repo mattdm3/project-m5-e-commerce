@@ -59,6 +59,8 @@ const Category = () => {
 
     console.log(category)
 
+    console.log(currentItems);
+
     return (
         <React.Fragment>
 
@@ -79,8 +81,10 @@ const Category = () => {
                         <GridContainer>
                             <GridWrapper>
                                 {currentItems.items.map(item => {
-                                    return <Link to={`/item/${item.id}`}>
+                                    return <Link style={{ position: "relative" }} key={item.id} to={`/item/${item.id}`}>
                                         <RenderItem item={item}></RenderItem>
+                                        {item.numInStock == 0 && <StyledStock>Out of <br></br> Stock </StyledStock>}
+
                                     </Link>
                                 })}
                             </GridWrapper>
