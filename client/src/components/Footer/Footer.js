@@ -56,7 +56,7 @@ position: relative;
         font-size: 1.5rem;
     }
     h2 {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
         font-weight: 600; 
     }
     p {
@@ -81,22 +81,22 @@ const AnimatedDiv = styled.div`
     transition-duration: 400ms;
 
     &:hover {
-        transform: translateX(8px) scale(1.1);
+        transform: translateX(.6rem) scale(1.1);
         
     }
 
     @media screen and (max-width: 600px) {
 
         &:hover{
-            transform: translateY(28px) translateX(0); 
+            transform: translateY(2rem) translateX(0); 
         } 
     }
     
 `
 
 const StyledArrow = styled(IoIosArrowRoundForward)`    
-    font-size: 5rem; 
-    right: -80px;
+    font-size: 4rem; 
+    right: -4rem;
     bottom: 5px;  
     position: absolute; 
 

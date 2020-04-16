@@ -9,7 +9,7 @@ import Sidebar from '../Sidebar';
 import { SideAndGrid, GridContainer, GridWrapper, PageContainer, StyledStock } from '../CONSTANTS'
 
 const fitness = require('../../images/stock/fitness-image1.jpg');
-const gaming = require('../../images/stock/gaming-logo.png')
+const gaming = require('../../images/stock/gaming2.jpg')
 const entertainment = require('../../images/stock/entertain-image1.jpg')
 const industrial = require('../../images/stock/industrial-image1.jpg')
 const lifestyle = require('../../images/stock/lifestyle-logo1.jpg')
@@ -116,19 +116,27 @@ const Category = () => {
 const StyledHeaderImg = styled.div`
 
     background-size: cover; 
-    background-position: center; 
+    background-position: left; 
     background-repeat: no-repeat; 
     height: 500px; 
-    width: 100%; 
-   
+    
+
     position: relative; 
 
     h1 {
         position: absolute; 
-        bottom: 150px;
-        left: 180px;  
+        bottom: 10rem;
+        left: 6rem;  
         font-size: 3.5rem;
         font-weight: 800; 
+    }
+    @media screen and (max-width: 600px) {
+
+        h1 {
+            left: 5rem; 
+        }
+
+
     }
 `
 
