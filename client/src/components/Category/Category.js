@@ -19,8 +19,6 @@ const pet = require('../../images/stock/pet-image1.jpg')
 const Category = () => {
 
 
-
-
     const array = {
         "Fitness": fitness,
         "Gaming": gaming,

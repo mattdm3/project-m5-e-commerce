@@ -46,16 +46,9 @@ const Sidebar = () => {
 
     const [companyList, setCompanyList] = useState(null);
 
-    if (status === "success") {
-        console.log(status)
-    }
-
-
-
     const handleSelect = (e) => {
         const target = e.target.value;
         const companyObj = allCompanies.filter(company => company.name === target);
-        console.log(companyObj[0].id)
         window.location = `/sellers/${companyObj[0].id}`
 
 

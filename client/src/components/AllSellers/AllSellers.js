@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
+// client/src/images/stock/SellerImages/Casio.jpg
+
+
+
 const AllSellers = () => {
 
     //state will hold the company info
     const [companyNames, setCompanyNames] = useState(null)
+
+    console.log(companyNames, 'all sellers!!!')
 
 
     //as soon as this company gets rendered. Will do a fetch
@@ -23,15 +29,13 @@ const AllSellers = () => {
             {companyNames && companyNames.map(company => {
                 return (
                     <ContentContainer>
+
                         <a key={company.name} href={company.url} target="_blank">{company.name}</a>
                         <Link to={`/sellers/${company.companyId}`}>
                             <p>see products</p>
                         </Link>
                     </ContentContainer>
-
-
                 )
-
             })}
         </CompanyContainer>
     )
@@ -44,9 +48,7 @@ const CompanyContainer = styled.div`
     padding: 0 100px; 
     margin: 50px 45px; 
     text-align: center; 
-
 `
-
 const ContentContainer = styled.div`
     opacity: .7; 
     transition-duration: 500ms;     

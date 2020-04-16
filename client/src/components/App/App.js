@@ -64,33 +64,27 @@ function App() {
   //is there a better way to do this?
   useEffect(() => {
     //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
-    if (userLoggedIn.status == 'authenticated') {
 
-      console.log('inside app post fetch')
+    if (userLoggedIn.status === "authenticated") {
+
       const handleCartItemsForUser = async () => {
 
-        try {
-          let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
-            method: "POST",
-            headers: {
-              'Accept': 'application/json',
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify(cartState)
-          })
-          //to ensure
-          console.log(response)
-          let received = response.json();
-          console.log(received)
-
-        }
-        catch (err) {
-          console.log(err, 'ERROR')
-        }
-
+        let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(cartState)
+        })
+        //to ensure
+        let received = response.json();
+        console.log(received)
       }
       handleCartItemsForUser();
+
     }
+
 
   }, [cartState])
 

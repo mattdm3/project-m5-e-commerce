@@ -19,8 +19,7 @@ const RelatedItems = ({ itemInfo }) => {
     }
 
     if (scrollRef.current != null) {
-        console.log(scrollRef.current.scrollLeft)
-
+        // console.log(scrollRef.current.scrollLeft)
     }
     const executeScrollLeft = () => scrollLeft(scrollRef);
     const executeScrollRight = () => scrollRight(scrollRef);
@@ -29,7 +28,6 @@ const RelatedItems = ({ itemInfo }) => {
         const handleRelatedItems = async () => {
             try {
                 let responseRelated = await fetch(`/relatedItems/${itemInfo.category}`);
-                console.log(responseRelated);
                 if (responseRelated.status === 200) {
                     let items = await responseRelated.json();
                     setRelatedItems(items)
@@ -46,7 +44,6 @@ const RelatedItems = ({ itemInfo }) => {
         handleRelatedItems();
     }, [])
 
-    console.log(relatedItems)
 
     return (
         <>

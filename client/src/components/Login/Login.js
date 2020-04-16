@@ -36,10 +36,8 @@ export default function Login({ setLoginState }) {
 
         const handleLogin = async () => {
             //requestUserInfo - change status to loading
-            console.log('BEFORE DISPATCH')
             dispatch(requestUserInfo())
             try {
-                console.log('inside TRY DISPATCH')
 
                 let response = await fetch('/Login', {
                     method: "POST",
@@ -49,8 +47,6 @@ export default function Login({ setLoginState }) {
                     },
                     body: JSON.stringify(userInfo)
                 })
-                console.log(response, 'RESPONSE INSIDE TRY LOGIN')
-
                 //authenticated
                 if (response.status === 200) {
                     console.log("Success")
