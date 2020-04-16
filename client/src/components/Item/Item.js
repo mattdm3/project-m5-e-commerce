@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
 // import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
-import { PageContainer, MiddlePage, PageHeadings } from '../CONSTANTS';
+import { PageContainer, MiddlePage, PageHeadings, StyledButton } from '../CONSTANTS';
 import RelatedItems from './RelatedItems';
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -132,7 +132,14 @@ const FlexContainer = styled.div`
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    margin-top: 80px; 
+    margin-top: 5rem; 
+
+    @media screen and (max-width: 600px) {
+        text-align: center;
+        justify-content: center; 
+    }
+
+
 `
 
 const TitleContainer = styled.div`
@@ -201,23 +208,16 @@ const Column = styled.div`
         font-size: 1.3rem; 
     }
 
-    `
+    @media screen and (max-width: 600px) {
+        align-items: center;
+        margin-top: 3rem;
+    }
+
+`
 
 const CartButtonContainer = styled.div`
-@media only screen and (min-width: 1025px) {
-
     display: flex; 
-    margin: 50px 0; 
-}
-
-
-@media only screen and (max-width: 1024px) {
-    display: grid;
-    
-
-
-}
-    
+    margin: 50px 0;
     
 `
 const StyledInput = styled.input`
@@ -230,18 +230,18 @@ const StyledInput = styled.input`
 
 `
 
-const StyledButton = styled.button`
-    background: #164C81;
-    width: 235px; 
-    color: white; 
-    text-transform: uppercase; 
-    height: 55px; 
-    font-size: .8rem; 
-    margin-left: 10px; 
-    font-weight: 600; 
-    
-    
-`
+// const StyledButton = styled.button`
+//     background: #164C81;
+//     width: 235px; 
+//     color: white; 
+//     text-transform: uppercase; 
+//     height: 55px; 
+//     font-size: .8rem; 
+//     margin-left: 10px; 
+//     font-weight: 600; 
+
+
+// `
 
 const StyledLink = styled(Link)`
     color: inherit; 
