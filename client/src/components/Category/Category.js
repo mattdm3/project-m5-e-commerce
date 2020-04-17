@@ -87,17 +87,20 @@ const Category = () => {
                                     </Link>
                                 })}
                             </GridWrapper>
-                            {currentItems.items.length > 8 && <ButtonWrapper>
+                            <ButtonWrapper>
                                 {pageCount > 1 && <button onClick={() => setPageCounter(pageCount -= 1)}>
                                     ←
                       </button>}
-                                <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
-                                <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
-                                <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
-                                <button onClick={() => setPageCounter(pageCount += 1)}>
-                                    →
-                      </button>
-                            </ButtonWrapper>}
+                                {currentItems.items.length > 8 &&
+                                    <>
+                                        <button onClick={() => setPageCounter(pageCount)}>{pageCount}</button>
+                                        <button onClick={() => setPageCounter(pageCount + 1)}>{pageCount + 1}</button>
+                                        <button onClick={() => setPageCounter(pageCount + 2)}>{pageCount + 2}</button>
+                                        <button onClick={() => setPageCounter(pageCount += 1)}>
+                                            →
+                                </button>
+                                    </>}
+                            </ButtonWrapper>
                         </GridContainer>
                     </SideAndGrid>
                 </PageContainer>
@@ -105,7 +108,7 @@ const Category = () => {
 
 
 
-        </React.Fragment >
+        </React.Fragment>
 
     )
 
