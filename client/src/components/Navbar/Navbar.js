@@ -6,11 +6,10 @@ import { NavLink } from 'react-router-dom';
 import { FiShoppingCart } from 'react-icons/fi'
 import { FiSearch, FiX } from 'react-icons/fi'
 import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube, FaRegUser } from 'react-icons/fa'
-import { AiFillInstagram } from 'react-icons/ai'
 
 import Login from '../Login';
 import Signup from '../Signup';
-import { logOutUser } from '../../actions';
+import { logOutUser, clearCart } from '../../actions';
 
 
 import {
@@ -23,14 +22,12 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 // ------------- COMPONENTS -------------
-import Cart from "../Cart";
-import Contact from "./Contact";
-import Seller from "./Seller";
+
 import { PageContainer } from "../CONSTANTS";
 //---------------------------------------
 
 
-const Navbar = () => {
+const Navbar = ({ setLoginState, loginState }) => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
     const userLoggedIn = useSelector(state => state.userReducer)
 
@@ -39,7 +36,6 @@ const Navbar = () => {
 
 
     const [navbar, setNavbar] = useState(false);
-    const [loginState, setLoginState] = useState(true)
 
     const [triggerSearchBar, setTriggerSearchBar] = useState(false);
 
@@ -78,8 +74,10 @@ const Navbar = () => {
 
     const handleResetLogging = () => {
         dispatch(logOutUser());
+        dispatch(clearCart());
         //set loginstate back to true to show login and sign up
         setLoginState(true)
+
 
     }
 
@@ -90,12 +88,18 @@ const Navbar = () => {
             <StyledTopBar>
                 <LoginContainer>
                     <StyledUserIcon />
-                    <p>Login</p>
-                    <StyledButton>Register</StyledButton>
+                    {loginState && <Login setLoginState={setLoginState}></Login>}
+                    {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                    {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                        <User>{userLoggedIn.user.name}</User>
+                        <StyledButton onClick={handleResetLogging}>Logout</StyledButton>
+                    </StyledSignUp>}
+
+
                 </LoginContainer>
-
-
             </StyledTopBar>
+
+
             <PageContainer>
 
                 <StyledNav>
@@ -113,11 +117,22 @@ const Navbar = () => {
                             <FiX />
                         </ExitNavigation>
                         <OverlayMenu>
+
                             <HiddenNavLink onClick={toggleNavbar} to="/"><li>Home</li></HiddenNavLink>
                             <HiddenNavLink onClick={toggleNavbar} to="/shop"><li>Shop</li></HiddenNavLink>
                             <HiddenNavLink onClick={toggleNavbar} to="/cart"><li><FiShoppingCart /> {cartCounter}</li></HiddenNavLink>
                             {/* <HiddenNavLink to="/contact"><li>Contact</li></HiddenNavLink> */}
+                            <LoginContainerMobile>
+                                <StyledUserIcon />
+                                {loginState && <Login setLoginState={setLoginState}></Login>}
+                                {loginState && <Signup setLoginState={setLoginState}></Signup>}
+                                {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
+                                    <User>{userLoggedIn.user.name}</User>
+                                    <StyledButton onClick={handleResetLogging}>Logout</StyledButton>
+                                </StyledSignUp>}
+                            </LoginContainerMobile>
                         </OverlayMenu>
+
                         <SocialIcons>
                             <FaFacebookF />
                             <FaTwitter />
@@ -129,21 +144,7 @@ const Navbar = () => {
 
 
                     <StyledUl >
-                        {/* LOGIN - SIGNUP*/}
-                        {/* {userLoggedIn.status === 'authenticated' ? <StyledSignUp>
-                        <User>{userLoggedIn.user.name}</User>
-                        <NavList onClick={() => dispatch(logOutUser())}>Logout</NavList>
-                    </StyledSignUp>
-                        :
-                        <Login></Login>
-                    }
-                    {userLoggedIn.status !== 'authenticated' && <Signup></Signup>} */}
-                        {loginState && <Login setLoginState={setLoginState}></Login>}
-                        {loginState && <Signup setLoginState={setLoginState}></Signup>}
-                        {!loginState && userLoggedIn.status == "authenticated" && <StyledSignUp>
-                            <User>{userLoggedIn.user.name}</User>
-                            <NavList onClick={handleResetLogging}>Logout</NavList>
-                        </StyledSignUp>}
+
                         {/* LOGIN - SIGNUP*/}
 
 
@@ -224,10 +225,20 @@ const LoginContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
 
-    p{
-        font-size: .8rem;
-        font-weight: 600; 
-    }
+    /* @media screen and (min-width: 768px) {
+        display: none;
+    } */
+
+`
+const LoginContainerMobile = styled.div`
+    height: 100%; 
+    display: flex; 
+    justify-content: flex-end;
+    align-items: center;
+    font-size: .8rem;
+    font-weight: 600; 
+    cursor: pointer; 
+
     
 
 `
@@ -243,7 +254,13 @@ const StyledButton = styled.button`
     color: #164C81;
     font-weight: 600; 
     border-radius: 3px; 
-    margin-left: 1.3rem;
+    margin-left: 1.2rem;
+    transition-duration: 400ms; 
+    cursor:pointer; 
+
+    &:hover {
+        background: #EEEEEE;
+    }
 `
 
 //******************************* */
@@ -251,6 +268,8 @@ const StyledButton = styled.button`
 
 const StyledSignUp = styled.div`
 display: flex;
+
+
 `
 const User = styled.div`
 background-color: #164C81;
@@ -259,6 +278,7 @@ font-weight: 600;
 border-radius: 25px;
 height: 70%;
 padding: 3px 5px;
+
 
 
 `

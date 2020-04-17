@@ -22,17 +22,38 @@ export default function cartReducer(state = initialState, action) {
     }
 
     case "UPDATE_QUANTITY": {
-        return {
-            ...state,
-            [action.item.id]: {
-              ...action.item,
-              quantity: action.newQuantity,
-            },
-        };
+      return {
+        ...state,
+        [action.item.id]: {
+          ...action.item,
+          quantity: action.newQuantity,
+        },
+      };
     }
 
     case "CLEAR_CART": {
       return initialState;
+    }
+    case "LOGIN_CART": {
+
+      let newCart = { ...state }
+
+      if (action.cartData == undefined) {
+        newCart.cartCounter = 0;
+      }
+      else {
+        newCart = action.cartData;
+      }
+      return {
+        ...newCart
+      }
+    }
+
+    case "BACKEND_CART_STATE_WITH_UPDATED_STOCK": {
+      console.log(action.data, 'NEW DATA FROM BACKEND')
+      return {
+        ...action.data
+      }
     }
 
     default:
@@ -49,13 +70,13 @@ export const itemsSelector = (state) => {
 };
 
 export const isInCartSelector = (state, itemId) => {
-    if (!itemId) {
-        return false;
-    }
-    const items = { ...state };
-    delete items.cartCounter;
-    let products = Object.values(items);
-    return products.find(product => product.id === itemId);
+  if (!itemId) {
+    return false;
+  }
+  const items = { ...state };
+  delete items.cartCounter;
+  let products = Object.values(items);
+  return products.find(product => product.id === itemId);
 };
 
 
@@ -74,12 +95,12 @@ export const cartTotalSelector = (state) => {
 };
 
 export const getItemsAndQuantities = (cartState) => {
-    const items = { ...cartState };
-    delete items.cartCounter;
-    let purchaseArray = Object.values(items);
-    let containerForInventory = {};
-    purchaseArray.forEach(item => {
-        containerForInventory[item.id] = item.quantity;
-    });
-    return containerForInventory;
+  const items = { ...cartState };
+  delete items.cartCounter;
+  let purchaseArray = Object.values(items);
+  let containerForInventory = {};
+  purchaseArray.forEach(item => {
+    containerForInventory[item.id] = item.quantity;
+  });
+  return containerForInventory;
 };

@@ -18,6 +18,9 @@ const RelatedItems = ({ itemInfo }) => {
         scrollRef.current.scrollBy(300, 0)
     }
 
+    // if (scrollRef.current != null) {
+    //     // console.log(scrollRef.current.scrollLeft)
+    // }
 
     const executeScrollLeft = () => scrollLeft(scrollRef);
     const executeScrollRight = () => scrollRight(scrollRef);

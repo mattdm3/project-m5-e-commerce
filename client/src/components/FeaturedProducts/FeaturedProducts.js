@@ -24,6 +24,9 @@ const FeaturedProducts = () => {
         }
     }
 
+    // if (featuredItemsArray.length != 0) {
+    //     console.log(featuredItemsArray)
+    // }
     const scrollLeft = (ref) => {
         scrollRef.current.scrollBy(-300, 0)
     }
@@ -76,7 +79,7 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     overflow: hidden; 
-    align-items:center;
+    /* align-items:center; */
     justify-content: space-between;
 
     a {

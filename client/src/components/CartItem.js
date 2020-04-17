@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { updateQuantity, removeItem } from "../actions";
 import { useDispatch } from "react-redux";
 import { AddToCart } from './CartFunctions';
+import { StyledStock } from './CONSTANTS';
+
 
 const CartItem = (props) => {
   const [subtotal, setSubtotal] = useState(props.price);
@@ -32,21 +34,25 @@ const CartItem = (props) => {
             <StyledRemoveItemButton onClick={() => dispatch(removeItem(props))}>❌</StyledRemoveItemButton>
           </ButtonContainer>
           <ImageContainer src={props.imageSrc} />
+          {/* manny - will show out of stock with new updated cart state */}
+
         </Products>
-          <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
-           <GreyP>{props.price}</GreyP>
-          </div>
-          <div style={{ gridArea: "1 / 5 / 2 / 6", zIndex: "2" }}>
+        <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
+          <GreyP>{props.price}</GreyP>
+        </div>
+        <div style={{ gridArea: "1 / 5 / 2 / 6", zIndex: "2" }}>
+          {props.numInStock == 0 ? <span>OUT OF STOCK</span>
+            :
             <StyledInput
               type="number"
               min="1"
               value={props.quantity}
               onChange={handleQuantity}
-            />
-          </div>
-          <div style={{ gridArea: "1 / 6 / 2 / 7" }}>
-           <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
-          </div>
+            />}
+        </div>
+        <div style={{ gridArea: "1 / 6 / 2 / 7" }}>
+          <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
+        </div>
       </Container>
 
       <MobileContainer>
@@ -65,7 +71,7 @@ const CartItem = (props) => {
             />
           </div>
           <div>
-           <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
+            <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
           </div>
         </MobileProducts>
       </MobileContainer>
@@ -131,7 +137,7 @@ const ButtonContainer = styled.div`
     transition-duration: 600ms; 
     opacity: 0;
     margin-left: 25%;
-    position absolute;
+    position: absolute;
     width: 90%;
     
     :hover {

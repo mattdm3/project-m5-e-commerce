@@ -55,20 +55,20 @@ export const PageContainer = styled.div`
 
 
 export const StyledStock = styled.div`
-background-color: rgb(22,76,129);
-color: white;
-border-radius: 50%;
-font-size: .6rem;
-font-weight: 600; 
-line-height: 1.4;
-padding: 15px;
-position: absolute;
-top: 3rem;
-right: 1rem; 
-text-align: center;
-text-transform: uppercase;
-display: inline-block;
-z-index: 20;
+    background-color: rgb(22,76,129);
+    color: white;
+    border-radius: 50%;
+    font-size: .6rem;
+    font-weight: 600; 
+    line-height: 1.4;
+    padding: 15px;
+    position: absolute;
+    top: 3rem;
+    right: 1rem; 
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+    z-index: 20;
 
 `
 
@@ -81,15 +81,22 @@ export const PageHeadings = styled.h2`
 `
 
 export const StyledButton = styled.button`
-background: #164C81;
-width: 15.5rem; 
-color: white; 
-text-transform: uppercase; 
-height: 55px; 
-font-size: .8rem; 
-margin-left: 10px; 
-font-weight: 600; 
-border: none; 
+    background: #164C81;
+    width: 15.5rem; 
+    color: white; 
+    text-transform: uppercase; 
+    height: 3.7rem; 
+    font-size: .8rem; 
+    margin-left: 10px; 
+    font-weight: 600; 
+    border: none; 
+    border-radius: 3px; 
+    box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
+
+    @media screen and (max-width: 600px) {
+
+    }
+
 `
 
 export const MiddlePage = styled.div`

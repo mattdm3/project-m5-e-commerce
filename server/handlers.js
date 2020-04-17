@@ -82,7 +82,6 @@ const handleItemsData = (req, res) => {
     let firstIndex = (page - 1) * limit; //0
     let endIndex = (limit * page);//9
     let slicedItems = sortItems.slice(firstIndex, endIndex)
-    console.log(slicedItems[0].price)
 
     //will send back 9 items.
     res.send(slicedItems)
@@ -116,27 +115,52 @@ const handleSellers = (req, res) => {
 
     res.send(companies);
 }
-// const handleUpdateStock = (req, res) => {
-//     let response = req.body;
-//     console.log(Object.keys)
-//     if (Object.entries(response).length === 0) {
-//         return
-//     }
-//     else {
-//         items.forEach(item => {
-//             //for each item
-//             Object.keys(response).forEach(element => {
-//                 //stock levels?
-//                 if (element === item.id) {
-//                     item.numInStock -= response[element]
-//                 }
-//                 else {
-//                     return
-//                 }
-//             });
-//         });
-//     }
-// }
+const handleUpdateStock = (req, res) => {
+    let cartInfo = req.body;
+
+    if (cartInfo.cartCounter === 0) {
+        //change for a different status
+        res.status(300).send({ response: "No changes in stock levels" })
+    }
+    else {
+        let arrayCart = Object.keys(cartInfo);
+        console.log(arrayCart)
+        let slicedIds = arrayCart.slice(0, arrayCart.length - 1)
+        //loop though items array and change values. 
+        slicedIds.forEach(id => {
+            //find the corresponding item in the item array. 
+            let selectedItem = items.find(item => {
+                if (item.id == id) {
+                    return item
+                }
+            })
+            console.log(selectedItem.numInStock, 'BEFORE')
+            console.log(cartInfo[id].quantity, 'QUANTITY')
+            //once found... update sotck levels. Only if there are still in stock
+            if (selectedItem.numInStock > 0) {
+                //for backend update
+                selectedItem.numInStock -= cartInfo[id].quantity;
+                //for front end update of cartstate
+                //initialize it to the backends stock lvl
+                cartInfo[id].numInStock = selectedItem.numInStock;
+
+                console.log(selectedItem.numInStock, 'AFTER')
+            }
+            // else {
+            //     res.status(404).send({
+            //         response: "No stock left.",
+            //         Item: selectedItem
+            //     })
+            // }
+        })
+        res.status(200).send({
+            response: 'Quantities successfully updated',
+            updatedCartState: cartInfo
+        })
+
+
+    }
+}
 
 
 const handleBodyItems = (req, res) => {
@@ -182,6 +206,7 @@ const handleSignUp = (req, res) => {
 const handleLogin = (req, res) => {
 
     let loginInfo = req.body;
+    console.log(loginInfo, 'THIS IS LOGIN INFO')
 
 
     if (!loginInfo) {
@@ -205,38 +230,35 @@ const handleLogin = (req, res) => {
         } else {
             res.status(404).send('User Not Found')
         }
-
     }
     //can remove
     else {
         res.status(401).send('Error occured Authenticating')
     }
-
-
 }
 
 const handleCartItemsForUser = (req, res) => {
-    let name = req.params.user; //just the name 
+    let name = req.params.user; //just the name
     let notYetPurchasedCartItems = req.body; //array of objects
 
-    console.log(name)
-    console.log(notYetPurchasedCartItems)
-
-    //first thing is find the user. 
-    let userInfo = users.find(user => {
+    console.log(req.body)
+    //first thing is find the user.
+    console.log(name, 'THIS IS NAME');
+    let userInfo = users.find((user) => {
         if (name == user.user.split('@')[0]) {
-            return user
+            return user;
         }
-    })
+    });
     //user was found
     if (userInfo !== undefined) {
         userInfo.cart = notYetPurchasedCartItems;
-
+        res.status(200).send({ success: true });
     }
-
-
-
-}
+    else {
+        res.status(401).send({ success: false });
+    }
+    // res.status(200);
+};
 
 const handleRelatedItems = (req, res) => {
     let category = req.params.category;
@@ -254,8 +276,103 @@ const handleRelatedItems = (req, res) => {
 }
 
 
+
+
+const handleSearch = (req, res) => {
+    let search = req.query.search.toLowerCase();
+    let splitSearch;
+
+    let page = req.query.page; //1
+    let limit = req.query.limit; //9
+    console.log(limit)
+    let sort = req.query.sort;
+    let searchedItems = [];
+
+
+    if (search.includes(" ")) {
+        splitSearch = search.split(" ")
+
+        console.log("here is split search", splitSearch)
+
+        // for each item
+        let searchArray = items.filter(item => {
+            //check if each search term is present in item name if not set allFound to false
+            let allFound = true;
+            splitSearch.forEach(searchTerm => {
+                allFound = (item.name.toLowerCase().includes(searchTerm.toLowerCase())) ? allFound : false
+                console.log("CONDITION: ", (item.name.toLowerCase().includes(searchTerm.toLowerCase)), "SEARCHTERM: ", searchTerm, "ITEM: ", item.name)
+
+            })
+            return allFound;
+            // if (allFound) {
+            //     console.log("ALLFOUND: ", allFound, "ITEM: ", item)
+            //     return item;
+            // }
+        })
+
+        console.log(" here is the search Array", searchArray)
+
+        searchedItems = searchArray
+
+    } else {
+
+        searchedItems = items.filter(item => {
+            if (item.name.toLowerCase().includes(search)) {
+                return item;
+            }
+
+        })
+
+        console.log("the sort here is", sort)
+    }
+
+    /* const searchingQuery = () => { 
+      if (item.name.toLowerCase().includes(search)) {
+              return item;
+          }
+      }
+           */
+
+
+    if (sort === 'lowToHigh') {
+        console.log('low to high')
+        sortItems = searchedItems.slice().sort(function (a, b) {
+
+            return parseInt(a.price.replace('$', '').replace(',', '')) - parseInt(b.price.replace('$', '').replace(',', ''))
+        });
+
+    }
+    else if (sort === 'highToLow') {
+        console.log('high to low')
+        sortItems = searchedItems.slice().sort(function (a, b) {
+
+            return parseInt(b.price.replace('$', '').replace(',', '')) - parseInt(a.price.replace('$', '').replace(',', ''))
+        })
+
+
+    } else if (sort === 'bestMatch') {
+        console.log("best match last else if", items[0].price)
+
+        sortItems = searchedItems;
+
+    }
+
+
+
+    let firstIndex = (page - 1) * limit; //0
+    let endIndex = (limit * page);//9
+    let slicedItems = sortItems.slice(firstIndex, endIndex)
+
+
+    //will send back 9 items.
+    res.send(slicedItems)
+
+
+}
+
+
 module.exports = {
     handleSignUp, handleBodyItems, handleRelatedItems,
     handleAllData, handleCompany, handleItemId, handleCategory,
-    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser
+    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser, handleUpdateStock, handleSearch
 };

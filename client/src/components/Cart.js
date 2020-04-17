@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector, getItemsAndQuantities } from '../reducers/cart-reducer';
-import { clearCart } from '../actions';
+import { clearCart, updateCartStateBackend } from '../actions';
 
 
 // ------------ COMPONENTS ------------
 import CartItem from './CartItem';
 import { Redirect } from 'react-router-dom';
+import { PageContainer } from './CONSTANTS';
 //-------------------------------------
 
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
@@ -18,19 +19,49 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const state = useSelector(state => itemsSelector(state.cartState));
-    const total = useSelector(state => {
-        console.log("STATE . CART STATE",state.cartState)
-        return cartTotalSelector(state.cartState)
-    });
-    // const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
-    // console.log('purchaseBag: ', purchaseBag);
-    
+    const total = useSelector(state => cartTotalSelector(state.cartState));
+    const userLoggedIn = useSelector(state => state.userReducer)
+
+
+    console.log(state, 'THIS IS TATE IN CART')
+    //if its a guest. 
+    const cartState = useSelector(state => state.cartState);
+    const inventoryState = useSelector(state => state.inventoryReducer);
+
+    const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
+    console.log('purchaseBag: ', purchaseBag);
+
 
     // let redirect = false;
 
     const handleInventory = (event) => {
         dispatch(clearCart());
         setRedirect(true);
+
+        // on Click of MakePurchsase, will post to back end and ipdate stock levels
+        const handleUpdateStock = async () => {
+
+            let response = await fetch(`/updateStock`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(cartState)
+            })
+            //to ensure
+            //snakcbar item deleted - item added. !!!
+            let received = await response.json();
+            console.log(received, 'STOCK LEVELS UPDATED')
+
+            dispatch(updateCartStateBackend(received.updatedCartState))
+            // dispatch(updateCartStateBackend)
+        }
+        handleUpdateStock();
+
+        // dispatch(clearCart());
+
+        // <Redirect to="/paymentMethod" />
     }
 
     const handleCoupon = async (event) => {
@@ -38,7 +69,7 @@ const Cart = () => {
         await console.log('clicked')
         //fetch
         //inner text changes to ❌ or ✔ depending on if coupon is good
-        if (1>2) { //fix condition according to fetch
+        if (1 > 2) { //fix condition according to fetch
             setCoupon("❌")
         } else {
             setCoupon("✔")
@@ -46,8 +77,10 @@ const Cart = () => {
     }
     console.log('redirect BEFORE RETURN: ', redirect);
     return (
-  <>
-  {redirect?<><Redirect to='/paymentMethod'/></>:<><Wrapper>
+        <>
+        {redirect?<><Redirect to='/paymentMethod'/></>:<>
+        <PageContainer>
+
             <Container>
                 <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
                     <GreyP>Products</GreyP>
@@ -64,32 +97,36 @@ const Cart = () => {
             </Container>
             <CartTitle>Cart</CartTitle>
             <Bordered>
+
                 {state.map((item) => <CartItem key={item.id} {...item} />)}
             </Bordered>
+
+
             <Total>
                 <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
                     <CouponContainer>
-                        <StyledInput name="coupon" type="text" placeholder="Coupon code?"/>
+                        <StyledInput name="coupon" type="text" placeholder="Coupon code?" />
                         <StyledInputButton onClick={handleCoupon}>{coupon}</StyledInputButton>
                     </CouponContainer>
                     {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
                 </form>
-              <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
-                <GreyP>Shipping:</GreyP>
-                <p style={{ margin: "0 20px" }}>$9.43</p>
-              </div>
-              <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
-                <GreyP>Total Calculated:</GreyP>
-                <p style={{ margin: "0 20px" }}>${Math.round(total * 100) / 100}</p>
-              </div>
-              <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
-                <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>
-              </div>
-              <div style={{ gridArea: "2 / 5 / 3 / 7" }}>
-                <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
-              </div>
+                <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
+                    <GreyP>Shipping:</GreyP>
+                    <p style={{ margin: "0 20px" }}>$9.43</p>
+                </div>
+                <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
+                    <GreyP>Total Calculated:</GreyP>
+                    <p style={{ margin: "0 20px" }}>${Math.round(total * 100) / 100}</p>
+                </div>
+                <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
+                    <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>
+                </div>
+                <div style={{ gridArea: "2 / 5 / 3 / 7" }}>
+                    <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
+                </div>
             </Total>
-        </Wrapper></>
+
+        </PageContainer></>
         }
         </>
     )
@@ -97,9 +134,6 @@ const Cart = () => {
 
 //------------------ STYLES ------------------
 
-const Wrapper = styled.div`
-    padding: 30px;
-`;
 
 const Container = styled.div`
 @media only screen and (min-width: 630px) {

@@ -8,7 +8,7 @@ const items = require('./data/items.json');
 const { handleItemId, handleItemsData,
   handleCategory, handleCompany, handleSellers,
   handleAllData, handleRelatedItems, handleBodyItems,
-  handleSignUp, handleLogin, handleCartItemsForUser
+  handleSignUp, handleLogin, handleCartItemsForUser, handleUpdateStock, handleSearch
 } = require('./handlers');
 
 
@@ -72,6 +72,13 @@ app.post('/Login', handleLogin)
 //store cart items.
 app.post('/storeCartItemsUser/:user', handleCartItemsForUser)
 
+app.get('/search', handleSearch)
+
 app.get('/bodypart/:body', handleBodyItems)
+//
+app.post('/updateStock', handleUpdateStock)
+
+
+
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
 

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChatBot from 'react-simple-chatbot';
 import { useHistory } from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
+import Signup from '../Signup/Signup';
+import Login from '../Login/Login';
 
-const Chatbot = () => {
+const Chatbot = ({ loginState, setLoginState }) => {
+
+    const [chatLoginColor, setChatLoginColor] = useState(true)
     let history = useHistory();
 
 
@@ -13,7 +17,7 @@ const Chatbot = () => {
     }
 
     const theme = {
-        background: 'white',
+        background: '#164C81',
         headerBgColor: 'rgb(246,79,64)',
         headerFontColor: 'white',
         botBubbleColor: 'rgb(246,79,64)',
@@ -57,8 +61,56 @@ const Chatbot = () => {
         },
         {
             id: 'Welcome to Website',
-            message: `Hi {previousValue}, Welcome to Six Tech Gear!`,
-            trigger: 'Show Categories',
+            message: `Hi {previousValue}, Welcome to Six Tech Gear! What are you looking for today?`,
+            trigger: 'Topic',
+        },
+        {
+            id: 'Topic',
+            options: [
+                { value: "Categories", label: "Categories", trigger: () => { return "Show Categories" } },
+                { value: "Item Catalog", label: "Item Catalog", trigger: () => { return "Item Catalog" } },
+                { value: "Cart", label: "Cart", trigger: () => { return "Cart" } },
+                { value: "Home", label: "Home", trigger: () => { return "Home" } },
+                { value: "Searching", label: "Searching", trigger: () => { return "Search" } },
+                { value: "Register", label: "Register", trigger: () => { return "Register" } },
+                { value: "Login", label: "Login", trigger: () => { return "Login" } },
+            ],
+        },
+        {
+            id: 'Register',
+            component: (
+                <Signup setLoginState={setLoginState}></Signup>
+            ),
+            trigger: 'Topic'
+        },
+        {
+            id: 'Login',
+            component: (
+                <Login chatLoginColor={chatLoginColor} setChatLoginColor={setChatLoginColor} setLoginState={setLoginState}></Login>
+            ),
+            trigger: 'Topic'
+        },
+        {
+            id: 'Search',
+            message: `You can use the search bar above to search for any products, also if you choose a category, you can search within that category! Looking for something else?`,
+            trigger: 'Topic'
+        },
+        {
+            id: 'Home',
+            message: `Our Home Page!!! Are you looking for something else?`,
+            trigger: () => { history.push('/'); return 'Topic' },
+        },
+        {
+            id: 'Cart',
+            message: `Btw you can keep track of your items if you make an account! Don't forget to add your coupon code! 
+            Are you looking for something else?`,
+            trigger: () => { history.push('/Cart'); return 'Topic' },
+        },
+        {
+            id: 'Item Catalog',
+            message: `This is our Shop page with a list of our items, browse away!
+            Are you looking for something else?`,
+            trigger: () => { history.push('/Shop'); return 'Topic' },
         },
         {
             id: 'Show Categories',
@@ -74,8 +126,8 @@ const Chatbot = () => {
         },
         {
             id: 'RedirectToCategory',
-            message: `I'll bring you to that page in a sec!`,
-            end: true,
+            message: `Here are the products for your selected category.Looking for something else?`,
+            trigger: 'Topic',
         }
     ]
 
@@ -84,7 +136,10 @@ const Chatbot = () => {
         <ThemeProvider theme={theme}>
             <ChatBot
                 // userAvatar={'client/public/logo192.png'}
-                headerTitle={'Six Tech Gear Bot'}
+                headerTitle={'Tech 6 Gear Bot'}
+                botAvatar={"https://img.icons8.com/dusk/64/000000/bot.png"}
+                botDelay={1000}
+                floating={true}
 
                 steps={steps} {...config}
             />

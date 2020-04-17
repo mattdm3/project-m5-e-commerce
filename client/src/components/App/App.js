@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // ------------- COMPONENTS -------------
@@ -16,6 +16,7 @@ import Category from '../Category/Category';
 import Sellers from '../Sellers/Sellers';
 import Cart from '../Cart'
 import AllSellers from "../AllSellers"
+import SearchPage from "../SearchPage"
 //---------------------------------------
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -37,6 +38,9 @@ function App() {
   const dispatch = useDispatch();
   const cartState = useSelector(state => state.cartState);
   const userLoggedIn = useSelector(state => state.userReducer)
+  //controls signup and login
+  const [loginState, setLoginState] = useState(true)
+
 
 
 
@@ -64,12 +68,11 @@ function App() {
   //is there a better way to do this?
   useEffect(() => {
     //most likely need a state for ONLY PURCHASED ITEMS - BOUGHT ITEMS
-    if (userLoggedIn.user !== null || userLoggedIn.user !== undefined
-      && userLoggedIn.status == 'authenticated') {
 
-      console.log('inside app post fetch')
+    if (userLoggedIn.status === "authenticated") {
+
       const handleCartItemsForUser = async () => {
-        console.log(userLoggedIn)
+
         let response = await fetch(`/storeCartItemsUser/${userLoggedIn.user.name}`, {
           method: "POST",
           headers: {
@@ -78,9 +81,15 @@ function App() {
           },
           body: JSON.stringify(cartState)
         })
+        //to ensure
+        //snakcbar item deleted - item added. !!!
+        let received = await response.json();
+        console.log(received.success, 'CART UPDATED SUCCESSFULLY')
       }
       handleCartItemsForUser();
+
     }
+
 
   }, [cartState])
 
@@ -90,8 +99,8 @@ function App() {
     <>
       <Router>
         <GlobalStyles />
-        <Navbar />
-        <Chatbot></Chatbot>
+        <Navbar loginState={loginState} setLoginState={setLoginState} />
+        <Chatbot loginState={loginState} setLoginState={setLoginState} ></Chatbot>
 
         <Switch>
 
@@ -107,6 +116,9 @@ function App() {
           </Route>
           <Route exact path="/category/:category">
             <Category></Category>
+          </Route>
+          <Route exact path="/searching/:id">
+            <SearchPage></SearchPage>
           </Route>
           <Route exact path="/sellers/:companyId">
             <Sellers></Sellers>
