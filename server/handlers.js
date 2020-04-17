@@ -276,8 +276,103 @@ const handleRelatedItems = (req, res) => {
 }
 
 
+
+
+const handleSearch = (req, res) => {
+    let search = req.query.search.toLowerCase();
+    let splitSearch;
+
+    let page = req.query.page; //1
+    let limit = req.query.limit; //9
+    console.log(limit)
+    let sort = req.query.sort;
+    let searchedItems = [];
+
+
+    if (search.includes(" ")) {
+        splitSearch = search.split(" ")
+
+        console.log("here is split search", splitSearch)
+
+        // for each item
+        let searchArray = items.filter(item => {
+            //check if each search term is present in item name if not set allFound to false
+            let allFound = true;
+            splitSearch.forEach(searchTerm => {
+                allFound = (item.name.toLowerCase().includes(searchTerm.toLowerCase())) ? allFound : false
+                console.log("CONDITION: ", (item.name.toLowerCase().includes(searchTerm.toLowerCase)), "SEARCHTERM: ", searchTerm, "ITEM: ", item.name)
+
+            })
+            return allFound;
+            // if (allFound) {
+            //     console.log("ALLFOUND: ", allFound, "ITEM: ", item)
+            //     return item;
+            // }
+        })
+
+        console.log(" here is the search Array", searchArray)
+
+        searchedItems = searchArray
+
+    } else {
+
+        searchedItems = items.filter(item => {
+            if (item.name.toLowerCase().includes(search)) {
+                return item;
+            }
+
+        })
+
+        console.log("the sort here is", sort)
+    }
+
+    /* const searchingQuery = () => { 
+      if (item.name.toLowerCase().includes(search)) {
+              return item;
+          }
+      }
+           */
+
+
+    if (sort === 'lowToHigh') {
+        console.log('low to high')
+        sortItems = searchedItems.slice().sort(function (a, b) {
+
+            return parseInt(a.price.replace('$', '').replace(',', '')) - parseInt(b.price.replace('$', '').replace(',', ''))
+        });
+
+    }
+    else if (sort === 'highToLow') {
+        console.log('high to low')
+        sortItems = searchedItems.slice().sort(function (a, b) {
+
+            return parseInt(b.price.replace('$', '').replace(',', '')) - parseInt(a.price.replace('$', '').replace(',', ''))
+        })
+
+
+    } else if (sort === 'bestMatch') {
+        console.log("best match last else if", items[0].price)
+
+        sortItems = searchedItems;
+
+    }
+
+
+
+    let firstIndex = (page - 1) * limit; //0
+    let endIndex = (limit * page);//9
+    let slicedItems = sortItems.slice(firstIndex, endIndex)
+
+
+    //will send back 9 items.
+    res.send(slicedItems)
+
+
+}
+
+
 module.exports = {
     handleSignUp, handleBodyItems, handleRelatedItems,
     handleAllData, handleCompany, handleItemId, handleCategory,
-    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser, handleUpdateStock
+    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser, handleUpdateStock, handleSearch
 };

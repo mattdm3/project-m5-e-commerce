@@ -9,6 +9,7 @@ import { useLocation, Link, useHistory } from 'react-router-dom';
 
 const Search = () => {
     const allData = useSelector(items => items.dataItems.allItems)
+    const [query, setQuery] = useState(null)
     const [type, setTyped] = useState(' ')
     const [results, setResults] = useState(null)
     const [categoryData, setCategoryData] = useState(null)
@@ -59,10 +60,10 @@ const Search = () => {
 
     }
 
-    return (<StyledForm>
+    return (<StyledForm action={`/searching/${type}`} >
         <StyledInput onChange={(e) => setTyped(e.target.value)}
-            placeholder='Search Products...' />
-        {/* <button>Go</button> */}
+            placeholder='Search Products...' ></StyledInput>
+        <Link to={`/searching/${type}`}><button type="button" onClick={() => setQuery(type)}>Go</button></Link>
         {results !== null && <div>
             {results.map(result => {
 
