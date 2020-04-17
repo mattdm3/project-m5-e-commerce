@@ -87,12 +87,12 @@ export const cartTotalSelector = (state) => {
 };
 
 export const getItemsAndQuantities = (cartState) => {
-    const items = { ...cartState };
-    delete items.cartCounter;
-    let purchaseArray = Object.values(items);
-    let containerForInventory = {};
-    purchaseArray.forEach(item => {
-        containerForInventory[item.id] = item.quantity;
-    });
-    return containerForInventory;
+  const items = { ...cartState };
+  delete items.cartCounter;
+  let purchaseArray = Object.values(items);
+  let containerForInventory = {};
+  purchaseArray.forEach(item => {
+    containerForInventory[item.id] = item.quantity;
+  });
+  return containerForInventory;
 };

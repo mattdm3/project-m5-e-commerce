@@ -32,7 +32,26 @@ const Cart = () => {
 
 
     const handleInventory = (event) => {
-        dispatch(clearCart());
+
+        // on Click of MakePurchsase, will post to back end and ipdate stock levels
+        const handleUpdateStock = async () => {
+
+            let response = await fetch(`/updateStock`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(cartState)
+            })
+            //to ensure
+            //snakcbar item deleted - item added. !!!
+            let received = await response.json();
+            console.log(received, 'STOCK LEVELS UPDATED')
+        }
+        handleUpdateStock();
+
+        // dispatch(clearCart());
 
         // <Redirect to="/paymentMethod" />
     }
