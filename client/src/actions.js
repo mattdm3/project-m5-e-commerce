@@ -24,6 +24,12 @@ export const LoginCart = (cartData) => ({
 })
 
 
+export const updateCartStateBackend = (data) => ({
+    type: "BACKEND_CART_STATE_WITH_UPDATED_STOCK",
+    data
+});
+
+
 
 //ITEM DATA ACTIONS - PAGINATION (9 ITEMS AT A ITME)
 

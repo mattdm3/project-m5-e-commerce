@@ -90,6 +90,8 @@ export const StyledButton = styled.button`
     margin-left: 10px; 
     font-weight: 600; 
     border: none; 
+    border-radius: 3px; 
+    box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
 
     @media screen and (max-width: 600px) {
 

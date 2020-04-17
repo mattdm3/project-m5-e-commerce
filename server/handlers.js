@@ -115,27 +115,52 @@ const handleSellers = (req, res) => {
 
     res.send(companies);
 }
-// const handleUpdateStock = (req, res) => {
-//     let response = req.body;
-//     console.log(Object.keys)
-//     if (Object.entries(response).length === 0) {
-//         return
-//     }
-//     else {
-//         items.forEach(item => {
-//             //for each item
-//             Object.keys(response).forEach(element => {
-//                 //stock levels?
-//                 if (element === item.id) {
-//                     item.numInStock -= response[element]
-//                 }
-//                 else {
-//                     return
-//                 }
-//             });
-//         });
-//     }
-// }
+const handleUpdateStock = (req, res) => {
+    let cartInfo = req.body;
+
+    if (cartInfo.cartCounter === 0) {
+        //change for a different status
+        res.status(300).send({ response: "No changes in stock levels" })
+    }
+    else {
+        let arrayCart = Object.keys(cartInfo);
+        console.log(arrayCart)
+        let slicedIds = arrayCart.slice(0, arrayCart.length - 1)
+        //loop though items array and change values. 
+        slicedIds.forEach(id => {
+            //find the corresponding item in the item array. 
+            let selectedItem = items.find(item => {
+                if (item.id == id) {
+                    return item
+                }
+            })
+            console.log(selectedItem.numInStock, 'BEFORE')
+            console.log(cartInfo[id].quantity, 'QUANTITY')
+            //once found... update sotck levels. Only if there are still in stock
+            if (selectedItem.numInStock > 0) {
+                //for backend update
+                selectedItem.numInStock -= cartInfo[id].quantity;
+                //for front end update of cartstate
+                //initialize it to the backends stock lvl
+                cartInfo[id].numInStock = selectedItem.numInStock;
+
+                console.log(selectedItem.numInStock, 'AFTER')
+            }
+            // else {
+            //     res.status(404).send({
+            //         response: "No stock left.",
+            //         Item: selectedItem
+            //     })
+            // }
+        })
+        res.status(200).send({
+            response: 'Quantities successfully updated',
+            updatedCartState: cartInfo
+        })
+
+
+    }
+}
 
 
 const handleBodyItems = (req, res) => {
@@ -349,5 +374,5 @@ const handleSearch = (req, res) => {
 module.exports = {
     handleSignUp, handleBodyItems, handleRelatedItems,
     handleAllData, handleCompany, handleItemId, handleCategory,
-    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser, handleSearch
+    handleItemsData, handleSellers, handleLogin, handleCartItemsForUser, handleUpdateStock, handleSearch
 };

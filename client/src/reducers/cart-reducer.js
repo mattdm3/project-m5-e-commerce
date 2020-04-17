@@ -36,7 +36,6 @@ export default function cartReducer(state = initialState, action) {
     }
     case "LOGIN_CART": {
 
-      console.log(action.cartData, 'THIS IS CARTDATA')
       let newCart = { ...state }
 
       if (action.cartData == undefined) {
@@ -48,7 +47,13 @@ export default function cartReducer(state = initialState, action) {
       return {
         ...newCart
       }
+    }
 
+    case "BACKEND_CART_STATE_WITH_UPDATED_STOCK": {
+      console.log(action.data, 'NEW DATA FROM BACKEND')
+      return {
+        ...action.data
+      }
     }
 
     default:
@@ -87,12 +92,12 @@ export const cartTotalSelector = (state) => {
 };
 
 export const getItemsAndQuantities = (cartState) => {
-    const items = { ...cartState };
-    delete items.cartCounter;
-    let purchaseArray = Object.values(items);
-    let containerForInventory = {};
-    purchaseArray.forEach(item => {
-        containerForInventory[item.id] = item.quantity;
-    });
-    return containerForInventory;
+  const items = { ...cartState };
+  delete items.cartCounter;
+  let purchaseArray = Object.values(items);
+  let containerForInventory = {};
+  purchaseArray.forEach(item => {
+    containerForInventory[item.id] = item.quantity;
+  });
+  return containerForInventory;
 };

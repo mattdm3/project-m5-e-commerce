@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignIn({ setLoginState }) {
+export default function SignIn({ chatLoginColor, setLoginState }) {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState(false)
     const dispatch = useDispatch();
@@ -150,9 +150,13 @@ export default function SignIn({ setLoginState }) {
 
 
     return (<>
-        <StyledLoginButton onClick={handleClickOpen}>
+        <StyledLoginButton style={{ background: 'none' }} onClick={handleClickOpen}>
             Login
 </StyledLoginButton>
+        {chatLoginColor &&
+            <StyledLoginButton style={{ background: '#164C81', width: '50px', marginRight: '1.3rem' }} onClick={handleClickOpen}>
+                Login
+</StyledLoginButton>}
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -238,13 +242,12 @@ export default function SignIn({ setLoginState }) {
 }
 
 const StyledLoginButton = styled.button`
-    width: 50px; 
+   
     border: none; 
-    background: none; 
+    /* background: none;  */
     color: white;
     font-weight: 600; 
     border-radius: 3px; 
-    
     transition-duration: 400ms; 
     cursor:pointer; 
     font-size: .8rem;

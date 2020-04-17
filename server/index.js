@@ -8,7 +8,7 @@ const items = require('./data/items.json');
 const { handleItemId, handleItemsData,
   handleCategory, handleCompany, handleSellers,
   handleAllData, handleRelatedItems, handleBodyItems,
-  handleSignUp, handleLogin, handleCartItemsForUser, handleSearch
+  handleSignUp, handleLogin, handleCartItemsForUser, handleUpdateStock, handleSearch
 } = require('./handlers');
 
 
@@ -75,6 +75,8 @@ app.post('/storeCartItemsUser/:user', handleCartItemsForUser)
 app.get('/search', handleSearch)
 
 app.get('/bodypart/:body', handleBodyItems)
+//
+app.post('/updateStock', handleUpdateStock)
 
 
 
