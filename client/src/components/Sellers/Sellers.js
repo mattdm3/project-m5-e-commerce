@@ -14,6 +14,7 @@ const Sellers = () => {
 
     //state will hold the company info
     const [companyState, setCompanyState] = useState(null)
+    const [pathName, setPathName] = useState(null)
     //Get the comapny - ID from the URL
     const { companyId } = useParams();
 
@@ -23,28 +24,47 @@ const Sellers = () => {
     useEffect(() => {
         fetch(`/sellers/${companyId}`)
             .then(res => res.json())
-            .then(companyData => setCompanyState(Object.values(companyData)))
+            .then(companyData =>
+                setCompanyState(Object.values(companyData))
+            )
             .catch(() => window.alert('Error occured finding the company. '))
     }, [])
 
-    console.log(companyState);
+    useEffect(() => {
+
+        if (companyState !== null) {
+
+            setPathName(companyState[0].name.replace(' ', '').replace(' ', ''))
+        }
+
+    }, [companyState])
+
+    console.log(pathName);
+    console.log(companyState)
 
 
 
 
     return (<PageContainer>
-        {companyState !== null ?
+        {companyState !== null && pathName !== null ?
+
+
 
 
             < div >
                 <Header>
+
                     <div>
+
+
 
 
                         <StyledCompanyName>{companyState.name}</StyledCompanyName>
                         <a href={companyState.url}>{companyState.url}</a>
                         <div>{companyState.country}</div>
-                        <Image src={`/SellerImages/${companyState[0].name}.jpg`}></Image>
+                        {console.log(companyState.name)}
+
+                        <Image src={`/SellerImages/${pathName}.jpg`}></Image>
                         <Products>{companyState[0].name}</Products>
                         {/* <div style={{ backgroundImage: `url(${image})` }}></div> */}
                         {/* double check page heading */}
@@ -65,7 +85,7 @@ const Sellers = () => {
 
             </div>
             : <MiddlePage><ClipLoader color={"#164C81"} size={100} /></MiddlePage>}
-    </PageContainer>
+    </PageContainer >
     )
 
 
