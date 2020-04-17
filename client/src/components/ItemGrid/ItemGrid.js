@@ -3,7 +3,7 @@ import styled, { keyframes, css } from 'styled-components';
 import { Link } from "react-router-dom";
 import RenderItem from './RenderItem';
 import { useDispatch, useSelector } from 'react-redux';
-import SortDropdown from '../SortDropdown/index'
+import SortDropdown from '../SortDropdown'
 import { StyledStock, MiddlePage } from '../CONSTANTS';
 // <<<<<<< searchBar-2-manny
 import {

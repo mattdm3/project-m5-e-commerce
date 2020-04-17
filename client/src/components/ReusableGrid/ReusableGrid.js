@@ -5,7 +5,7 @@ import RenderItem from '../ItemGrid/RenderItem';
 import Sidebar from '../Sidebar';
 import { Link } from "react-router-dom";
 
-import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS';
+import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS';
 
 
 const ReusableGrid = ({ itemSource, exportPage, exportSort }) => {
@@ -54,44 +54,48 @@ const ReusableGrid = ({ itemSource, exportPage, exportSort }) => {
 
     return (
         <>
-            <SideAndGrid>
-                <SortDropdown exportFilter={(val) => good(val)}></SortDropdown>
-                <Sidebar />
-                <GridContainer>
-                    <GridWrapper>
-                        {itemSource.map((item, arrayNum) => {
-                            return (
-                                <Link to={`/item/${item.id}`}>
-                                    {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
-                                    <RenderItem key={item.id} item={item}></RenderItem>
-                                </Link>
-                                // >>>>>>> master
-                                // >>>>>>> master
-                            )
-                        })}
-                    </GridWrapper>
-                    {/* make this button wrapper reusableinsde category as well.  */}
-                    <ButtonWrapper>
+            <h1 style={{ width: "80%", margin: "auto" }}>Search Results</h1>
+            <PageContainer>
 
-                        {pageCount > 1 && <button onClick={() => handleOnClick(pageCount -= 1)}>
-                            Previous
+
+                <SideAndGrid>
+                    <SortDropdown exportFilter={(val) => good(val)}></SortDropdown>
+
+                    <Sidebar />
+
+                    <GridContainer>
+                        <GridWrapper>
+
+
+
+                            {itemSource.map((item, arrayNum) => {
+                                return (
+                                    <Link to={`/item/${item.id}`}>
+                                        {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
+                                        <RenderItem key={item.id} item={item}></RenderItem>
+                                    </Link>
+                                    // >>>>>>> master
+                                    // >>>>>>> master
+                                )
+                            })}
+                        </GridWrapper>
+                        {/* make this button wrapper reusableinsde category as well.  */}
+                        <ButtonWrapper>
+
+                            {pageCount > 1 && <button onClick={() => handleOnClick(pageCount -= 1)}>
+                                Previous
                   </button>}
-                        <button onClick={() => handleOnClick(pageCount)}>{pageCount}</button>
-                        <button onClick={() => handleOnClick(pageCount + 1)}>{pageCount + 1}</button>
-                        <button onClick={() => handleOnClick(pageCount + 2)}>{pageCount + 2}</button>
-                        <button onClick={() => handleOnClick(pageCount += 1)}>
-                            >
+                            <button onClick={() => handleOnClick(pageCount)}>{pageCount}</button>
+                            <button onClick={() => handleOnClick(pageCount + 1)}>{pageCount + 1}</button>
+                            <button onClick={() => handleOnClick(pageCount + 2)}>{pageCount + 2}</button>
+                            <button onClick={() => handleOnClick(pageCount += 1)}>
+                                >
                   </button>
-                    </ButtonWrapper>
-                    {/* Search for for particular page? - is it necessary?*/}
-                    {/* Missing Styling */}
-                    <form>
-                        <div>...current page: {pageCount}</div>
-                        <input type='text' onChange={handlePageFinder}></input>
-                    </form>
-                </GridContainer>
-                }
-            </SideAndGrid>
+                        </ButtonWrapper>
+                    </GridContainer>
+
+                </SideAndGrid>
+            </PageContainer>
         </>
     )
 };

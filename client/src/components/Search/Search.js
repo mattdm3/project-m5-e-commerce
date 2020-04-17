@@ -7,7 +7,7 @@ import { useLocation, Link, useHistory } from 'react-router-dom';
 
 
 
-const Search = ({ triggerSearchBar }) => {
+const Search = ({ triggerSearchBar, setScroll, scroll }) => {
     const allData = useSelector(items => items.dataItems.allItems)
     const [query, setQuery] = useState(null)
     const [type, setTyped] = useState(' ')
@@ -17,6 +17,8 @@ const Search = ({ triggerSearchBar }) => {
     let location = useLocation().pathname.split('/')
     let history = useHistory();
     console.log(location.length)
+
+
 
 
     //need to search based on category. 
@@ -61,34 +63,47 @@ const Search = ({ triggerSearchBar }) => {
     }
 
     return (
+        <>
+            <StyledForm action={`/searching/${type}`}>
 
-        <StyledForm action={`/searching/${type}`}>
+                <SearchFlex>
 
-            <SearchFlex>
-                <SearchInput
-                    onChange={(e) => setTyped(e.target.value)}
-                    placeholder="Search our products..." style={(triggerSearchBar) ?
-                        {
-                            opacity: "1",
-                            transition: "all 1s ease-in-out",
-                            width: "500px",
-                            zIndex: "10"
+                    <SearchInput value={type}
+                        onChange={(e) => {
+                            setScroll(true);
+                            setTyped(e.target.value);
                         }
-                        :
-                        {
-                            width: "0",
-                            opacity: "0",
-                            zIndex: "-10",
-                            transition: "all 500ms ease-in-out"
-                        }
-                    } />
-                {triggerSearchBar && <Link to={`/searching/${type}`}><button type="button" onClick={() => setQuery(type)}>Go</button></Link>}
 
-            </SearchFlex>
+                        }
+                        placeholder="Search our products..." style={(triggerSearchBar) ?
+                            {
+                                opacity: "1",
+                                transition: "all 1s ease-in-out",
+                                width: "500px",
+                                zIndex: "10"
+                            }
+                            :
+                            {
+                                width: "0",
+                                opacity: "0",
+                                zIndex: "-10",
+                                transition: "all 500ms ease-in-out"
+                            }
+                        } />
+                    {triggerSearchBar && <Link to={`/searching/${type}`}><button type="button" onClick={() => {
+
+                        setQuery(type)
+
+                    }}>Go</button></Link>}
+
+                </SearchFlex>
+            </StyledForm>
             {/* <SearchInput
                 placeholder='Search Products...' ></SearchInput>
  */}
-            {results !== null && <div style={{ position: 'absolute', right: '-250px', top: '60px' }}>
+
+
+            {results !== null && triggerSearchBar && <StyledResults style={scroll ? { overflowY: "scroll" } : { overflowY: "hidden" }}>
                 {results.map(result => {
                     let getIndex = result.name.toLowerCase().indexOf(type.toLowerCase())
                     let word = result.name.split('');
@@ -100,7 +115,7 @@ const Search = ({ triggerSearchBar }) => {
                     console.log(bolded)
                     console.log(secondHalf)
                     return (
-                        <div>
+                        <div >
                             <ul>
                                 <EachList onClick={() => handlePushItem(result.id)}>
                                     {firstHalf}
@@ -111,20 +126,57 @@ const Search = ({ triggerSearchBar }) => {
                         </div>
                     )
                 })}
-            </div>}
-        </StyledForm>
+            </StyledResults>
+
+            }
+
+
+        </>
     )
 
 }
 
 export default Search;
 
-const StyledForm = styled.form`
-   position: absolute;
+
+
+const StyledResults = styled.div`
+    position: absolute; 
+    right: 40px;  
+    top: 100px; 
+    z-index: 100; 
+    overflow: hidden; 
+    /* overflow-y: scroll; */
+    background: white; 
+    width: 500px; 
+    padding: 20px 50px; 
+    max-height: 500px; 
+
+    ul {
+        z-index: 1000; 
+        
+    }
+
+`
+
+const EachList = styled.li`
+    cursor: pointer;
+    list-style: none; 
+    z-index: 100; 
+    padding: 5px 0; 
+
+    &:hover {
+    background-color: pink;
+}
+`
+
+const StyledForm = styled.div`
+    position: absolute;
     margin-bottom: 80px; 
     width: 100%;
     height:100%;
-  overflow-y: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden; 
 
     
     button {
@@ -148,12 +200,7 @@ const StyledInput = styled.input`
 
 `
 
-const EachList = styled.li`
-cursor: pointer;
-&:hover {
-    background-color: pink;
-}
-`
+
 
 const Strong = styled.strong`
 font-weight: bolder;
@@ -181,7 +228,8 @@ const SearchInput = styled.input`
 `
 
 const SearchFlex = styled.div`
-display: flex;
+    display: flex;
+    position: relative; 
 
 `
 
