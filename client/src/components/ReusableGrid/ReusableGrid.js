@@ -54,29 +54,6 @@ const ReusableGrid = ({ itemSource, exportPage, exportSort }) => {
 
     return (
         <>
-// <<<<<<< 404
-//             <SideAndGrid>
-//                 <SortDropdown exportFilter={(val) => good(val)}></SortDropdown>
-//                 <Sidebar />
-//                 <GridContainer>
-//                     <GridWrapper>
-//                         {itemSource.map((item, arrayNum) => {
-//                             return (
-//                                 <Link to={`/item/${item.id}`}>
-//                                     {/*SEE INSIDE RENDER ITEM FOR DISPATCH TO ADD TO CART - MANNY */}
-//                                     <RenderItem key={item.id} item={item}></RenderItem>
-//                                 </Link>
-//                                 // >>>>>>> master
-//                                 // >>>>>>> master
-//                             )
-//                         })}
-//                     </GridWrapper>
-//                     {/* make this button wrapper reusableinsde category as well.  */}
-//                     <ButtonWrapper>
-
-//                         {pageCount > 1 && <button onClick={() => handleOnClick(pageCount -= 1)}>
-//                             Previous
-// =======
             <h1 style={{ width: "80%", margin: "auto" }}>Search Results</h1>
             <PageContainer>
 
