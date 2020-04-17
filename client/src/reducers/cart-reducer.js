@@ -22,17 +22,33 @@ export default function cartReducer(state = initialState, action) {
     }
 
     case "UPDATE_QUANTITY": {
-        return {
-            ...state,
-            [action.item.id]: {
-              ...action.item,
-              quantity: action.newQuantity,
-            },
-        };
+      return {
+        ...state,
+        [action.item.id]: {
+          ...action.item,
+          quantity: action.newQuantity,
+        },
+      };
     }
 
     case "CLEAR_CART": {
       return initialState;
+    }
+    case "LOGIN_CART": {
+
+      console.log(action.cartData, 'THIS IS CARTDATA')
+      let newCart = { ...state }
+
+      if (action.cartData == undefined) {
+        newCart.cartCounter = 0;
+      }
+      else {
+        newCart = action.cartData;
+      }
+      return {
+        ...newCart
+      }
+
     }
 
     default:
@@ -49,25 +65,25 @@ export const itemsSelector = (state) => {
 };
 
 export const isInCartSelector = (state, itemId) => {
-    if (!itemId) {
-        return false;
-    }
-    const items = { ...state };
-    delete items.cartCounter;
-    let products = Object.values(items);
-    return products.find(product => product.id === itemId);
+  if (!itemId) {
+    return false;
+  }
+  const items = { ...state };
+  delete items.cartCounter;
+  let products = Object.values(items);
+  return products.find(product => product.id === itemId);
 };
 
 
 export const cartTotalSelector = (state) => {
-    const items = {...state};
-    delete items.cartCounter;
-    let sum = Object.values(items).reduce((total, item) => {
-        let parsedPrice = parseFloat(item.price.slice(1));
-        total += (item.quantity * parsedPrice);
-        return total;
-    }, 0);
-    return sum;
+  const items = { ...state };
+  delete items.cartCounter;
+  let sum = Object.values(items).reduce((total, item) => {
+    let parsedPrice = parseFloat(item.price.slice(1));
+    total += (item.quantity * parsedPrice);
+    return total;
+  }, 0);
+  return sum;
 };
 
 export const getItemsAndQuantities = (cartState) => {

@@ -11,6 +11,7 @@ import lifestyle from '../../images/stock/lifestyle-logo.png';
 import pet from '../../images/stock/pet-image.png'
 
 
+
 const CategoryGrid = () => {
     return (
         <>
@@ -20,6 +21,7 @@ const CategoryGrid = () => {
                 <Industrial style={{ backgroundImage: `url(${industrial})` }}>
                     <StyledLink to="/category/Industrial"> <p>Industrial</p>  </StyledLink>
                 </Industrial>
+
 
 
                 <Entertainment style={{ backgroundImage: `url(${entertainment})` }}>

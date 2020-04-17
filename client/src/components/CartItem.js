@@ -31,20 +31,20 @@ const CartItem = (props) => {
           </ButtonContainer>
           <ImageContainer src={props.imageSrc} />
         </Products>
-          <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
-           <GreyP>{props.price}</GreyP>
-          </div>
-          <div style={{ gridArea: "1 / 5 / 2 / 6", zIndex: "2" }}>
-            <StyledInput
-              type="number"
-              min="1"
-              value={props.quantity}
-              onChange={handleQuantity}
-            />
-          </div>
-          <div style={{ gridArea: "1 / 6 / 2 / 7" }}>
-           <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
-          </div>
+        <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
+          <GreyP>{props.price}</GreyP>
+        </div>
+        <div style={{ gridArea: "1 / 5 / 2 / 6", zIndex: "2" }}>
+          <StyledInput
+            type="number"
+            min="1"
+            value={props.quantity}
+            onChange={handleQuantity}
+          />
+        </div>
+        <div style={{ gridArea: "1 / 6 / 2 / 7" }}>
+          <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
+        </div>
       </Container>
 
       <MobileContainer>
@@ -63,7 +63,7 @@ const CartItem = (props) => {
             />
           </div>
           <div>
-           <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
+            <GreyP>${Math.round(subtotal * 100) / 100}</GreyP>
           </div>
         </MobileProducts>
       </MobileContainer>

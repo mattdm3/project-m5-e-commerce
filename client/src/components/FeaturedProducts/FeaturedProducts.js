@@ -24,6 +24,9 @@ const FeaturedProducts = () => {
         }
     }
 
+    // if (featuredItemsArray.length != 0) {
+    //     console.log(featuredItemsArray)
+    // }
     const scrollLeft = (ref) => {
         scrollRef.current.scrollBy(-300, 0)
     }
