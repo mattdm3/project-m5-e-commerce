@@ -124,6 +124,7 @@ const handleUpdateStock = (req, res) => {
     }
     else {
         let arrayCart = Object.keys(cartInfo);
+        console.log(arrayCart)
         let slicedIds = arrayCart.slice(0, arrayCart.length - 1)
         //loop though items array and change values. 
         slicedIds.forEach(id => {
