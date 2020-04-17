@@ -65,7 +65,7 @@ const Sidebar = () => {
         <SidebarContainer>
 
 
-            {allDataFetchSuccess === 'success' && <Search></Search>}
+            {/* {allDataFetchSuccess === 'success' && <Search></Search>} */}
 
             {/* <PriceSortContainer>
                 <SidebarHeading>Filter By Price</SidebarHeading>
