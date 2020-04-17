@@ -34,22 +34,19 @@ const Sellers = () => {
 
     return (<PageContainer>
         {companyState !== null ?
-
-
-            < div >
+            <div>
                 <Header>
-                    <div>
-
-
+                    <div style={{ position: "relative" }}>
                         <StyledCompanyName>{companyState.name}</StyledCompanyName>
-                        <a href={companyState.url}>{companyState.url}</a>
+                        <a href={companyState.url}>{companyState.url}
+                        </a>
                         <div>{companyState.country}</div>
                         <Image src={`/SellerImages/${companyState[0].name}.jpg`}></Image>
                         <Products>{companyState[0].name}</Products>
                         {/* <div style={{ backgroundImage: `url(${image})` }}></div> */}
                         {/* double check page heading */}
-                        <PageHeadings>{companyState[0].name}</PageHeadings>
                     </div>
+
                 </Header>
                 {/* all items */}
                 <GridWrapper>
@@ -106,12 +103,13 @@ font-size: 6em;
 `
 
 const Products = styled.h2`
-font-size: 5em;
-position: absolute;
-right: 40%;
-top: 20%;
-color: white;
-margin-left: auto; 
+    font-size: 5em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    margin-left: auto; 
     margin-right: auto; 
 
 

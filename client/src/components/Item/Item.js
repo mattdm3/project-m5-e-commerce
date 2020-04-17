@@ -86,26 +86,37 @@ const Item = (props) => {
 
 
                                 <CartButtonContainer>
-                                    {/* REMOVED in commit */}
-                                    {/* // seller-page-styling
-//                                     {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
-                                         <StyledInput defaultValue="1" type="number" />
-                                     }
-                                     {!inCart && itemInfo.numInStock > 0 ?
- ======= */}
-                                    <StyledInput
-                                        type="number"
-                                        min="1"
-                                        value={props.quantity}
-                                        placeholder="1"
-                                        onChange={handleQuantity} />
-                                    {!inCart &&
-                                        //>>>>>>> master
-                                        <StyledButton
-                                            onClick={() =>
-                                                dispatch(addItem(itemInfo))}>
-                                            Add to cart</StyledButton>}
-                                    {inCart && <p>Added to cart</p>}
+                                    {itemInfo.numInStock === 0 ?
+                                        <>
+                                            <StyledInput disabled
+                                                type="text"
+                                                min="1"
+                                                value="N/A"
+                                                placeholder="1"
+                                                onChange={handleQuantity} />
+                                            <StyledButton disabled
+                                                onClick={() =>
+                                                    dispatch(addItem(itemInfo))}>
+                                                Out of stock</StyledButton>
+                                        </>
+                                        :
+                                        <>
+                                            <StyledInput
+                                                type="number"
+                                                min="1"
+                                                value={props.quantity}
+                                                placeholder="1"
+                                                onChange={handleQuantity} />
+                                            {!inCart &&
+                                                //>>>>>>> master
+                                                <StyledButton
+                                                    onClick={() =>
+                                                        dispatch(addItem(itemInfo))}>
+                                                    Add to cart</StyledButton>}
+                                            {inCart && <p>Added to cart</p>}
+                                        </>
+                                    }
+
                                 </CartButtonContainer>
 
                             </Column>
@@ -135,8 +146,9 @@ const FlexContainer = styled.div`
     margin-top: 5rem; 
 
     @media screen and (max-width: 600px) {
-        text-align: center;
+        
         justify-content: center; 
+        
     }
 
 
@@ -169,25 +181,22 @@ const TitleContainer = styled.div`
 
 
 const Row = styled.div`
-
-@media only screen and (min-width: 1025px) {
     display: flex; 
     justify-content: center; 
 
-}
-@media only screen and (max-width: 1024px) {
-
-}
-   
-    
+    @media screen and (max-width: 600px) {
+        flex-direction: column; 
+        align-items: center;
+        align-content: center; 
+    }
 
 `
 
 const ImageContainer = styled.div`
 
-    width: 50%; 
+    width: 100%; 
     img {
-        width: 310px; 
+        width: 100%; 
     }
 
 
@@ -211,6 +220,11 @@ const Column = styled.div`
     @media screen and (max-width: 600px) {
         align-items: center;
         margin-top: 3rem;
+        margin-left: 0; 
+
+        p{
+            text-align: center; 
+        }
     }
 
 `
