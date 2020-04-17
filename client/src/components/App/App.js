@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // ------------- COMPONENTS -------------
@@ -37,6 +37,9 @@ function App() {
   const dispatch = useDispatch();
   const cartState = useSelector(state => state.cartState);
   const userLoggedIn = useSelector(state => state.userReducer)
+  //controls signup and login
+  const [loginState, setLoginState] = useState(true)
+
 
 
 
@@ -95,8 +98,8 @@ function App() {
     <>
       <Router>
         <GlobalStyles />
-        <Navbar />
-        <Chatbot></Chatbot>
+        <Navbar loginState={loginState} setLoginState={setLoginState} />
+        <Chatbot loginState={loginState} setLoginState={setLoginState} ></Chatbot>
 
         <Switch>
 
