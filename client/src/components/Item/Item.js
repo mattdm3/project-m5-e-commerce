@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useParams, Link } from "react-router-dom"
 import { updateQuantity, removeItem } from "../../actions";
-
-
 import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
@@ -12,11 +10,14 @@ import { isInCartSelector } from '../../reducers/cart-reducer';
 import { PageContainer, MiddlePage, PageHeadings, StyledButton } from '../CONSTANTS';
 import RelatedItems from './RelatedItems';
 import ClipLoader from "react-spinners/ClipLoader";
+import { GoPlus } from 'react-icons/go';
+import { FiShoppingCart } from 'react-icons/fi';
 
 
 const Item = (props) => {
     const [itemInfo, setItemInfo] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    // const [inCartAnimation, setInCartAnimation] = useState([]);
     const inCart = useSelector(state => isInCartSelector(state.cartState, itemInfo ? itemInfo.id : undefined));
 
     const dispatch = useDispatch();
@@ -31,6 +32,26 @@ const Item = (props) => {
             dispatch(updateQuantity(props, parseInt(value)));
         }
     };
+
+    const handleAddToCart = (intemInfo, e) => {
+        dispatch(addItem(itemInfo));
+        // let itemId = e.target.id;
+        // if (!inCart) {
+        //     setInCartAnimation([
+        //         ...inCartAnimation,
+        //         {
+
+        //             id: id
+        //         }
+
+        //     ]);
+        // }
+
+
+    }
+    // if (inCartAnimation.length != 0) {
+    //     console.log(inCartAnimation)
+    // }
 
     useEffect(() => {
 
@@ -54,6 +75,7 @@ const Item = (props) => {
     if (!loaded) {
         return null
     }
+    console.log(itemInfo.id)
 
     return (
         <React.Fragment>
@@ -110,10 +132,15 @@ const Item = (props) => {
                                             {!inCart &&
                                                 //>>>>>>> master
                                                 <StyledButton
-                                                    onClick={() =>
-                                                        dispatch(addItem(itemInfo))}>
-                                                    Add to cart</StyledButton>}
-                                            {inCart && <p>Added to cart</p>}
+                                                    onClick={(e) => handleAddToCart(itemInfo, e)}>
+                                                    Add to cart</StyledButton>
+                                            }
+
+                                            {inCart && <ButtonAnimation>
+                                                <ButtonContent>
+                                                    <StyledCart /> Added
+                                                </ButtonContent>
+                                            </ButtonAnimation>}
                                         </>
                                     }
 
@@ -138,6 +165,58 @@ const Item = (props) => {
         </React.Fragment>
     )
 }
+
+
+const scaleUpCart = keyframes`
+    0 {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+`
+
+const fillButton = keyframes`
+    from {
+        background-position: right bottom; 
+    }
+    to {
+        background-position: left bottom; 
+    }
+`
+
+
+const opacity = keyframes`
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+`
+
+const ButtonContent = styled.div`
+    animation: ${opacity} 550ms ease 450ms forwards, ${scaleUpCart} 850ms ease 500ms forwards; 
+    opacity: 0; 
+`
+
+const StyledCart = styled(FiShoppingCart)`
+    animation: ${scaleUpCart} 1s ease;
+    margin-right: 0 15px; 
+`
+
+const ButtonAnimation = styled(StyledButton)`
+    background: linear-gradient(to right, #FF4F40 50%, #164C81 50%);
+    background-size: 200% 100%;
+    background-position: left bottom; 
+    animation: ${fillButton} 1s ease; 
+`
+
+
+
 
 const FlexContainer = styled.div`
     display: flex; 
