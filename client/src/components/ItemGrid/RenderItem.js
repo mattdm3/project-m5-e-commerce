@@ -114,6 +114,10 @@ const TitleContainer = styled.div`
         padding: 0; 
         margin: 0; 
     }
+
+    @media screen and (max-width: 600px) {
+        font-size: 1.1rem;
+    }
 `
 
 const Price = styled.p`
@@ -123,6 +127,10 @@ const Price = styled.p`
     bottom: 0; 
     left: 0; 
     color: #4A4F6A;
+
+    @media screen and (max-width: 600px) {
+        font-size: 1.1rem;
+    }
 `
 
 const DescriptionContainer = styled.div`
