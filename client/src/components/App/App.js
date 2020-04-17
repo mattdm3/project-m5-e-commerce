@@ -31,6 +31,7 @@ import Chatbot from '../ChatBot/Chatbot';
 import BodyPart from '../Bodypart/BodyPart';
 import Home from '../Home';
 import Footer from '../Footer';
+import Error from '../Error/Error'
 
 
 function App() {
@@ -135,6 +136,8 @@ function App() {
           <Route exact path="/paymentMethod" >
             <PaymentMethod />
           </Route>
+          <Route path="*" component={Error} />
+
         </Switch>
 
         <Footer />
