@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector, getItemsAndQuantities } from '../reducers/cart-reducer';
-import { clearCart } from '../actions';
+import { clearCart, updateCartStateBackend } from '../actions';
 
 
 // ------------ COMPONENTS ------------
@@ -48,6 +48,9 @@ const Cart = () => {
             //snakcbar item deleted - item added. !!!
             let received = await response.json();
             console.log(received, 'STOCK LEVELS UPDATED')
+
+            dispatch(updateCartStateBackend(received.updatedCartState))
+            // dispatch(updateCartStateBackend)
         }
         handleUpdateStock();
 

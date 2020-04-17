@@ -36,7 +36,6 @@ export default function cartReducer(state = initialState, action) {
     }
     case "LOGIN_CART": {
 
-      console.log(action.cartData, 'THIS IS CARTDATA')
       let newCart = { ...state }
 
       if (action.cartData == undefined) {
@@ -48,7 +47,13 @@ export default function cartReducer(state = initialState, action) {
       return {
         ...newCart
       }
+    }
 
+    case "BACKEND_CART_STATE_WITH_UPDATED_STOCK": {
+      console.log(action.data, 'NEW DATA FROM BACKEND')
+      return {
+        ...action.data
+      }
     }
 
     default:
