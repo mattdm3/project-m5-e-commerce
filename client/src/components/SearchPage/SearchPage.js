@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import RenderItem from '../ItemGrid/RenderItem';
 import Sidebar from '../Sidebar';
 import SortDropdown from '../SortDropdown';
-import { SideAndGrid, GridContainer, GridWrapper } from '../CONSTANTS';
+import { SideAndGrid, GridContainer, GridWrapper, PageContainer } from '../CONSTANTS';
 import ReusableGrid from '../ReusableGrid/index';
 
 
@@ -40,9 +40,9 @@ const SearchPage = () => {
     }
 
     return (
+
         <ReusableGrid exportPage={(page) => setPage(page)}
             itemSource={searched} exportSort={(val) => test(val)} />
-
     )
 
 }

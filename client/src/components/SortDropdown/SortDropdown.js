@@ -73,7 +73,7 @@ const DropdownContent = styled.div`
 const Dropdown = styled.div`
     position: absolute;
     right: 0; 
-    top: 570px; 
+    top: -25px; 
     display: inline-block;
     z-index: 50; 
     

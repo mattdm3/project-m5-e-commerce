@@ -38,8 +38,15 @@ const Navbar = ({ setLoginState, loginState }) => {
     let history = useHistory();
     const dispatch = useDispatch();
 
+    console.log(history)
+
+    const currentPath = history.location.pathname;
+
+
+
 
     const [navbar, setNavbar] = useState(false);
+    const [scroll, setScroll] = useState(false);
 
     const [triggerSearchBar, setTriggerSearchBar] = useState(false);
 
@@ -52,6 +59,11 @@ const Navbar = ({ setLoginState, loginState }) => {
         }
 
     }
+    useEffect(() => {
+
+        setTriggerSearchBar(false)
+
+    }, [currentPath])
 
     const toggleSearchBar = () => {
 
@@ -65,14 +77,41 @@ const Navbar = ({ setLoginState, loginState }) => {
     const handleWindowResize = () => {
         if (window.innerWidth > 768) {
             setNavbar(false)
+
+
+        }
+        if (window.innerWidth < 868) {
+            setTriggerSearchBar(false);
         }
     }
+
+    const handleClick = () => {
+
+    }
+
+
+    const handleKeypress = (e) => {
+        console.log(e);
+        if (e.keyCode === 27) {
+            setTriggerSearchBar(false)
+        }
+
+    }
+
 
     useEffect(() => {
 
         window.addEventListener("resize", handleWindowResize);
 
         return () => window.removeEventListener("resize", handleWindowResize);
+
+    }, [])
+
+    useEffect(() => {
+        window.addEventListener("click", handleClick);
+        window.addEventListener("keydown", handleKeypress)
+
+        return () => window.removeEventListener("click", handleClick);
 
     }, [])
 
@@ -107,7 +146,7 @@ const Navbar = ({ setLoginState, loginState }) => {
             <PageContainer>
 
                 <StyledNav>
-                    <NavigationLink exact to="/">
+                    <NavigationLink style={{ zIndex: "1000" }} exact to="/">
                         <Logo onClick={() => history.push('/')} >
                             <FaDiceSix size={25} style={{ marginRight: "5px", color: "#164C81", padding: "0" }} />
                             <h2>TECH 6 <span>GEAR</span></h2>
@@ -150,14 +189,14 @@ const Navbar = ({ setLoginState, loginState }) => {
                     <StyledUl >
 
 
-                        <NavList>
-                            <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
+                        <NavList style={(triggerSearchBar) ? { borderBottom: "3px solid transparent" } : { borderBottom: "3px solid transparent" }}>
+                            <NavigationLink style={(triggerSearchBar) ? { opacity: "0", display: "none" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
                         </NavList>
                         {/* <NavList>
                         <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/sellers">Sellers</NavigationLink>
                     </NavList> */}
-                        <NavList>
-                            <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/cart"><FiShoppingCart /> {cartCounter}</NavigationLink>
+                        <NavList style={(triggerSearchBar) ? { borderBottom: "3px solid transparent" } : { borderBottom: "3px solid transparent" }}>
+                            <NavigationLink style={(triggerSearchBar) ? { opacity: "0", display: "none" } : { opacity: "1" }} exact to="/cart"><FiShoppingCart style={(triggerSearchBar) ? { opacity: "0", display: "none" } : { opacity: "1" }} /> {cartCounter}</NavigationLink>
                         </NavList>
                         <NavList >
                             <FiSearch onClick={toggleSearchBar} style={{ fontSize: "1.2rem" }} />
@@ -167,7 +206,7 @@ const Navbar = ({ setLoginState, loginState }) => {
                         <NavigationLink exact to="/contact">Contact</NavigationLink>
                     </NavList> */}
                     </StyledUl>
-                    <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
+                    <Hamburger style={{ zIndex: "1200" }} onClick={toggleNavbar}>&#9776;</Hamburger>
                     {/* <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ?
                         {
                             opacity: "1",
@@ -183,7 +222,7 @@ const Navbar = ({ setLoginState, loginState }) => {
                             transition: "all 500ms ease-in-out"
                         }
                     } /> */}
-                    {allDataFetchSuccess === 'success' && <Search triggerSearchBar={triggerSearchBar}></Search>}
+                    {allDataFetchSuccess === 'success' && <Search triggerSearchBar={triggerSearchBar} setScroll={setScroll} scroll={scroll}></Search>}
 
                 </StyledNav>
 
@@ -205,7 +244,6 @@ const StyledNav = styled.nav`
     padding: 50px 0;
     transition-duration: .4s;
     position: relative; 
-
     /* @media screen and (min-width: 768px) {
         justify-content: space-between;
     } */
@@ -319,6 +357,7 @@ const Logo = styled.div`
     
     border-radius: 2px; 
     padding: 5px;  
+    
 
     h2 {
     font-weight: 700;
@@ -378,7 +417,7 @@ const OverlayMenu = styled.ul`
     margin: 0; 
     padding-right: 4rem;
     padding-bottom: 20px; 
-    margin: 6.8rem 0;
+    margin: 7rem 0;
     width: 100%;
     text-align: right;
     border-bottom: 1px solid #454545; 
