@@ -135,7 +135,7 @@ const ButtonContainer = styled.div`
     transition-duration: 600ms; 
     opacity: 0;
     margin-left: 25%;
-    position absolute;
+    position: absolute;
     width: 90%;
     
     :hover {

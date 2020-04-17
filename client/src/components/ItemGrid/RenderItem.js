@@ -99,7 +99,7 @@ const ImageContainer = styled.div`
 `
 const TitleContainer = styled.div`
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     display: flex; 
     justify-content: flex-start; 
@@ -114,6 +114,10 @@ const TitleContainer = styled.div`
         padding: 0; 
         margin: 0; 
     }
+
+    @media screen and (max-width: 600px) {
+        font-size: 1.1rem;
+    }
 `
 
 const Price = styled.p`
@@ -123,14 +127,19 @@ const Price = styled.p`
     bottom: 0; 
     left: 0; 
     color: #4A4F6A;
+
+    @media screen and (max-width: 600px) {
+        font-size: 1.1rem;
+    }
 `
 
 const DescriptionContainer = styled.div`
     position: absolute; 
     align-items: flex-end;
-    bottom: 0;
+    bottom: 20px;
     left: 0px; 
     padding-left: 40px; 
+
     display: flex; 
     justify-content: space-between;
     width: 100%; 
@@ -139,6 +148,7 @@ const DescriptionContainer = styled.div`
     /* padding: 0 15px;  */
     transition-duration: 600ms; 
     opacity: 0; 
+    /* border: 1px solid red;  */
     &:hover {
         animation: ${slideUp} 500ms forwards; 
     }    

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
+import Select from 'react-select'
 
 
 
@@ -26,6 +26,7 @@ const bodyLocation = [
     'Feet'
 ]
 
+
 const Sidebar = () => {
 
 
@@ -35,11 +36,28 @@ const Sidebar = () => {
     const [companyList, setCompanyList] = useState(null);
 
     const handleSelect = (e) => {
-        const target = e.target.value;
+        const target = e.value;
         const companyObj = allCompanies.filter(company => company.name === target);
         window.location = `/sellers/${companyObj[0].id}`
-
     }
+
+    let sortedCompanies;
+    let selectOptions = [];
+
+    if (allCompanies != null) {
+        console.log(allCompanies)
+        sortedCompanies = allCompanies.sort((a, b) => ((a.name < b.name) ? -1 : 0));
+
+        sortedCompanies.forEach(company => {
+            selectOptions.push({ value: company.name, label: company.name })
+        })
+        console.log(selectOptions)
+    }
+
+
+
+
+
 
     return (
         <SidebarContainer>
@@ -50,19 +68,19 @@ const Sidebar = () => {
                 <StyledInput placeholder="Search Products..." />
             </StyledForm> */}
 
-            <PriceSortContainer>
+            {/* <PriceSortContainer>
                 <SidebarHeading>Filter By Price</SidebarHeading>
                 <SidebarBody>$ 0-100</SidebarBody>
                 <SidebarBody>$ 101-500</SidebarBody>
                 <SidebarBody>$ 501-1000</SidebarBody>
 
-            </PriceSortContainer>
+            </PriceSortContainer> */}
             <CategoriesContainer>
                 <SidebarHeading>Filter by Company</SidebarHeading>
 
-                <select defaultValue="" onChange={handleSelect}>
+                {/* <StyledSelect defaultValue="All" onChange={handleSelect}>
                     <option disabled="disabled" >All</option>
-                    {allCompanies != null ? allCompanies.map((company) => (
+                    {sortedCompanies != null ? sortedCompanies.map((company) => (
                         <>
                             <option key={company.name} value={company.name}>{company.name}</option>
                         </>
@@ -71,7 +89,11 @@ const Sidebar = () => {
                         :
                         <option value="" disabled="disabled" >LOADING</option>
                     }
-                </select>
+                </StyledSelect> */}
+
+                {selectOptions.length != 0 && <Select placeholder="All" onChange={handleSelect} options={selectOptions} />}
+
+
 
             </CategoriesContainer>
             <CategoriesContainer>
@@ -169,7 +191,21 @@ const StyledInput = styled.input`
     padding: 0 5px;
 
 `
+const StyledSelect = styled.select`
+    border: 1px solid #EEEEEE; 
+    height: 30px; 
+    font-size: 1rem; 
+    background: white; 
 
+    &:select-selected {
+        background-color: blue; 
+    }
+
+    option {
+        color: red; 
+        background: white; 
+    }
+`
 
 const SidebarContainer = styled.div`
     margin-top: 30px;

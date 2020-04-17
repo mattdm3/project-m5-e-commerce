@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useParams, Link } from "react-router-dom"
 import { updateQuantity, removeItem } from "../../actions";
-
-
 import { connect } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions';
 // import { itemsReducer } from '../../reducers/items-reducer';
 import { isInCartSelector } from '../../reducers/cart-reducer';
-import { PageContainer, MiddlePage, PageHeadings } from '../CONSTANTS';
+import { PageContainer, MiddlePage, PageHeadings, StyledButton } from '../CONSTANTS';
 import RelatedItems from './RelatedItems';
 import ClipLoader from "react-spinners/ClipLoader";
+import { GoPlus } from 'react-icons/go';
+import { FiShoppingCart } from 'react-icons/fi';
 
 
 const Item = (props) => {
     const [itemInfo, setItemInfo] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    // const [inCartAnimation, setInCartAnimation] = useState([]);
     const inCart = useSelector(state => isInCartSelector(state.cartState, itemInfo ? itemInfo.id : undefined));
 
     const dispatch = useDispatch();
@@ -31,6 +32,26 @@ const Item = (props) => {
             dispatch(updateQuantity(props, parseInt(value)));
         }
     };
+
+    const handleAddToCart = (intemInfo, e) => {
+        dispatch(addItem(itemInfo));
+        // let itemId = e.target.id;
+        // if (!inCart) {
+        //     setInCartAnimation([
+        //         ...inCartAnimation,
+        //         {
+
+        //             id: id
+        //         }
+
+        //     ]);
+        // }
+
+
+    }
+    // if (inCartAnimation.length != 0) {
+    //     console.log(inCartAnimation)
+    // }
 
     useEffect(() => {
 
@@ -54,6 +75,7 @@ const Item = (props) => {
     if (!loaded) {
         return null
     }
+    console.log(itemInfo.id)
 
     return (
         <React.Fragment>
@@ -86,30 +108,41 @@ const Item = (props) => {
 
 
                                 <CartButtonContainer>
-                                    {/* REMOVED in commit */}
-                                    {/* // seller-page-styling
+                                    {itemInfo.numInStock === 0 ?
+                                        <>
+                                            <StyledInput disabled
+                                                type="text"
+                                                min="1"
+                                                value="N/A"
+                                                placeholder="1"
+                                                onChange={handleQuantity} />
+                                            <StyledButton disabled
+                                                onClick={() =>
+                                                    dispatch(addItem(itemInfo))}>
+                                                Out of stock</StyledButton>
+                                        </>
+                                        :
+                                        <>
+                                            <StyledInput
+                                                type="number"
+                                                min="1"
+                                                value={props.quantity}
+                                                placeholder="1"
+                                                onChange={handleQuantity} />
+                                            {!inCart &&
+                                                //>>>>>>> master
+                                                <StyledButton
+                                                    onClick={(e) => handleAddToCart(itemInfo, e)}>
+                                                    Add to cart</StyledButton>
+                                            }
 
-//                                     {itemInfo.numInStock === 0 ? <StyledInput disabled value="0" type="number" /> :
-                                         <StyledInput defaultValue="1" type="number" />
-                                     }
-
-                                     {!inCart && itemInfo.numInStock > 0 ?
- ======= */}
-                                    <StyledInput
-                                        type="number"
-                                        min="1"
-                                        value={props.quantity}
-                                        placeholder="1"
-                                        onChange={handleQuantity} />
-
-
-                                    {!inCart &&
-                                        //>>>>>>> master
-                                        <StyledButton
-                                            onClick={() =>
-                                                dispatch(addItem(itemInfo))}>
-                                            Add to cart</StyledButton>}
-                                    {inCart && <p>Added to cart</p>}
+                                            {inCart && <ButtonAnimation>
+                                                <ButtonContent>
+                                                    <StyledCart /> Added
+                                                </ButtonContent>
+                                            </ButtonAnimation>}
+                                        </>
+                                    }
 
                                 </CartButtonContainer>
 
@@ -133,11 +166,71 @@ const Item = (props) => {
     )
 }
 
+
+const scaleUpCart = keyframes`
+    0 {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+`
+
+const fillButton = keyframes`
+    from {
+        background-position: right bottom; 
+    }
+    to {
+        background-position: left bottom; 
+    }
+`
+
+
+const opacity = keyframes`
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+`
+
+const ButtonContent = styled.div`
+    animation: ${opacity} 550ms ease 450ms forwards, ${scaleUpCart} 850ms ease 500ms forwards; 
+    opacity: 0; 
+`
+
+const StyledCart = styled(FiShoppingCart)`
+    animation: ${scaleUpCart} 1s ease;
+    margin-right: 0 15px; 
+`
+
+const ButtonAnimation = styled(StyledButton)`
+    background: linear-gradient(to right, #FF4F40 50%, #164C81 50%);
+    background-size: 200% 100%;
+    background-position: left bottom; 
+    animation: ${fillButton} 1s ease; 
+`
+
+
+
+
 const FlexContainer = styled.div`
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    margin-top: 80px; 
+    margin-top: 5rem; 
+
+    @media screen and (max-width: 600px) {
+        
+        justify-content: center; 
+        
+    }
+
+
 `
 
 const TitleContainer = styled.div`
@@ -167,25 +260,22 @@ const TitleContainer = styled.div`
 
 
 const Row = styled.div`
-
-@media only screen and (min-width: 1025px) {
     display: flex; 
     justify-content: center; 
 
-}
-@media only screen and (max-width: 1024px) {
-
-}
-   
-    
+    @media screen and (max-width: 600px) {
+        flex-direction: column; 
+        align-items: center;
+        align-content: center; 
+    }
 
 `
 
 const ImageContainer = styled.div`
 
-    width: 50%; 
+    width: 100%; 
     img {
-        width: 310px; 
+        width: 100%; 
     }
 
 
@@ -206,23 +296,21 @@ const Column = styled.div`
         font-size: 1.3rem; 
     }
 
-    `
+    @media screen and (max-width: 600px) {
+        align-items: center;
+        margin-top: 3rem;
+        margin-left: 0; 
+
+        p{
+            text-align: center; 
+        }
+    }
+
+`
 
 const CartButtonContainer = styled.div`
-@media only screen and (min-width: 1025px) {
-
     display: flex; 
-    margin: 50px 0; 
-}
-
-
-@media only screen and (max-width: 1024px) {
-    display: grid;
-    
-
-
-}
-    
+    margin: 50px 0;
     
 `
 const StyledInput = styled.input`
@@ -235,18 +323,18 @@ const StyledInput = styled.input`
 
 `
 
-const StyledButton = styled.button`
-    background: #164C81;
-    width: 235px; 
-    color: white; 
-    text-transform: uppercase; 
-    height: 55px; 
-    font-size: .8rem; 
-    margin-left: 10px; 
-    font-weight: 600; 
-    
-    
-`
+// const StyledButton = styled.button`
+//     background: #164C81;
+//     width: 235px; 
+//     color: white; 
+//     text-transform: uppercase; 
+//     height: 55px; 
+//     font-size: .8rem; 
+//     margin-left: 10px; 
+//     font-weight: 600; 
+
+
+// `
 
 const StyledLink = styled(Link)`
     color: inherit; 
