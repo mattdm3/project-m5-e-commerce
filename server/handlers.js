@@ -138,7 +138,12 @@ const handleUpdateStock = (req, res) => {
             console.log(cartInfo[id].quantity, 'QUANTITY')
             //once found... update sotck levels. Only if there are still in stock
             if (selectedItem.numInStock > 0) {
+                //for backend update
                 selectedItem.numInStock -= cartInfo[id].quantity;
+                //for front end update of cartstate
+                //initialize it to the backends stock lvl
+                cartInfo[id].numInStock = selectedItem.numInStock;
+
                 console.log(selectedItem.numInStock, 'AFTER')
             }
             // else {
@@ -148,7 +153,10 @@ const handleUpdateStock = (req, res) => {
             //     })
             // }
         })
-        res.status(200).send({ response: 'Quantities successfully updated' })
+        res.status(200).send({
+            response: 'Quantities successfully updated',
+            updatedCartState: cartInfo
+        })
 
 
     }
