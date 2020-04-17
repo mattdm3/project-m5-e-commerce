@@ -14,6 +14,7 @@ import { PageContainer } from './CONSTANTS';
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
 const Cart = () => {
+    const [shipping, setShipping] = useState(9.43);
     const [redirect, setRedirect] = useState(false)
     const [coupon, setCoupon] = useState("❔")
     const dispatch = useDispatch();
@@ -35,7 +36,6 @@ const Cart = () => {
     // let redirect = false;
 
     const handleInventory = (event) => {
-        dispatch(clearCart());
         setRedirect(true);
 
         // on Click of MakePurchsase, will post to back end and ipdate stock levels
@@ -62,6 +62,24 @@ const Cart = () => {
         // dispatch(clearCart());
 
         // <Redirect to="/paymentMethod" />
+    }
+
+    const handleTotal = () => {
+        if (cartState.cartCounter === 0) {
+            return
+        } else {
+            return (
+                Math.round((total + shipping) * 100) / 100
+            );
+        }
+    }
+
+    const handleShipping = () => {
+        if (cartState.cartCounter === 0) {
+            return
+        } else {
+            return shipping;
+        }
     }
 
     const handleCoupon = async (event) => {
@@ -112,11 +130,11 @@ const Cart = () => {
                 </form>
                 <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
                     <GreyP>Shipping:</GreyP>
-                    <p style={{ margin: "0 20px" }}>$9.43</p>
+                    <p style={{ margin: "0 20px" }}>${handleShipping()}</p>
                 </div>
                 <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
                     <GreyP>Total Calculated:</GreyP>
-                    <p style={{ margin: "0 20px" }}>${Math.round(total * 100) / 100}</p>
+                    <p style={{ margin: "0 20px" }}>${handleTotal()}</p>
                 </div>
                 <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
                     <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>

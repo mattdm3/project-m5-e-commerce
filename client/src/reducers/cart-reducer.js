@@ -10,7 +10,7 @@ export default function cartReducer(state = initialState, action) {
         cartCounter: state.cartCounter + 1,
         [action.item.id]: {
           ...action.item,
-          quantity: 1,
+          quantity: action.item.quantity ? action.item.quantity : 1,
         },
       };
     }
