@@ -139,6 +139,7 @@ const Chatbot = ({ loginState, setLoginState }) => {
                 headerTitle={'Tech 6 Gear Bot'}
                 botAvatar={"https://img.icons8.com/dusk/64/000000/bot.png"}
                 botDelay={1000}
+                floating={true}
 
                 steps={steps} {...config}
             />
