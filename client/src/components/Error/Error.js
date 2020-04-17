@@ -9,7 +9,7 @@ const Error = () => {
     return (<Wrapper>
 
         <h1>404</h1>
-        <h2>Sorry but it seems like the page you are looking for was not found!</h2>
+        <h2>Sorry but it seems like the page you are looking for was not found! </h2>
         <div><Link to={"/"}>Return to Home</Link></div>
 
     </Wrapper>
@@ -40,7 +40,7 @@ a {
     }
 }
 h1 {
-    font-weight:600;
+    font-weight:700;
     font-size: 7rem;
     color: rgb(246,79,64);
 }

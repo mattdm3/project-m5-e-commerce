@@ -57,8 +57,7 @@ const ReusableGrid = ({ itemSource, exportPage, exportSort }) => {
             <SideAndGrid>
                 <SortDropdown exportFilter={(val) => good(val)}></SortDropdown>
                 <Sidebar />
-                \
-                    <GridContainer>
+                <GridContainer>
                     <GridWrapper>
                         {itemSource.map((item, arrayNum) => {
                             return (

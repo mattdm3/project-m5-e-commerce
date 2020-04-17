@@ -17,6 +17,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 const Item = (props) => {
     const [itemInfo, setItemInfo] = useState(null);
     const [loaded, setLoaded] = useState(false);
+    const [quantity, setQuantity] = useState(0);
     // const [inCartAnimation, setInCartAnimation] = useState([]);
     const inCart = useSelector(state => isInCartSelector(state.cartState, itemInfo ? itemInfo.id : undefined));
 
@@ -26,15 +27,16 @@ const Item = (props) => {
 
     const handleQuantity = (event) => {
         const value = event.target.value;
-        if (value > props.numInStock) {
+        if (value > itemInfo.numInStock) {
             return
         } else {
-            dispatch(updateQuantity(props, parseInt(value)));
+            setQuantity(parseInt(value));
+            console.log('quantity: ', quantity);
         }
     };
 
     const handleAddToCart = (intemInfo, e) => {
-        dispatch(addItem(itemInfo));
+        dispatch(addItem({ ...itemInfo, quantity: quantity }));
         // let itemId = e.target.id;
         // if (!inCart) {
         //     setInCartAnimation([
@@ -126,7 +128,7 @@ const Item = (props) => {
                                             <StyledInput
                                                 type="number"
                                                 min="1"
-                                                value={props.quantity}
+                                                value={itemInfo.quantity}
                                                 placeholder="1"
                                                 onChange={handleQuantity} />
                                             {!inCart &&

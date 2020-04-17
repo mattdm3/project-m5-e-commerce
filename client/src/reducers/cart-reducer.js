@@ -10,7 +10,7 @@ export default function cartReducer(state = initialState, action) {
         cartCounter: state.cartCounter + 1,
         [action.item.id]: {
           ...action.item,
-          quantity: 1,
+          quantity: action.item.quantity ? action.item.quantity : 1,
         },
       };
     }
@@ -81,14 +81,17 @@ export const isInCartSelector = (state, itemId) => {
 
 
 export const cartTotalSelector = (state) => {
-  const items = { ...state };
-  delete items.cartCounter;
-  let sum = Object.values(items).reduce((total, item) => {
-    let parsedPrice = parseFloat(item.price.slice(1));
-    total += (item.quantity * parsedPrice);
-    return total;
-  }, 0);
-  return sum;
+    const items = {...state};
+    // delete items.cartCounter;
+    let sum = Object.values(items).reduce((total, item) => {
+      console.log('########item: ', item);
+      if (item.price) {
+        let parsedPrice = parseFloat(item.price.slice(1));
+        total += (item.quantity * parsedPrice);
+      }
+        return total;
+    }, 0);
+    return sum;
 };
 
 export const getItemsAndQuantities = (cartState) => {
