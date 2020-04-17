@@ -5,9 +5,23 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 //data file for items
 const items = require('./data/items.json');
-const { handleItemId, handleItemsData, handleCategory, handleCompany, handleSellers } = require('./handlers');
+const { handleItemId, handleItemsData,
+  handleCategory, handleCompany, handleSellers,
+  handleAllData, handleRelatedItems, handleBodyItems,
+  handleSignUp, handleLogin, handleCartItemsForUser, handleUpdateStock, handleSearch
+} = require('./handlers');
+
+
 
 const PORT = 4000;
+
+/*items.forEach((element, index) => {
+
+    if (index < 20) {
+      console.log(" testing for each", element.price)    }
+
+  });*/
+
 
 
 
@@ -29,6 +43,8 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(__dirname + '/'))
 
+
+
 // REST endpoints?
 // .get('/bacon', (req, res) => res.status(200).json('🥓'))
 
@@ -43,12 +59,24 @@ app.get('/category/:category', handleCategory)
 app.get('/sellers/:companyId', handleCompany)
 //list of sellers
 app.get('/sellers', handleSellers)
+//all data
+app.get('/allItemData', handleAllData)
+//  get related items
+app.get('/relatedItems/:category', handleRelatedItems)
+//
+app.get('/bodypart/:body', handleBodyItems)
+//post sign up info
+app.post('/SignUp', handleSignUp)
+//get login credentials
+app.post('/Login', handleLogin)
+//store cart items.
+app.post('/storeCartItemsUser/:user', handleCartItemsForUser)
 
+app.get('/search', handleSearch)
 
-
-
-
-
+app.get('/bodypart/:body', handleBodyItems)
+//
+app.post('/updateStock', handleUpdateStock)
 
 
 
