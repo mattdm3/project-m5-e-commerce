@@ -19,7 +19,9 @@ const CartItem = (props) => {
   };
 
   useEffect(() => {
+    if (props.price) {
     setSubtotal(props.price.slice(1) * props.quantity);
+    }
   }, [handleQuantity]);
 
   return (

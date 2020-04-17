@@ -102,8 +102,9 @@ const Item = (props) => {
                                     {!inCart &&
                                         //>>>>>>> master
                                         <StyledButton
-                                            onClick={() =>
-                                                dispatch(addItem(itemInfo))}>
+                                            onClick={() => { 
+                                                console.log('^^^^^^itemInfo: ', itemInfo);
+                                                dispatch(addItem(itemInfo))}}>
                                             Add to cart</StyledButton>}
                                     {inCart && <p>Added to cart</p>}
                                 </CartButtonContainer>

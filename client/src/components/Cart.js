@@ -13,19 +13,24 @@ import { Redirect } from 'react-router-dom';
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
 const Cart = () => {
+    const [redirect, setRedirect] = useState(false)
     const [coupon, setCoupon] = useState("❔")
     const dispatch = useDispatch();
 
     const state = useSelector(state => itemsSelector(state.cartState));
-    const total = useSelector(state => cartTotalSelector(state.cartState));
-    const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
-    console.log('purchaseBag: ', purchaseBag);
+    const total = useSelector(state => {
+        console.log("STATE . CART STATE",state.cartState)
+        return cartTotalSelector(state.cartState)
+    });
+    // const purchaseBag = useSelector(state => getItemsAndQuantities(state.cartState));
+    // console.log('purchaseBag: ', purchaseBag);
     
+
+    // let redirect = false;
 
     const handleInventory = (event) => {
         dispatch(clearCart());
-
-        // <Redirect to="/paymentMethod" />
+        setRedirect(true);
     }
 
     const handleCoupon = async (event) => {
@@ -39,9 +44,10 @@ const Cart = () => {
             setCoupon("✔")
         }
     }
-
+    console.log('redirect BEFORE RETURN: ', redirect);
     return (
-        <Wrapper>
+  <>
+  {redirect?<><Redirect to='/paymentMethod'/></>:<><Wrapper>
             <Container>
                 <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
                     <GreyP>Products</GreyP>
@@ -83,7 +89,9 @@ const Cart = () => {
                 <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
               </div>
             </Total>
-        </Wrapper>
+        </Wrapper></>
+        }
+        </>
     )
 };
 
@@ -102,7 +110,7 @@ const Container = styled.div`
     grid-row-gap: 0px;
     justify-items: center;
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 631px) {
     display: none;
 }
 `;

@@ -61,10 +61,13 @@ export const isInCartSelector = (state, itemId) => {
 
 export const cartTotalSelector = (state) => {
     const items = {...state};
-    delete items.cartCounter;
+    // delete items.cartCounter;
     let sum = Object.values(items).reduce((total, item) => {
+      console.log('########item: ', item);
+      if (item.price) {
         let parsedPrice = parseFloat(item.price.slice(1));
         total += (item.quantity * parsedPrice);
+      }
         return total;
     }, 0);
     return sum;
