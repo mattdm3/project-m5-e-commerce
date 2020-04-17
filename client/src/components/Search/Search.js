@@ -7,7 +7,7 @@ import { useLocation, Link, useHistory } from 'react-router-dom';
 
 
 
-const Search = () => {
+const Search = ({ triggerSearchBar }) => {
     const allData = useSelector(items => items.dataItems.allItems)
     const [query, setQuery] = useState(null)
     const [type, setTyped] = useState(' ')
@@ -60,47 +60,70 @@ const Search = () => {
 
     }
 
-    return (<StyledForm action={`/searching/${type}`} >
-        <StyledInput onChange={(e) => setTyped(e.target.value)}
-            placeholder='Search Products...' ></StyledInput>
-        <Link to={`/searching/${type}`}><button type="button" onClick={() => setQuery(type)}>Go</button></Link>
-        {results !== null && <div>
-            {results.map(result => {
+    return (
 
-                let getIndex = result.name.toLowerCase().indexOf(type.toLowerCase())
-                let word = result.name.split('');
-                let typeLength = type.split('').length;
-                let firstHalf = word.slice(0, getIndex);
-                let bolded = word.slice(getIndex, typeLength + getIndex)
-                let secondHalf = word.slice(typeLength + getIndex, word.length)
-                console.log(firstHalf)
-                console.log(bolded)
-                console.log(secondHalf)
+        <StyledForm action={`/searching/${type}`}>
 
-                return (
-                    <div>
-                        <ul>
-                            <EachList onClick={() => handlePushItem(result.id)}>
-                                {firstHalf}
-                                <Strong>{bolded}</Strong>
-                                {secondHalf}
-                            </EachList>
-                        </ul>
-                    </div>
-                )
-            })}
-        </div>}
-    </StyledForm>)
+            <SearchFlex>
+                <SearchInput
+                    onChange={(e) => setTyped(e.target.value)}
+                    placeholder="Search our products..." style={(triggerSearchBar) ?
+                        {
+                            opacity: "1",
+                            transition: "all 1s ease-in-out",
+                            width: "500px",
+                            zIndex: "10"
+                        }
+                        :
+                        {
+                            width: "0",
+                            opacity: "0",
+                            zIndex: "-10",
+                            transition: "all 500ms ease-in-out"
+                        }
+                    } />
+                {triggerSearchBar && <Link to={`/searching/${type}`}><button type="button" onClick={() => setQuery(type)}>Go</button></Link>}
+
+            </SearchFlex>
+            {/* <SearchInput
+                placeholder='Search Products...' ></SearchInput>
+ */}
+            {results !== null && <div style={{ position: 'absolute', right: '-250px', top: '60px' }}>
+                {results.map(result => {
+                    let getIndex = result.name.toLowerCase().indexOf(type.toLowerCase())
+                    let word = result.name.split('');
+                    let typeLength = type.split('').length;
+                    let firstHalf = word.slice(0, getIndex);
+                    let bolded = word.slice(getIndex, typeLength + getIndex)
+                    let secondHalf = word.slice(typeLength + getIndex, word.length)
+                    console.log(firstHalf)
+                    console.log(bolded)
+                    console.log(secondHalf)
+                    return (
+                        <div>
+                            <ul>
+                                <EachList onClick={() => handlePushItem(result.id)}>
+                                    {firstHalf}
+                                    <Strong>{bolded}</Strong>
+                                    {secondHalf}
+                                </EachList>
+                            </ul>
+                        </div>
+                    )
+                })}
+            </div>}
+        </StyledForm>
+    )
 
 }
 
 export default Search;
 
 const StyledForm = styled.form`
-    position: relative; 
+   position: absolute;
     margin-bottom: 80px; 
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    height:100%;
   overflow-y: scroll;
 
     
@@ -109,8 +132,9 @@ const StyledForm = styled.form`
         background: none; 
         font-size: 1rem; 
         position: absolute;
-        right: 5px;
-        top: 11px;   
+        right: 40px;
+        top: 50px;  
+        z-index: 100; 
     }
 `
 
@@ -134,4 +158,35 @@ cursor: pointer;
 const Strong = styled.strong`
 font-weight: bolder;
 
-` 
+`
+const SearchInput = styled.input`
+    position: absolute; 
+    right: 38px; 
+    background: #EEEEEE; 
+    border: 1px solid #DEDEDE; 
+    border-style: solid; 
+    font-size: .9rem;
+    animation-duration: 400ms; 
+    width: 100%; 
+
+    padding: 0 5px; 
+
+    height: 35px; 
+    top: 45px; 
+
+    &:focus {
+        outline: none;
+    }
+
+`
+
+const SearchFlex = styled.div`
+display: flex;
+
+`
+
+
+const Ul = styled.div`
+position: absolute;
+height: 30%;
+`

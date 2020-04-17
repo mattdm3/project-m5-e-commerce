@@ -9,6 +9,8 @@ import { FaFacebookF, FaTwitter, FaPinterest, FaYoutube, FaRegUser } from 'react
 
 import Login from '../Login';
 import Signup from '../Signup';
+import Search from '../Search/Search';
+
 import { logOutUser, clearCart } from '../../actions';
 
 
@@ -30,6 +32,8 @@ import { PageContainer } from "../CONSTANTS";
 const Navbar = ({ setLoginState, loginState }) => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
     const userLoggedIn = useSelector(state => state.userReducer)
+    const allDataFetchSuccess = useSelector(items => items.dataItems.status);
+
 
     let history = useHistory();
     const dispatch = useDispatch();
@@ -145,9 +149,6 @@ const Navbar = ({ setLoginState, loginState }) => {
 
                     <StyledUl >
 
-                        {/* LOGIN - SIGNUP*/}
-
-
 
                         <NavList>
                             <NavigationLink style={(triggerSearchBar) ? { opacity: "0" } : { opacity: "1" }} exact to="/shop">Shop</NavigationLink>
@@ -161,12 +162,13 @@ const Navbar = ({ setLoginState, loginState }) => {
                         <NavList >
                             <FiSearch onClick={toggleSearchBar} style={{ fontSize: "1.2rem" }} />
                         </NavList>
+
                         {/* <NavList>
                         <NavigationLink exact to="/contact">Contact</NavigationLink>
                     </NavList> */}
                     </StyledUl>
                     <Hamburger onClick={toggleNavbar}>&#9776;</Hamburger>
-                    <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ?
+                    {/* <SearchInput placeholder="Search our products..." style={(triggerSearchBar) ?
                         {
                             opacity: "1",
                             transition: "all 1s ease-in-out",
@@ -180,8 +182,11 @@ const Navbar = ({ setLoginState, loginState }) => {
                             zIndex: "-10",
                             transition: "all 500ms ease-in-out"
                         }
-                    } />
+                    } /> */}
+                    {allDataFetchSuccess === 'success' && <Search triggerSearchBar={triggerSearchBar}></Search>}
+
                 </StyledNav>
+
             </PageContainer>
         </>
 
@@ -416,6 +421,7 @@ const SocialIcons = styled.div`
 `
 
 const StyledUl = styled.ul`
+z-index: 20;
     display: flex;
     justify-content: space-evenly;
     display: none;
