@@ -7,7 +7,7 @@ import { useLocation, Link, useHistory } from 'react-router-dom';
 
 
 
-const Search = () => {
+const Search = ({ triggerSearchBar }) => {
     const allData = useSelector(items => items.dataItems.allItems)
     const [query, setQuery] = useState(null)
     const [type, setTyped] = useState(' ')
@@ -60,10 +60,26 @@ const Search = () => {
 
     }
 
-    return (<StyledForm action={`/searching/${type}`} >
+    return (<StyledForm action={`/searching/${type}`}
+        style={(triggerSearchBar) ?
+            {
+                opacity: "1",
+                transition: "all 1s ease-in-out",
+                width: "500px",
+                zIndex: "10"
+            }
+            :
+            {
+                display: 'none',
+                opacity: "0",
+                zIndex: "-10",
+                transition: "all 500ms ease-in-out"
+            }}>
+
         <StyledInput onChange={(e) => setTyped(e.target.value)}
             placeholder='Search Products...' ></StyledInput>
         <Link to={`/searching/${type}`}><button type="button" onClick={() => setQuery(type)}>Go</button></Link>
+
         {results !== null && <div>
             {results.map(result => {
 
@@ -97,7 +113,7 @@ const Search = () => {
 export default Search;
 
 const StyledForm = styled.form`
-    position: relative; 
+   display: inline;
     margin-bottom: 80px; 
     width: 300px;
     height: 200px;
