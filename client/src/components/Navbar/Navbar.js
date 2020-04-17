@@ -27,7 +27,7 @@ import { PageContainer } from "../CONSTANTS";
 //---------------------------------------
 
 
-const Navbar = () => {
+const Navbar = ({ setLoginState, loginState }) => {
     const cartCounter = useSelector(state => state.cartState.cartCounter);
     const userLoggedIn = useSelector(state => state.userReducer)
 
@@ -36,7 +36,6 @@ const Navbar = () => {
 
 
     const [navbar, setNavbar] = useState(false);
-    const [loginState, setLoginState] = useState(true)
 
     const [triggerSearchBar, setTriggerSearchBar] = useState(false);
 

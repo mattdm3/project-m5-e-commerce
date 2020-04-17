@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsSelector, cartTotalSelector, getItemsAndQuantities } from '../reducers/cart-reducer';
-import { clearCart } from '../actions';
+import { clearCart, updateCartStateBackend } from '../actions';
 
 
 // ------------ COMPONENTS ------------
@@ -32,7 +32,29 @@ const Cart = () => {
 
 
     const handleInventory = (event) => {
-        dispatch(clearCart());
+
+        // on Click of MakePurchsase, will post to back end and ipdate stock levels
+        const handleUpdateStock = async () => {
+
+            let response = await fetch(`/updateStock`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(cartState)
+            })
+            //to ensure
+            //snakcbar item deleted - item added. !!!
+            let received = await response.json();
+            console.log(received, 'STOCK LEVELS UPDATED')
+
+            dispatch(updateCartStateBackend(received.updatedCartState))
+            // dispatch(updateCartStateBackend)
+        }
+        handleUpdateStock();
+
+        // dispatch(clearCart());
 
         // <Redirect to="/paymentMethod" />
     }
