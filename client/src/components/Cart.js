@@ -14,6 +14,7 @@ import { PageContainer } from './CONSTANTS';
 //````````````` FEEL FREE TO CHANGE THIS UP AND USE GRIDS `````````````
 
 const Cart = () => {
+    const [redirect, setRedirect] = useState(false)
     const [coupon, setCoupon] = useState("❔")
     const dispatch = useDispatch();
 
@@ -31,7 +32,11 @@ const Cart = () => {
     console.log('purchaseBag: ', purchaseBag);
 
 
+    // let redirect = false;
+
     const handleInventory = (event) => {
+        dispatch(clearCart());
+        setRedirect(true);
 
         // on Click of MakePurchsase, will post to back end and ipdate stock levels
         const handleUpdateStock = async () => {
@@ -70,8 +75,10 @@ const Cart = () => {
             setCoupon("✔")
         }
     }
-
+    console.log('redirect BEFORE RETURN: ', redirect);
     return (
+        <>
+        {redirect?<><Redirect to='/paymentMethod'/></>:<>
         <PageContainer>
 
             <Container>
@@ -119,7 +126,9 @@ const Cart = () => {
                 </div>
             </Total>
 
-        </PageContainer>
+        </PageContainer></>
+        }
+        </>
     )
 };
 
@@ -135,7 +144,7 @@ const Container = styled.div`
     grid-row-gap: 0px;
     justify-items: center;
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 631px) {
     display: none;
 }
 `;
