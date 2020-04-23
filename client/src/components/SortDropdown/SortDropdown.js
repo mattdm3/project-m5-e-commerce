@@ -68,6 +68,7 @@ const DropdownContent = styled.div`
     color: #164C81;
     font-size: .9rem;
     font-weight: 600; 
+
 `;
 
 const Dropdown = styled.div`
@@ -76,6 +77,7 @@ const Dropdown = styled.div`
     top: -25px; 
     display: inline-block;
     z-index: 50; 
+    bottom: 0; 
     
 
 

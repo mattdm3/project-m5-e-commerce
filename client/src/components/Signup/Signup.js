@@ -232,6 +232,7 @@ const StyledButton = styled.button`
     margin-left: 1.2rem;
     transition-duration: 400ms; 
     cursor:pointer; 
+    height: 1.3rem; 
 
     &:hover {
         background: #EEEEEE;

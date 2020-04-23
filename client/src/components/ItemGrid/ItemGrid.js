@@ -75,8 +75,9 @@ const ItemGrid = () => {
                     imgSrc={shopImage}
                     heading="Our Products" />
 
-                <SortDropdown exportFilter={(val) => test(val)}></SortDropdown>
+
                 <SideAndGrid>
+                    <SortDropdown exportFilter={(val) => test(val)}></SortDropdown>
                     <Sidebar />
                     {currentItems.items !== null && currentItems.status == 'success' ?
                         <GridContainer>

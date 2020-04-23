@@ -10,6 +10,7 @@ export const SideAndGrid = styled.div`
     justify-content: space-between;
     /* width: 100%;   */
     border-top: 2px solid #EEEEEE; 
+    position: relative; 
 
     @media screen and (max-width: 768px) {
         flex-direction: column;

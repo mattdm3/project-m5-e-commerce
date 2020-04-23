@@ -36,7 +36,7 @@ const Cart = () => {
     // let redirect = false;
 
     const handleInventory = (event) => {
-        setRedirect(true);
+        // setRedirect(true);
 
         // on Click of MakePurchsase, will post to back end and ipdate stock levels
         const handleUpdateStock = async () => {
@@ -96,56 +96,56 @@ const Cart = () => {
     console.log('redirect BEFORE RETURN: ', redirect);
     return (
         <>
-        {redirect?<><Redirect to='/paymentMethod'/></>:<>
-        <PageContainer>
+            {redirect ? <><Redirect to='/paymentMethod' /></> : <>
+                <PageContainer>
 
-            <Container>
-                <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
-                    <GreyP>Products</GreyP>
-                </div>
-                <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
-                    <GreyP>Price</GreyP>
-                </div>
-                <div style={{ gridArea: "1 / 5 / 2 / 6" }}>
-                    <GreyP>Quantity</GreyP>
-                </div>
-                <div style={{ gridArea: "1 / 6 / 2 / 7" }}>
-                    <GreyP>Subtotal</GreyP>
-                </div>
-            </Container>
-            <CartTitle>Cart</CartTitle>
-            <Bordered>
+                    <Container>
+                        <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
+                            <GreyP>Products</GreyP>
+                        </div>
+                        <div style={{ gridArea: "1 / 4 / 2 / 5" }}>
+                            <GreyP>Price</GreyP>
+                        </div>
+                        <div style={{ gridArea: "1 / 5 / 2 / 6" }}>
+                            <GreyP>Quantity</GreyP>
+                        </div>
+                        <div style={{ gridArea: "1 / 6 / 2 / 7" }}>
+                            <GreyP>Subtotal</GreyP>
+                        </div>
+                    </Container>
+                    <CartTitle>Cart</CartTitle>
+                    <Bordered>
 
-                {state.map((item) => <CartItem key={item.id} {...item} />)}
-            </Bordered>
+                        {state.map((item) => <CartItem key={item.id} {...item} />)}
+                    </Bordered>
 
 
-            <Total>
-                <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
-                    <CouponContainer>
-                        <StyledInput name="coupon" type="text" placeholder="Coupon code?" />
-                        <StyledInputButton onClick={handleCoupon}>{coupon}</StyledInputButton>
-                    </CouponContainer>
-                    {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
-                </form>
-                <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
-                    <GreyP>Shipping:</GreyP>
-                    <p style={{ margin: "0 20px" }}>${handleShipping()}</p>
-                </div>
-                <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
-                    <GreyP>Total Calculated:</GreyP>
-                    <p style={{ margin: "0 20px" }}>${handleTotal()}</p>
-                </div>
-                <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
-                    <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>
-                </div>
-                <div style={{ gridArea: "2 / 5 / 3 / 7" }}>
-                    <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
-                </div>
-            </Total>
+                    <Total>
+                        <form style={{ gridArea: "1 / 1 / 2 / 3" }}>
+                            <CouponContainer>
+                                <StyledInput name="coupon" type="text" placeholder="Coupon code?" />
+                                <StyledInputButton onClick={handleCoupon}>{coupon}</StyledInputButton>
+                            </CouponContainer>
+                            {/* <GreyP>You saved !</GreyP> handle to insert when checked */}
+                        </form>
+                        <div style={{ gridArea: "1 / 3 / 2 / 5", margin: "20px" }}>
+                            <GreyP>Shipping:</GreyP>
+                            <p style={{ margin: "0 20px" }}>${handleShipping()}</p>
+                        </div>
+                        <div style={{ gridArea: "1 / 5 / 2 / 7", margin: "20px" }}>
+                            <GreyP>Total Calculated:</GreyP>
+                            <p style={{ margin: "0 20px" }}>${handleTotal()}</p>
+                        </div>
+                        <div style={{ gridArea: "2 / 3 / 3 / 5" }}>
+                            <StyledButton onClick={() => dispatch(clearCart())}>Clear Cart</StyledButton>
+                        </div>
+                        <div style={{ gridArea: "2 / 5 / 3 / 7" }}>
+                            <StyledButton onClick={handleInventory}>Make purchase</StyledButton>
+                        </div>
+                    </Total>
 
-        </PageContainer></>
-        }
+                </PageContainer></>
+            }
         </>
     )
 };
