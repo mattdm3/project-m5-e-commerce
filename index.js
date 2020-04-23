@@ -12,7 +12,7 @@ const { handleItemId, handleItemsData,
 
 
 
-const PORT = process.env.port || 4000;
+// const PORT = process.env.port || 4000;
 
 /*items.forEach((element, index) => {
 
@@ -87,5 +87,5 @@ app.get('/*', (req, res) => {
 
 // 
 
-app.listen(PORT, () => console.info(`Listening on port ${PORT}`));
+// app.listen(PORT, () => console.info(`Listening on port ${PORT}`));
 
