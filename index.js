@@ -1,4 +1,3 @@
-'use strict';
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -40,10 +39,12 @@ app.use(function (req, res, next) {
 app.use(morgan('tiny'))
 app.use(express.static('./server/assets'))
 app.use(bodyParser.json())
+// app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(__dirname + '/'))
 
-
+// ALSO ADDED HEROKU
+app.use(express.static(path.join(__dirname, 'build')));
 
 
 
@@ -79,13 +80,12 @@ app.post('/updateStock', handleUpdateStock)
 
 
 //  ADDED FOR HEROKU DEPLOYMENT
-app.use(express.static(path.join(__dirname, 'build')));
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // 
-
 
 app.listen(PORT, () => console.info(`Listening on port ${PORT}`));
 
