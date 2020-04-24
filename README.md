@@ -28,4 +28,4 @@ Shop Page
 
 Item Page
 
-![Item Page ](/item_page.png)
+![Item Page ](/Item_page.png)
