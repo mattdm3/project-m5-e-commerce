@@ -8,6 +8,7 @@
 .pnp.js
 package-lock.json
 */package-lock.json
+/env
 
 # testing
 /client/coverage
@@ -16,6 +17,7 @@ package-lock.json
 /client/build
 
 # misc
+/env
 .DS_Store
 .env.local
 .env.development.local
